@@ -32,4 +32,4 @@ SELECT Title,ArtistId FROM Album; -- istediğimiz sütunları getirir.
 -- SELECT 'hello-data' AS baslik; 
 -- SELECT 1+2*4 AS toplam;
 -- SELECT AlbumId AS no,Title AS baslik FROM Album;
-SELECT AlbumId+140 AS no,Title AS baslik FROM Album;
+SELECT AlbumId+120 AS no,Title AS baslik FROM Album;
