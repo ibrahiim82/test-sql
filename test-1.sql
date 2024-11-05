@@ -25,7 +25,7 @@ select 1 as one; --! Piyasa standartı olarak küçük yazmak uygun değildir.
 -- * FROM -- Hangi tablodan.
 
 -- SELECT * FROM Album; -- * yıldız tüm sütunlar demek.
--- SELECT Title,ArtistId FROM Album; -- istediğimiz sütunları getirir.
+SELECT Title,ArtistId FROM Album; -- istediğimiz sütunları getirir.
 -- Tavsiye edilen sütun isimlerin tek tek yazmaktır.(* kullanmaktan kaçınmalıyız)
 
 -- * AS --Lakap Takma -- Tablo ve sütunları geçici adlandırmak için kullanırız.
