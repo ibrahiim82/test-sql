@@ -60,7 +60,7 @@ SELECT AlbumId+120 AS no,Title AS baslik FROM Album;
 -- SELECT * FROM Customer WHERE CustomerId >20; --Büyük olanları getir.
 -- SELECT * FROM Customer WHERE CustomerId >=20; --Büyük ve eşit olanları getir.
 -- SELECT * FROM Customer WHERE CustomerId <20; --Küçük olanları getir.
--- SELECT * FROM Customer WHERE CustomerId <20; --Küçük ve eşit olanları getir.
+-- SELECT * FROM Customer WHERE CustomerId <=20; --Küçük ve eşit olanları getir.
 -- SELECT * FROM Customer WHERE CustomerId BETWEEN 10 AND 20; --10 ile 20 arasındaki kayıtları getir.(her ikisi de dahil)
 -- SELECT * FROM Customer WHERE CustomerId BETWEEN '2024-01-01' AND '2024-02-28'; --(genelde tarih filtrelemede kullanılır) 
 
@@ -92,13 +92,40 @@ SELECT AlbumId+120 AS no,Title AS baslik FROM Album;
 -- SELECT * FROM Customer ORDER BY Country ASC; -- A-Z sırala
 -- SELECT * FROM Customer ORDER BY Country ASC; -- Z-A sırala
 -- SELECT * FROM Customer ORDER BY Country DESC, City ASC,LastName DESC; -- Sırasıyla Ülke-Şehir-Soyisim sıralaması yapar.
+-- SELECT * FROM Customer ORDER BY Country, City, LastName DESC; -- Default sıralama = ASC (yazılmasa da olur)
+-- SELECT * FROM Customer WHERE (Country = 'USA' OR Country = 'Brazil' OR Country = 'Denmark') AND CustomerId < 20 ORDER BY Country, City, LastName DESC;
+/*
+-- Piyasa standartı yazımı:
+SELECT CustomerId, FirstName, LastName, Company, City, Country
+FROM Customer 
+WHERE (Country = 'USA'  OR Country = 'Brazil'  OR Country = 'Denmark')
+	AND CustomerId < 20 
+ORDER BY Country, City, LastName DESC;
+*/
 
+-- * LIMIT -- Limitler. Belli syaıda kayıt getirir. (Sayfalamada kullanılır.)
+-- SELECT * FROM Customer LIMIT 0, 10; -- LIMIT (kaç adet kayıt atlayacak), (kaç adet kayıt getirilecek.)
+-- SELECT * FROM Customer LIMIT 5, 15;
+-- SELECT * FROM Customer LIMIT 10; -- Başlangıç default = 0 (Tek bir rakam yazılırsa başlangıcı sıfır kabul eder.) (Tercih edilmeyen yöntemdir.)
+-- SELECT * FROM Customer WHERE Country IN ('USA', 'Brazil', 'Denmark') LIMIT 5, 5; -- Filtrelemeden sonra ilk 5 atla, 5 kayıt getir.
+-- SELECT * FROM Customer WHERE Country IN ('USA', 'Brazil', 'Denmark') ORDER BY FirstName ASC LIMIT 10, 15;
+
+-- * SUBQUERIES (SELECT IN SELECT) (Nested Query)
+-- SELECT * FROM Album WHERE ArtistId = (SELECT ArtistId FROM Artist WHERE Name = 'Led Zeppeli'); -- ArtisId'yi, Artist tablosundan isim sorgulayarak buldu.
+-- SELECT alb.AlbumId, alb.Title, (SELECT art.Name FROM Artist AS art WHERE art.ArtistId = alb.ArtistId) AS Artist FROM Album AS alb; -- Albumlerin sanatçı verisini Artist tablosundan çekti.
+/*
+-- SubSelect sorgusunu tablo gibi kullanmak:
+SELECT FirstName, LastName
+FROM (
+	SELECT * FROM Customer WHERE Country = 'USA' AND CustomerId > 20
+) WHERE FirstName LIKE '%a%'
+*/
 
 
 
 --- --- --- JOINS --- --- ---
 
---Birden fazla tablodan veri çekmek için kullanılır.
+--Birden fazla tablodan aynı anda veri çekmek için kullanılır.
 
 -- * INNER JOIN -- Yalnızca kesişen kayıtları getirir.
 -- * (Alternatif yazım yöntemi olarak INNER JOIN yazmak yerine sadece JOIN yazılabilir.)(Default JOIN yöntemidir)(Piyasada kullanım:INNER JOIN)
