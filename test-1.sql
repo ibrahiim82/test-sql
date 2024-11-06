@@ -17,9 +17,18 @@ select 1 as one; --! Piyasa standartı olarak küçük yazmak uygun değildir.
 -- ** String verilerde tek-tırnak veya çift tırnak kullanabiliriz.
 --   standart olan tek tırnaktır. -- SELECT 'string-data' AS data 
 -- ** Her bir temel komut ayrı bir satıra yazılır.
+/*
+SELECT *
+FROM tableName
+WHERE column=1
+	AND (column2=1 OR column3=1)
+*/
 
 
-     --- SQL ---
+
+--- --- --- SQL --- --- ---
+
+
 
 -- * SELECT -- Seç getir.
 -- * FROM -- Hangi tablodan.
@@ -33,8 +42,6 @@ select 1 as one; --! Piyasa standartı olarak küçük yazmak uygun değildir.
 -- SELECT 1+2*4 AS toplam;
 -- SELECT AlbumId AS no,Title AS baslik FROM Album;
 SELECT AlbumId+120 AS no,Title AS baslik FROM Album;
-
-
 
 -- SELECT Album.AlbumId, Album.Title FROM Album;
 -- SELECT a.AlbumId, a.Title FROM Album AS a; --Tablo isimlendirme
