@@ -205,3 +205,75 @@ FROM Artist AS t1
 LEFT JOIN Album AS t2 ON t2.ArtistId=t1.ArtistId
 ORDER BY t1.ArtistId
 */
+
+--- --- --- FUNCTIONS --- --- ---
+-- SELECT count (*) FROM album; --count(*) tavsiye edilmez
+-- SELECT count (total) FROM Invoice; --kaç adet fatura kesilmiş
+-- SELECT count (BillingState) FROM Invoice; -- null'ları saymaz.
+
+-- MIN MAX AVG 
+-- SELECT min(Total) FROM invoice;
+-- SELECT max(Total) FROM invoice;
+-- SELECT avg(Total) FROM invoice;
+
+/*
+SELECT min(Total) as EnDusuk, max(Total) as EnYuksek, avg(Total) OrtalamaFatura
+FROM invoice;
+*/
+
+-- ROUND
+SELECT round(avg(Total)) FROM Invoice;
+SELECT round(avg(Total),2) FROM invoice;
+
+-- LENGTH
+SELECT length (BillingAddress),BillingAddress FROM Invoice;
+
+
+
+--- --- --- GROUP BY --- --- ---
+SELECT count (*) FROM invoice WHERE BillingCountry= 'Germany';
+SELECT count (*) FROM invoice GROUP BY BillingCountry;
+
+--her bir ülke için kesilen fatura adedi
+SELECT BillingCountry, count (*) AS kesilenFaturaAdedi FROM invoice GROUP BY BillingCountry;
+
+
+--en fazla fatura kesilen ülke
+SELECT BillingCountry, max(Total) FROM invoice GROUP BY BillingCountry;
+SELECT BillingCountry, max(Total), min(Total) FROM invoice GROUP BY BillingCountry;
+
+
+
+-- CRUD create update delete veri üzerinde değişiklik yapıyor.
+-- CREATE ifadesi database yapısı üzerinde kullanılır
+-- INSERT ifadesi veri üzerinde
+-- INSERT INTO hangi alana hangi veriler
+-- INSERT INTO tablename(fields) VALUES(...,...)
+
+INSERT INTO Genre (GenreId,Name) VALUES(30,'arabesk');
+INSERT INTO Genre VALUES (31,'halk'); --db'deki tablo field sırası ne ise on sıra ekler
+INSERT INTO Genre (Name,GenreId) VALUES('sanat',32);
+INSERT INTO Genre (GenreId,) VALUES(33);
+
+-- n adet INSERT
+INSERT INTO Genre
+VALUES
+     (34,'turk pop')
+	 (35,'turk jazz')
+	 (36,'anadolu rock')
+
+
+-- UPDATE 
+-- UPDATE Tablename SET fieldname=newdata -- WHERE condition
+UPDATE Genre SET Name='yeni tür' WHERE GenreId=30;
+
+-- DELETE
+DELETE FROM Genre WHERE GenreId=30;
+
+
+
+
+
+
+
+
