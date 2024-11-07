@@ -206,7 +206,11 @@ LEFT JOIN Album AS t2 ON t2.ArtistId=t1.ArtistId
 ORDER BY t1.ArtistId
 */
 
+
+
 --- --- --- FUNCTIONS --- --- ---
+
+
 -- SELECT count (*) FROM album; --count(*) tavsiye edilmez
 -- SELECT count (total) FROM Invoice; --kaç adet fatura kesilmiş
 -- SELECT count (BillingState) FROM Invoice; -- null'ları saymaz.
