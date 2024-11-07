@@ -231,6 +231,8 @@ SELECT length (BillingAddress),BillingAddress FROM Invoice;
 
 
 --- --- --- GROUP BY --- --- ---
+
+
 SELECT count (*) FROM invoice WHERE BillingCountry= 'Germany';
 SELECT count (*) FROM invoice GROUP BY BillingCountry;
 
