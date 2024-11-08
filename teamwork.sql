@@ -79,6 +79,7 @@ JOIN Genre ON Genre.GenreId = Track.GenreId
 SELECT * FROM Artist
 LEFT JOIN Album ON Album.ArtistId = Artist.ArtistId
 */
+
 -- ? 23 ) WRITE A QUERY THAT RETURNS THE MINIMUM DURATION OF THE TRACK IN EACH ALBUM. DISPLAY ALBUMID, ALBUM TITLE AND DURATION OF THE TRACK. THEN SORT THEM FROM HIGHEST TO LOWEST
 /*
 SELECT Track.AlbumId,Album.Title,MIN(Track.Milliseconds) AS minDuration
@@ -87,6 +88,7 @@ JOIN Album ON Album.AlbumId = Track.AlbumId
 GROUP BY Track.AlbumId,Album.Title
 ORDER BY minDuration DESC
 */
+
 -- ?  24 ) WRITE A QUERY THAT RETURNS ALBUMS WHOSE TOTAL DURATION IS HIGHER THAN 60 MIN. DISPLAY ALBUM TITLE AND THEIR DURATIONS. THEN SORT THE RESULT FROM HIGHEST TO LOWEST
 /*
 SELECT album.Title,SUM(track.Milliseconds) AS totalDuration FROM Track
@@ -95,9 +97,11 @@ GROUP BY Album.AlbumId
 HAVING totalDuration > 3600000
 ORDER BY totalDuration DESC
 */
+
 -- ? 25 )  WRITE A QUERY THAT RETURNS TRACKID, TRACK NAME AND ALBUMID INFO OF THE ALBUM WHOSE TITLE ARE ‘Prenda Minha’, 'Heart of the Night' AND 'Out Of Exile'.
 /*
 SELECT Track.TrackId,Track.Name,Album.Title,Track.AlbumId FROM Track
 JOIN Album ON Album.AlbumId = Track.AlbumId
 WHERE album.Title IN ('Prenda Minha', 'Heart of the Night', 'Out Of Exile')
+
 */
