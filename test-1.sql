@@ -272,7 +272,7 @@ VALUES
 -- UPDATE 
 -- UPDATE Tablename SET fieldname=newdata -- WHERE condition
 -- SELECT * from Genre  WHERE GenreId=30;
-UPDATE Genre SET Name='yeni tür' WHERE GenreId=20;
+UPDATE Genre SET Name='yeni tür' WHERE GenreId=25;
 
 -- DELETE   dikkat
 DELETE FROM Genre WHERE GenreId=30;
