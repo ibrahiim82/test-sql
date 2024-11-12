@@ -3,13 +3,13 @@
 Multiline
 Comments
 */
-SELECT 1 AS One; -- iki tire satır sonu yorum için de kullanılır.
-SELECT 1 AS One, /* araya yorum eklenebilir */ 2 AS two;
+	-- SELECT 1 AS One; -- iki tire satır sonu yorum için de kullanılır.
+	-- SELECT 1 AS One, /* araya yorum eklenebilir */ 2 AS two;
 
 --SELECT 1 AS one: -- SQL komutlrını birbirinden ayırmak için ";" kullanırız.Tek bir komut satırı yazacaksak konmayabilir.Konması tavsiyedir.
 --NOT Case-Sensitivie (küçük-BÜYÜK harf ayrımı YAPMAZ)
 --SELECT 1 AS one;
-select 1 as one; --! Piyasa standartı olarak küçük yazmak uygun değildir.
+	-- SELECT 1 as one; --! Piyasa standartı olarak küçük yazmak uygun değildir.
 
 --Piyasa Standartları:
 -- ** SQL"in komutları daima büyük harfle yazılır. 
@@ -41,7 +41,7 @@ WHERE column=1
 -- SELECT 'hello-data' AS baslik; 
 -- SELECT 1+2*4 AS toplam;
 -- SELECT AlbumId AS no,Title AS baslik FROM Album;
-SELECT AlbumId+120 AS no,Title AS baslik FROM Album;
+	-- SELECT AlbumId+120 AS no,Title AS baslik FROM Album;
 
 -- SELECT Album.AlbumId, Album.Title FROM Album;
 -- SELECT a.AlbumId, a.Title FROM Album AS a; --Tablo isimlendirme
