@@ -274,7 +274,7 @@ VALUES
 -- SELECT * from Genre  WHERE GenreId=30;
 UPDATE Genre SET Name='yeni tür' WHERE GenreId=30;
 
--- DELETE   
+-- DELETE   sil
 DELETE FROM Genre WHERE GenreId=30;
 
 
