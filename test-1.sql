@@ -269,12 +269,12 @@ VALUES
 	 (36,'anadolu rock')
 
 
--- UPDATE 
+-- UPDATE 	güncelle
 -- UPDATE Tablename SET fieldname=newdata -- WHERE condition
 -- SELECT * from Genre  WHERE GenreId=30;
 UPDATE Genre SET Name='yeni tür' WHERE GenreId=30;
 
--- DELETE   dikkat
+-- DELETE   
 DELETE FROM Genre WHERE GenreId=30;
 
 
