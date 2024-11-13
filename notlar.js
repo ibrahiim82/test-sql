@@ -26,7 +26,8 @@ x = 10; // Hata verir, çünkü 'x' tanımlanmadı
 
 //  class fonksiyonlar ne işe yarar
 
-
+//JSON nedir neden lazımdır
+json: objenin string halidir.
 
 
 
