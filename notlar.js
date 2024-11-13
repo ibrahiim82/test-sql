@@ -16,6 +16,12 @@ x = 10; // Hata verir, çünkü 'x' tanımlanmadı
 
 -- JS, class'a ihtiyaç duymadan obje üretebilmeye izin veriyor
 -- Obje isimlendirmede PascalCase veya camelCase isimlendirme yapabiliriz.
+-- Obje içindeki değişkene property,attribute,field denir.
+-- Obje içinde tanımlanan fonksiyonlara method denir.
+-- this keywordu içinde bulunduğu objeyi temsil eder.
+-- arrow funcitonlar normal fonksiyonlardan farklı çalışır yani globalScope()'dur.globalScope olduğundan dolayı this keyword burada çalışmaz (localScopelarda çalışır)
+-- Fonksiyonlar localScope'larda, arrow fonksiyonlar globalScope'larda çalışır.
+
 
 
 //  class fonksiyonlar ne işe yarar
