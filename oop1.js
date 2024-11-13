@@ -232,6 +232,11 @@ console.log(typeof Ford, Ford);
 console.log(Ford.brand);
 console.log(Ford.startEngine());
 
+const Mercedes = new carConstructor('Mercedes','CLK200',2001)
+console.log(Mercedes);
+
+//* new parametresi varsa obje ismi PascalCase'dir (217.satırda new parametresi yok camelcase'dir)
+
 
 
 /* ------------------------------------------------------- */
