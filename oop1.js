@@ -137,7 +137,7 @@ const newArray = [...testArray,'value5','value6']
 
 
 
-/* ------------------------------------------------------- */
+/* ------------------------------------------------------- *
 
 //      OBJECT DESTRUCTURING
 
@@ -202,6 +202,38 @@ console.log(arrEntries);
 
 
 /* ------------------------------------------------------- */
+
+//      CONSTRUCTOR FUNCTIONS
+//**bir fonksiyonun içinde this ile birşey eşitlenmişse o fonksiyon constructor fonksiyondur 
+
+// const constructorFunction = function(){
+//     this.property1 = 'value1'
+//     this.property2 = 'value2'
+
+// }
+
+//    'NEW' KEYWORD
+
+const carConstructor = function (brand,model,year){
+    this.brand = brand
+    this.model = model
+    this.year = year
+    this.isAutoGear = true
+    this.colors = ['White','Red']
+
+    this.startEngine = function(methodParam) {
+        return ('Engine started.')
+    }
+}
+
+//* bir obje oluşturmanın parametresi new'dir
+const Ford =  new carConstructor('Ford','Mustang',1967)
+console.log(typeof Ford, Ford);
+console.log(Ford.brand);
+console.log(Ford.startEngine());
+
+
+
 /* ------------------------------------------------------- */
 /* ------------------------------------------------------- */
 /* ------------------------------------------------------- */
