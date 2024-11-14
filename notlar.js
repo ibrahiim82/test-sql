@@ -38,7 +38,7 @@ INSTANCE = Bir class'tan üretilen objedir
 
 -- class'tan türetilen obje içindeki methodlar default olarak gizlidir
 -- class ismiyle gönderilen parametreleri alan method constructor methodudur.
-
+-- bir classdan bir classın içindeki property ve methodlara o classta Instance olmadan erişemeyiz
 
 
 

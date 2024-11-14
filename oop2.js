@@ -190,7 +190,8 @@ class Vehicle {
     _protectedProperty = 'protected-value' //protected property
     _protectedMethod() {return this} //protected method
 
-    #privateProperty = 'private-value'
+    #privateProperty = 'private-value' // PRIVATE PROPERTY
+    #privateMethod() { return this } // PRIVATE METHOD
 
     constructor (vehicleType) {
         this.vehicleType = vehicleType
@@ -205,7 +206,7 @@ class Car extends Vehicle { //Inheritance
 
     isRunning= false
 
-    constructor(brand,model,year, vehicleType){
+    constructor(brand, model, year, vehicleType = 'Car'){
         super(vehicleType) 
         this.brand = brand
         this.model = model
@@ -236,13 +237,80 @@ console.log(Ford);
 console.log(Ford.vehicleIsActive);//public: Instance erişti
 console.log(Ford._protectedProperty);//protected: Instance erişemez
 console.log(Ford.privateProperty);//private: Instance erişemez
+console.log(Ford.getDetails());
 
 
 
+/* ------------------------------------------------------- *
 
+//? GETTER & SETTER METHODS: Görevi veri getirme (getter) ve veri güncelleme (setter) olan metodlardır.
+//? "STATIC" KEYWORD: Class'dan direkt erişim. (Instance erişemez.)
+
+
+class Car {
+
+    isRunning = false
+    #price = 999
+
+    constructor(brand, model, year, vehicleType = 'Car') {
+        this.brand = brand
+        this.model = model
+        this.year = year
+    }
+
+    runEngine(param1) {
+        this.isRunning = true
+        return 'Motor Çalıştı'
+    }
+    
+    getDetails() { // getter method
+        console.log('Car içindeki getDetails çalıştı.')
+        return super.getDetails()
+    }
+
+    get getPrice() {
+        console.log('Fiyat görüntülendi.')
+        return this.#price
+    }
+
+    set setPrice(newPrice) {
+        console.log('Fiyat güncellendi.')
+        this.#price = newPrice
+        return this.#price
+    }
+
+    //? Direkt class'tan erişmek için "static" keyword kullanılabilir.
+    //? "static" ile tanımlanmış değere instance'dan erişemeyiz.
+    static staticProp = 'static-value'
+    static staticMethod() {
+        return 'static-method'
+    }
+
+}
+
+const Ford = new Car('Ford', 'Mustang', 1967, 'Car')
+
+//bir classdan bir classın içindeki property ve methodlara o classta Instance olmadan erişemeyiz
+
+// console.log(Ford.price) // undefined
+// console.log(Ford.getPrice) // getter  metodlar property gibi çağrılır.
+// Ford.setPrice = 2000 // setter  metodlar property gibi güncellenir.
+// // console.log(Ford.setPrice(2000)) // setter methodlar artık bir normal method gibi çalışmaz.
+// console.log(Ford.getPrice)
+
+console.log(Car.staticProp) // Direkt class'tan erişim.
+console.log(Car.staticMethod())
+// console.log(Ford.staticProp) // Instance erişemez. (hata verir)
+// console.log(Ford.staticMethod())
+
+/* ------------------------------------------------------- */
+
+//? ABSTRACTION: Soyutlama/Modelleme (Class ile obje üretebilme. Aynı amaç için kullanılan değişken ve methodların bir class içinde yazıyor olması)
+//? ENCAPCULLATION: Kapsülleme/Ayrıştırma (Kodların gizliliği, private değişkenlere erişilemiyor olması ve birbirinden bağımsız çalışmaları.)
 
 
 
 /* ------------------------------------------------------- */
 /* ------------------------------------------------------- */
+
 /* ------------------------------------------------------- */
