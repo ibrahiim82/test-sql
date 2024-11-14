@@ -75,7 +75,7 @@ console.log(Mercedes);
 
 
 
-/* ------------------------------------------------------- */
+/* ------------------------------------------------------- *
 
 // INHERITANCE: Miras almak. başka bir class'ın tüm özellik/methodlarını devralma. (parent-chid ilikisi vardır)
 // SUPER: parent (üst) class temsil eder - THIS: chlid(alt) class temsil eder.
@@ -106,9 +106,42 @@ class Car extends Vehicle { //Inheritance
         return 'motor çalıştı'
     }
 }
+// const Ford = new Car('Ford', 'Mustang', 1967,)
+// console.log(Ford);
+// const Ford = new Car('Ford', 'Mustang', 1967, 'Car')
+// console.log(Ford);
 
-const Ford = new Car('Ford', 'Mustang', 1967, 'Car')
-console.log(Ford);
+class Accessory extends Car {
+    constructor(accessoryName,brand,model,year) { 
+        // iki classı birbirine bağlamışsak (extend yapmışsak) contructor methodunda super kullanmalıyız
+        super(brand, model, year)
+        this.accessoryName = accessoryName
+    }
+}
+
+const FordClimate = new Accessory('Bosh Climate', 'Ford', 'Mustang', 1967)
+console.log(FordClimate);
+
+/* ------------------------------------------------------- */
+
+// POLYMORPHISM: miras aldığımız class'ın özellik ve methodların yeniden yazılabilmesi
+// override: üst metodla aynı isim ve yapıda yeni bir method yazma (öncekini ezmek/iptal etme/önceliği almak)
+// overload: üst metodla aynı isimde ama farklı yapıda yeni bir method yazma. (her ikisi de aynı anda aktif) Js overload desteklemez!!
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+/* ------------------------------------------------------- */
+/* ------------------------------------------------------- */
+/* ------------------------------------------------------- */
 /* ------------------------------------------------------- */
