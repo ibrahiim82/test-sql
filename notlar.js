@@ -37,7 +37,7 @@ json: objenin string halidir.
 INSTANCE = Bir class'tan üretilen objedir
 
 -- class'tan türetilen obje içindeki methodlar default olarak gizlidir
-
+-- class ismiyle gönderilen parametreleri alan method constructor methodudur.
 
 
 
