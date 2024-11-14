@@ -12,7 +12,7 @@ Değişkenlerin Tanımlanması: use strict kullanıldığında, değişkenler ta
 x = 10; // Hata verir, çünkü 'x' tanımlanmadı
 
 
--- kod blokları fonksiyonu, fonksiyonlar class fonksiyonları oluşturur.
+-- kod blokları fonksiyonu oluşturur, fonksiyonlar class fonksiyonları oluşturur.
 
 -- JS, class'a ihtiyaç duymadan obje üretebilmeye izin veriyor
 -- Obje isimlendirmede PascalCase veya camelCase isimlendirme yapabiliriz.
@@ -30,6 +30,13 @@ x = 10; // Hata verir, çünkü 'x' tanımlanmadı
 json: objenin string halidir.
 
 
+
+
+
+
+INSTANCE = Bir class'tan üretilen objedir
+
+-- class'tan türetilen obje içindeki methodlar default olarak gizlidir
 
 
 
