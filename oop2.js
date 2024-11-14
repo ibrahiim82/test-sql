@@ -122,26 +122,127 @@ class Accessory extends Car {
 const FordClimate = new Accessory('Bosh Climate', 'Ford', 'Mustang', 1967)
 console.log(FordClimate);
 
-/* ------------------------------------------------------- */
+/* ------------------------------------------------------- *
 
 // POLYMORPHISM: miras aldığımız class'ın özellik ve methodların yeniden yazılabilmesi
 // override: üst metodla aynı isim ve yapıda yeni bir method yazma (öncekini ezmek/iptal etme/önceliği almak)
 // overload: üst metodla aynı isimde ama farklı yapıda yeni bir method yazma. (her ikisi de aynı anda aktif) Js overload desteklemez!!
 
+class Vehicle {
+    vehicleIsActive = false
 
+    constructor (vehicleType) {
+        this.vehicleType = vehicleType
+    }
+    getDetails(){
+        console.log('Vehicle içindeki getDetails çalıştı');
+        return this.vehicleType
+    }
+}
 
+class Car extends Vehicle { //Inheritance
 
+    isRunning= false
 
+    constructor(brand,model,year, vehicleType){
+        super(vehicleType) 
+        this.brand = brand
+        this.model = model
+        this.year = year
+    }
 
+    runEngine(param1){
+        this.isRunning = true
+        return 'motor çalıştı'
+    }
+    //override: parent class'daki metodun aynen yeniden yazılabilmesi.
+    //üstteki getDetails yerine bu çalışacak
+    getDetails(){
+        console.log('Car içindeki getDetails çalıştı');
+        return super.getDetails()
+        // return this.brand
+    }
+    //? Overload: Üstteki methodun aynı isim ama farklı parametre adet/tip ile yeniden tanımlanması.
+    //? JS Desteklemez. TypeSctrip destekler.
+    //? Çalışma prensibi: Çağrıldığı zaman parametreye göre ilgili method çalışır.
+    // getDetails(parametre1, parameter2) {
+    //     return this
+    // }
+}
 
-
-
-
-
+const Ford = new Car('Ford', 'Mustang', 1967, 'Car')
+console.log(Ford);
+console.log(Ford.getDetails());
 
 
 
 /* ------------------------------------------------------- */
+
+// Access Modifiers
+// Public: genel erişime açık (parent erişebilir,child erişebilir,Instance erişebilir)
+// Protected(_): sadece tanımlı olduğu class ve inherit edilen class içinden erişilebilir. JS desteklemez(parent erişebilir,child erişebilir,Instance erişemez)
+// Private(#): sadece tanımlı olduğu class içinden erişilebilir.(parent erişemez,child erişebmez,Instance erişemez)
+
+class Vehicle {
+    vehicleIsActive = false // Public property
+    
+    //JS protected desteklemez
+    _protectedProperty = 'protected-value' //protected property
+    _protectedMethod() {return this} //protected method
+
+    #privateProperty = 'private-value'
+
+    constructor (vehicleType) {
+        this.vehicleType = vehicleType
+    }
+    getDetails(){
+        console.log('Vehicle içindeki getDetails çalıştı');
+        return this.vehicleType
+    }
+}
+
+class Car extends Vehicle { //Inheritance
+
+    isRunning= false
+
+    constructor(brand,model,year, vehicleType){
+        super(vehicleType) 
+        this.brand = brand
+        this.model = model
+        this.year = year
+    }
+
+    runEngine(param1){
+        this.isRunning = true
+        return 'motor çalıştı'
+    }
+    
+    getDetails(){
+
+        console.log('Public', this.vehicleType); //class erişilebilir (public)
+        console.log('Protected', this._protectedProperty); //class erişilebilir (protected)
+        console.log('Protected', this._protectedProperty) // Protected: Class Erişebilir.
+        console.log('Private', this.privateProperty) // Private: Class Erişemez.
+        // console.log('Private', this.#privateProperty) // Private: Class Erişemez.
+
+        console.log('Car içindeki getDetails çalıştı');
+        return super.getDetails()
+        
+    }
+}
+
+const Ford = new Car('Ford', 'Mustang', 1967, 'Car')
+console.log(Ford);
+console.log(Ford.vehicleIsActive);//public: Instance erişti
+console.log(Ford._protectedProperty);//protected: Instance erişemez
+console.log(Ford.privateProperty);//private: Instance erişemez
+
+
+
+
+
+
+
 /* ------------------------------------------------------- */
 /* ------------------------------------------------------- */
 /* ------------------------------------------------------- */
