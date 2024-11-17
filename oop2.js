@@ -10,6 +10,7 @@
 
 
 // Class Declaration:
+
 // class PascalCaseClassName {
 //     ...
 // }
