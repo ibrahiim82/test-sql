@@ -9,13 +9,14 @@
 //? CLASS: Obje türetmek için kullanılacak şablon.
 
 
-// Class Declaration:
+// Class Declaration:   CLASS DECLARATION
 
 // class PascalCaseClassName {
 //     ...
 // }
 
-// Class Expression:
+// Class Expression:    CLASS EXPRESSION
+
 // const PascalCaseClassName = class {
 //     propertyName = 'value' //property,attribute,field
 //     undefinedProperty //sadece tanımlama yapabiliriz.(değeri undefinde olur)
