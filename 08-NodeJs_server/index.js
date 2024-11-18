@@ -45,7 +45,8 @@ const HOST=process.env.HOST || `127.0.0.1`
 //         if(req.method=='GET') 
 //             res.end('<h1> Home page </h1>')
 //         else
-//             res.end('<h1> You can not POST </h1>')   
+//             res.end('<h1> You can not POST </h1>')  
+
 //     else if(req.url=='/user')
 //         res.end('<h1> Home page </h1>')
 //     else
@@ -54,14 +55,34 @@ const HOST=process.env.HOST || `127.0.0.1`
 // }).listen(PORT,() =>console.log(`server Runned http://${HOST}:${PORT}`));
 
 
-const app = http.createServer((req, res) => {
-
+// const app = http.createServer((req, res) => {
+//     if(req.url=='/' && req.method=='GET'){
+//         res.write('message 1 ')
+//         res.write('message 2 ')
+//         res.write('message 3 ')
+//     }
+//     else if(req.method=='POST'){
+//         // res.write('method POST')
+//         // res.statusCode=201
+//         // res.statusMessage='tamam'
+//         res.writeHead(201,'tamam')
+//         res.write('method POST')
+//     }
+//         res.end()
     
+// }).listen(PORT,() =>console.log(`server Runned http://${HOST}:${PORT}`));
+
+
+
+const app = http.createServer((req, res) => {
+    
+    const obj={
+        name:'JS',
+        message:'Hello'
+    }
+        res.end(JSON.stringify(obj))
     
 }).listen(PORT,() =>console.log(`server Runned http://${HOST}:${PORT}`));
-
-
-
 
 
 
