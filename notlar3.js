@@ -1,5 +1,5 @@
 /*
-    JS'de false değerler nelerdir?
+//    JS'de false değerler nelerdir?
 
 
 
@@ -17,5 +17,5 @@
 
 
 
-    
+
 */
