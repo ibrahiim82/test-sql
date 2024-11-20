@@ -84,6 +84,62 @@ app.get(/^\/xyz/, (req,res) => res.send('/xyz/')) // xyz ile başlayan path. şa
 
 
 /* ------------------------------------------------------- */
+//^ URL Parameters (req.params)
+
+// app.get('/users/:userId/profile', (req,res) => {
+//     console.log(req.params)
+//     res.send({
+//         userId: req.params.userId
+//     })
+// } )
+
+// app.get('/users/:userId/profile/update/:userData', (req,res) => {
+//     console.log(req.params)
+//     res.send({
+//         userId: req.params.userId,
+//         updating: req.params.userData,
+//         url: {
+//             protocol: req.protocol,
+//             subdomains: req.subdomains,
+//             hostname: req.hostname,
+//             baseUrl: req.baseUrl,
+//             params: req.params,
+//             query: req.query,
+//             path: req.path,
+//             originalUrl: req.originalUrl,
+//             Url: req.url
+//         }
+//     })
+// } )
+
+// app.get('/users/:userId/profile/update/:userData', (req,res) => {
+//     console.log(req.params)
+//     res.send({
+//         userId: req.params.userId,
+//         updating: req.params.userData,
+//         url: {
+//             protocol: req.protocol,
+//             subdomains: req.subdomains,
+//             hostname: req.hostname,
+//             baseUrl: req.baseUrl,
+//             params: req.params,
+//             query: req.query,
+//             path: req.path,
+//             originalUrl: req.originalUrl,
+//             Url: req.url
+//         }
+//     })
+// } )
+
+// userId --> only number
+app.get('/users/:userId([0-9]+)', (req,res) => {
+    console.log(req.params)
+    res.send({
+        userId: req.params.userId,
+    })
+} )
+
+/* ------------------------------------------------------- */
 
 // app.listen(PORT,()=> {console.log(`Running: http://127.0.0.1:8000`)})
 // app.listen(PORT,HOST,()=> {console.log(`Running: http://${HOST}:${PORT}`)}) tavsiye edilmez (HOST göndermek tavsiye edilmez)
