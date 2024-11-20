@@ -6,7 +6,7 @@
 
 // sunucuya gönderilen istek "request"tir sunucudan çıkan çıktı "response"dir
 
-
+// CREATE = POST , READ = GET , UPDATE = PUT , DELETE = DELETE
 
 
 
