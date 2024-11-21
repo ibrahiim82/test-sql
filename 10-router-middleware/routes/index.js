@@ -7,7 +7,7 @@
 //^ express.Router()
 // const express = require('express')
 // const router = express.Router()
-const express = require('express').Router()
+const router = require('express').Router()
 
 // router.get('/', (req,res) => { res.send({message: 'Welcome'})})
 // router.post('/', (req,res) => { res.send({message: 'Post'})})
@@ -17,7 +17,7 @@ const express = require('express').Router()
 // router.all('/', (req,res) => { res.send({message: 'All'})})
 //& app ile yaptığımız bütün routing işlemlerini 'router' ile yapabliriz
 router.route('/')
-    .get((req,res) => { res.send({message: 'Welcome'})})
+    .get((req,res) => { res.send({message: 'Get'})})
     .post((req,res) => { res.send({message: 'Post'})})
     .put((req,res) => { res.send({message: 'Put'})})
     .delete((req,res) => { res.send({message: 'Delete'})})
