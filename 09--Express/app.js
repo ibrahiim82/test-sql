@@ -11,7 +11,7 @@ const app = express() // express started
 
 // dotenv
 require('dotenv').config() // .env içindeki değişkenler process.env'ye atandı.
-const HOST = process.env.HOST || '127.0.0.1' //host string ile yazılmak zorunda (local IP: '127.0.0.1)
+const HOST = process.env.HOST || '127.0.0.1' //host string ile yazılmak zorunda (local IP: '127.0.0.1')
 const PORT = process.env.PORT || 8000
 
 /* ------------------------------------------------------- */
