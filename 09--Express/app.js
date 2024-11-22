@@ -157,7 +157,7 @@ const PORT = process.env.PORT || 8000
 
 // app.listen(PORT,()=> {console.log(`Running: http://127.0.0.1:8000`)})
 // app.listen(PORT,HOST,()=> {console.log(`Running: http://${HOST}:${PORT}`)}) tavsiye edilmez (HOST göndermek tavsiye edilmez)
-app.listen(PORT,()=> {console.log(`Running: http://${HOST}:${PORT}`)})
+app.listen(PORT,()=> console.log(`Running: http://${HOST}:${PORT}`))
 
 
 
