@@ -113,7 +113,7 @@ const PORT = process.env.PORT || 8000
 //     })
 // } )
 
-// // userId --> only number
+// / userId --> only number
 // app.get('/users/:userId([0-9]+)', (req,res) => {
 //     console.log(req.params)
 //     res.send({
