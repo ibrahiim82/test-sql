@@ -10,31 +10,31 @@ const app = express();
 require("dotenv").config();
 const PORT = process.env.PORT || 8000;
 const HOST = process.env.HOST;
-/* ------------------------------------------------------- 
+/* ------------------------------------------------------- */
 //!olması gereken
 app.get("/user/:id?", function (req, res) {
   res.status(200).send({ userId: 1, userName: "John" });
 });
-/* ------------------------------------------------------- 
+/* ------------------------------------------------------- */
 //! iki farklı send
 app.get("/user/:id?", function (req, res) {
   res.status(200).send({ userId: 1, userName: "John" });
   res.status(200).send({ userId: 2, userName: "John" });
 });
-/* ------------------------------------------------------- 
+/* ------------------------------------------------------- */
 //! default hata çıktısı
 app.get("/user/:id?", function (req, res) {
   req.params.id.toString();
   res.send({ userId: 2, userName: "John" });
 });
 
-/* ------------------------------------------------------- 
+/* ------------------------------------------------------- */
 //! throw Error()
 app.get("/user/:id?", function (req, res) {
   throw Error("Hata oluştu");
   res.send({ userId: 2, userName: "John" });
 });
-/* ------------------------------------------------------- 
+/* ------------------------------------------------------- */
 app.get("/user/:id?", function (req, res) {
   try {
     req.params.id.toString();
