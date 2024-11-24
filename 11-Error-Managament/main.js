@@ -45,7 +45,7 @@ app.get("/user/:id?", function (req, res) {
     res.status(400).send({ isError: true, message: "id must be string" });
   }
 });
-/* ------------------------------------------------------- 
+/* ------------------------------------------------------- */
 app.get("/user/:id?", function (req, res, next) {
   // req.statusCode = 400;
   res.statusCode = 400;
@@ -56,7 +56,7 @@ app.get("/user/:id?", function (req, res, next) {
   res.send({ userId: 2, userName: "John" });
 });
 
-/* ------------------------------------------------------- 
+/* ------------------------------------------------------- */ 
 app.get("/user/:id?", function (req, res, next) {
   // res.statusCode = 400;
   try {
