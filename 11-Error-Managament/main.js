@@ -91,7 +91,7 @@ function asyncSample() {
     reject(new CustomError("Asenkron işlem sırasında bir hata oluştu", 400));
   });
 }
-/* ------------------------------------------------------- 
+/* ------------------------------------------------------- */
 //! error handler async hataları doğrudan yakalamaz
 app.get("/user/:id?", async function (req, res) {
   await asyncSample();
