@@ -1,0 +1,19 @@
+{
+  "name": "10-routers-middlewares",
+  "version": "1.0.0",
+  "description": "### What? Why?",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^16.4.5",
+    "express": "^4.21.1",
+    "express-async-errors": "^3.1.1",
+    "http-status-codes": "^2.3.0"
+  }
+}
