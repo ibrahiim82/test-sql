@@ -28,8 +28,11 @@ app.all('/', (req, res) => {
 
 const { Sequelize, DataTypes } = require('sequelize')
 
-// Connection:
-const sequelize = new Sequelize('sqlite:./db.sqlite3')
+//^ DB Connection Settings:
+// const sequelize = new Sequelize('sqlite:./db.sqlite3')
+// const sequelize = new Sequelize('sqlite:' + process.env.SQLITE)
+const sequelize = new Sequelize('sqlite:' + (process.env.SQLITE || './db.sqlite3'))
+
 
 
 /* ------------------------------------------------------- */
