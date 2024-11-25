@@ -91,8 +91,9 @@ const Todo = sequelize.define('todos', {
 
     //^ Syncronization:
     // Model'i veritabanına uygula:
-    sequelize.sync()
-
+    // sequelize.sync() // CREATE TABLE (Model, veritabanına uygulanmamışsa çalıştırılır)
+    sequelize.sync({ force: true }) // table oluşturduktan sonraki değişikliklerin çalışması için force: ture yazılır
+    // yani force: true tabloyu siler tekrar baştan oluşturur DROP TABLE & CREATE TABLE
 /* ------------------------------------------------------- */
 const errorHandler = (err, req, res, next) => {
     const errorStatusCode = res.errorStatusCode ?? 500
