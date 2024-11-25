@@ -22,9 +22,9 @@ app.use(express.json())
 // express-async-errors: catch async-errors and send to errorHandler:
 require('express-async-errors')
 
-app.all('/', (req, res) => {
-    res.send('WELCOME TO TODO API')
-})
+// app.all('/', (req, res) => {
+//     res.send('WELCOME TO TODO API')
+// })
 
 
 /* ------------------------------------------------------- */
@@ -70,7 +70,8 @@ const Todo = sequelize.define('todos', {
     // allownull ture olanları yazmaya gerek yok çünkü default hali true
     // },
 
-    description: DataTypes.TEXT, // tek bir tane tanımlıyorsak obje açmaya gerek yok
+    description: DataTypes.TEXT, // ShortHand
+    // tek bir tane tanımlıyorsak obje açmaya gerek yok
 
     priority: {    // -1: Low , 0: normal , 1: Yüksek
         type: DataTypes.TINYINT,
@@ -104,7 +105,47 @@ const Todo = sequelize.define('todos', {
     .then(() => console.log('* DB Connected * '))
     .catch(() => console.log('* DB Connected * '))
 
+/* ------------------------------------------------------- */
 
+    //! ROUTERS:
+
+    const router = express.Router()
+
+    // LIST TODOS:
+
+    router.get('/', async (req, res) => {
+
+        // const data = await Todo.findAll()
+        const data = await Todo.findAndCountAll()
+
+        res.status(200).send({
+            error: false,
+            result: data
+        })
+    })
+
+//^ CRUD -->
+
+    // CREATE TODO:
+    router.post('/', async (req, res) => {
+
+        const receivedData = req.body
+        console.log(receivedData);
+
+        const data = await Todo.create({
+            title: receivedData.title,
+            description: receivedData.description,
+            priority: receivedData.priority,
+            isDone: receivedData.isDone,
+        })
+
+        res.status(201).send({
+            error: false,
+            result: data
+        })
+    })
+
+app.use(router)
 
 /* ------------------------------------------------------- */
 const errorHandler = (err, req, res, next) => {
