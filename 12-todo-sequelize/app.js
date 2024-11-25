@@ -3,6 +3,12 @@
 //?    EXPRESSJS - TODO Project with Sequelize
 
 
+// $ npm init -y
+// $ npm i express dotenv express-async-errors
+// $ echo PORT=8000 > .env
+// $ npm i sequelize sqlite3
+
+
 const express = require("express");
 const app = express();
 
@@ -33,6 +39,55 @@ const { Sequelize, DataTypes } = require('sequelize')
 // const sequelize = new Sequelize('sqlite:' + process.env.SQLITE)
 const sequelize = new Sequelize('sqlite:' + (process.env.SQLITE || './db.sqlite3'))
 
+
+//* Model:
+// her model veritabanında bir tabloya karşılık gelir.
+// sequelize.define('tableName', {tableDetails} )
+
+//^ Model isimleri PascalCase:
+const Todo = sequelize.define('todos', {
+
+    // sequelize'de id tanımlamaya gerek yoktur. otomatik tanımlanır.
+    // id: {
+    //     type: DataTypes.INTEGER,
+    //     allowNull: false,  //default: true (boş olabilir mi demek.)
+    //     unique: true,      //default: false
+    //     comment:'description',
+    //     primaryKey: true, //default: false
+    //     autoIncrement: true, //default: false
+    //     field: 'custom_name',
+    //     defaultValue: 0     // default: null
+    // },
+
+    title: {
+        type: DataTypes.STRING,
+        allowNull: false
+    },
+
+    // description: {
+    //     type: DataTypes.TEXT,
+    //    allowNull: true,
+    // allownull ture olanları yazmaya gerek yok çünkü default hali true
+    // },
+
+    description: DataTypes.TEXT, // tek bir tane tanımlıyorsak obje açmaya gerek yok
+
+    priority: {    // -1: Low , 0: normal , 1: Yüksek
+        type: DataTypes.TINYINT,
+        allowNull: false,
+        defaultValue: 0,
+    },
+
+    isDone: {
+        type: DataTypes.BOOLEAN,
+        allowNull: false,
+        defaultValue: false,
+    },
+
+    // createdAt:{},
+    // updatedAt: {},
+    // createdAt ve updatedAt tanımlamaya gerek yoktur. Sequelize otomatik yönetir.
+})
 
 
 /* ------------------------------------------------------- */
