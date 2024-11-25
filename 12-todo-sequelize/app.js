@@ -90,10 +90,22 @@ const Todo = sequelize.define('todos', {
 })
 
     //^ Syncronization:
-    // Model'i veritabanına uygula:
+    //* Model'i veritabanına uygula:
+    // sync() methodu 1 kere uygulanır (modelde değişiklik var ise tekrar uygulanır)
     // sequelize.sync() // CREATE TABLE (Model, veritabanına uygulanmamışsa çalıştırılır)
-    sequelize.sync({ force: true }) // table oluşturduktan sonraki değişikliklerin çalışması için force: ture yazılır
-    // yani force: true tabloyu siler tekrar baştan oluşturur DROP TABLE & CREATE TABLE
+    // sequelize.sync({ force: true }) // table oluşturduktan sonraki değişikliklerin çalışması için force: ture yazılır
+    // yani force: true tabloyu siler tekrar baştan oluşturur DROP TABLE & CREATE TABLE (DİKKAT!! data var ise silinir.)
+    // sequelize.sync({ alter: true }) // TO BACKUP & DROP TABLE & CREATE TABLE & FROM BACKUP
+    //! sync() methodu 1 kere uygulanır (modelde değişiklik var ise tekrar uygulanır) yani işimiz bittikten sonra sync'yi kapatmak/yorum satırına almak gerekir.
+
+
+    //^ CONNECT TO DB:
+    sequelize.authenticate()
+    .then(() => console.log('* DB Connected * '))
+    .catch(() => console.log('* DB Connected * '))
+
+
+
 /* ------------------------------------------------------- */
 const errorHandler = (err, req, res, next) => {
     const errorStatusCode = res.errorStatusCode ?? 500
