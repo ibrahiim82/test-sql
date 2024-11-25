@@ -89,6 +89,9 @@ const Todo = sequelize.define('todos', {
     // createdAt ve updatedAt tanımlamaya gerek yoktur. Sequelize otomatik yönetir.
 })
 
+    //^ Syncronization:
+    // Model'i veritabanına uygula:
+    sequelize.sync()
 
 /* ------------------------------------------------------- */
 const errorHandler = (err, req, res, next) => {
