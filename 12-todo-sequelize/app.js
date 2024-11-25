@@ -29,7 +29,7 @@ require('express-async-errors')
 
 /* ------------------------------------------------------- */
 
-//!     SEQUELIZE
+//*     SEQUELIZE
 //npm i sequelize sqlite3
 
 const { Sequelize, DataTypes } = require('sequelize')
@@ -107,16 +107,22 @@ const Todo = sequelize.define('todos', {
 
 /* ------------------------------------------------------- */
 
-    //! ROUTERS:
+    //* ROUTERS:
 
     const router = express.Router()
+
+    //^ https://sequelize.org/docs/v6/core-concepts/model-querying-basics/
 
     // LIST TODOS:
 
     router.get('/', async (req, res) => {
 
         // const data = await Todo.findAll()
-        const data = await Todo.findAndCountAll()
+        const data = await Todo.findAndCountAll()   // count(obje miktarı) ekler
+        // const data = await Todo.findAll({
+        //     attributes: ['title', 'description', 'priority'], // Select Filelds. Sadece title,description ve priority döndürür.
+        //     where: { priority: -1 } // Filters   Priority: -1 olan objeleri döndürür.
+        // })
 
         res.status(200).send({
             error: false,
@@ -129,21 +135,25 @@ const Todo = sequelize.define('todos', {
     // CREATE TODO:
     router.post('/', async (req, res) => {
 
-        const receivedData = req.body
-        console.log(receivedData);
+        // const receivedData = req.body
+        // console.log(receivedData);
 
-        const data = await Todo.create({
-            title: receivedData.title,
-            description: receivedData.description,
-            priority: receivedData.priority,
-            isDone: receivedData.isDone,
-        })
+        // const data = await Todo.create({
+        //     title: receivedData.title,
+        //     description: receivedData.description,
+        //     priority: receivedData.priority,
+        //     isDone: receivedData.isDone,
+        // })
 
         res.status(201).send({
             error: false,
             result: data
         })
     })
+
+    // READ TODO:
+    // UPDATE TODO:
+    // DELETE TODO:
 
 app.use(router)
 
