@@ -27,3 +27,23 @@
 // model: aşçı
 // controller: garson
 
+
+//* CRUD == POST , Put , Read , Delete
+// CREATE = POST , READ = PUT , UPDATE = READ , DELETE = DELETE
+
+
+//* Javascriptte join, split, reverse kullanırken split kullanmak gerekir!! yani join veya reverse kullanmamız gerekse bile split ile kullanmamız gerekir çünkü stringlerde split kullanılır. reverse ve join array metodudur string metodu için split kullanılır. ÖRNEĞİN 'ibrahim' ismini ters çevirmemiz gerekirse reverse array metodu olduğu için sadece reverse kullanılmaz string metodu gerekir yani split ve reverse kullanılır.
+
+
+/*
+isim();
+
+function isim(){
+  console.log('deneme');
+ }
+
+ isim(); // invoke
+*/
+// hoisting: sadece function declarationda (yani hem yukarıda hem de aşağıda) çalışır
+
+

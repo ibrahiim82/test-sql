@@ -44,7 +44,7 @@ const sequelize = new Sequelize('sqlite:' + (process.env.SQLITE || './db.sqlite3
 // her model veritabanında bir tabloya karşılık gelir.
 // sequelize.define('tableName', {tableDetails} )
 
-//^ Model isimleri PascalCase:
+//^ Model isimleri PascalCase: (model tanımlama):
 const Todo = sequelize.define('todos', {
 
     // sequelize'de id tanımlamaya gerek yoktur. otomatik tanımlanır.
@@ -67,7 +67,7 @@ const Todo = sequelize.define('todos', {
     // description: {
     //     type: DataTypes.TEXT,
     //    allowNull: true,
-    // allownull ture olanları yazmaya gerek yok çünkü default hali true
+    // allownull true olanları yazmaya gerek yok çünkü default hali true
     // },
 
     description: DataTypes.TEXT, // ShortHand
@@ -103,7 +103,7 @@ const Todo = sequelize.define('todos', {
     //^ CONNECT TO DB:
     sequelize.authenticate()
     .then(() => console.log('* DB Connected * '))
-    .catch(() => console.log('* DB Connected * '))
+    .catch(() => console.log('* DB Not Connected * '))
 
 /* ------------------------------------------------------- */
 
@@ -145,6 +145,9 @@ const Todo = sequelize.define('todos', {
         //     isDone: receivedData.isDone,
         // })
 
+        const data = await Todo.create(req.body)
+
+        
         res.status(201).send({
             error: false,
             result: data
