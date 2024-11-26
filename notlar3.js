@@ -21,6 +21,9 @@
 //* Sequelize:
 // Nodejs'de kullanılan ORM yapıları. en populeri Squelizedir.
 
-
-
+//* Model:
+// Front-end'de forum doldururken girdiğimiz verileri depolayan kısım.
+// view: müşteri
+// model: aşçı
+// controller: garson
 
