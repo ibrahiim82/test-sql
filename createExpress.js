@@ -3,7 +3,7 @@
 
 npm init -y
 
-npm install expres
+npm install express
 
 / Express'i dahil et
 const express = require('express');
