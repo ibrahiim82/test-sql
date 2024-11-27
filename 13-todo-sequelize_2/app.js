@@ -19,7 +19,7 @@ const PORT = process.env.PORT || 8000;
 // Accept json data and convert to object for (API):
 app.use(express.json())
 // Accept FORM data and convert to object (for template)
-app.use(express.urlencoded())
+// app.use(express.urlencoded())
 
 // express-async-errors: catch async-errors and send to errorHandler:
 require('express-async-errors')
@@ -134,7 +134,7 @@ const Todo = sequelize.define('todos', {
 
 //^ CRUD -->
 
-    // CREATE TODO:
+    //* CREATE TODO:
     router.post('/', async (req, res) => {
 
         // const receivedData = req.body
@@ -156,9 +156,72 @@ const Todo = sequelize.define('todos', {
         })
     })
 
-    // READ TODO:
-    // UPDATE TODO:
-    // DELETE TODO:
+    //* READ TODO:
+    router.get('/:id', async (req,res) => {
+
+        //& id nin sadece rakam olmasını istiyorsak [0-9] veya (\\d+) yazmalıyız --> router.get('/:id(\\d+)', async (req,res)
+
+        // console.log(req.params.id);
+
+        // const data = await Todo.findOne({where: {id: req.params.id}})
+        const data = await Todo.findByPk({where: {id: req.params.id}})
+
+        res.status(200).send({
+            error: false,
+            result: data
+        })
+    })
+
+
+
+
+    //* UPDATE TODO:
+    router.put('/:id', async (req,res) => {
+        //const data = await Todo.update({ ...newData }, {...where})
+        const data = await Todo.update(req.body, { where: { id: req.params.id }})
+    //& req.body kendisi obje olduğu için obje içinde yazmaya gerek yok.
+        // upsert: kayıt varsa güncelle, yoksa ekle
+
+        res.status(202).send({
+            error: false,
+           //  result: data, // update ve delete'de kaç adet güncellendi bilgisi döner.
+            message: 'Updated!',
+            result: await Todo.findByPk(req.params.id),
+            count: data
+        })
+    })
+
+    //* DELETE TODO:
+    router.delete('/:id', async (req,res) => {
+        // const data = await Todo.destroy({ ...where })
+        const data = await Todo.destroy({ where: {id: req.params.id}  })
+
+        // 204: No Content -> içerik vermeyebilir
+        // res.status(200).send({
+        //     error: false,
+        //     message: 'Deleted!',
+        //     count: data
+        // })
+
+        if (data > 0) { // kayıt silindiyse ...
+
+            res.sendStatus(204)
+            //& eğer status'ten sonra send yoksa status yerine sendStatus yazılır çünkü status send bekler.
+
+        } else { // silinmediyse...
+
+            //  res.status(200).send({
+            //     error: false,
+            //     message: 'Can not Deleted. (Maybe Already deleted)',
+            // })
+            
+            //& hata mesajı döndürdüğümüz için bu işlemi errorHandler ile de yapabiliriz
+            // send to ErrorHandler:
+            res.errorStatusCode = 404
+            throw new Error('Can not Deleted. (Maybe Already deleted)')
+        }
+    })
+
 
 app.use(router)
 
