@@ -1,5 +1,5 @@
 /*
-
+//* PACKAGE JSON
 package.json dosyası, bir Node.js projesinin yapılandırma dosyasıdır ve projeye dair tüm önemli bilgileri barındırır. Bu dosya, bağımlılıkları, komutları, sürüm bilgilerini ve proje hakkında açıklamaları içerir.
 
 

@@ -2,7 +2,7 @@
 
 //?    EXPRESSJS - TODO Project with Sequelize
 
-//*     SEQUELIZE
+//* SEQUELIZE
 //npm i sequelize sqlite3
 
 const { Sequelize, DataTypes } = require('sequelize')
@@ -10,8 +10,12 @@ const { Sequelize, DataTypes } = require('sequelize')
 //^ DB Connection Settings:
 // const sequelize = new Sequelize('sqlite:./db.sqlite3')
 // const sequelize = new Sequelize('sqlite:' + process.env.SQLITE)
-const sequelize = new Sequelize('sqlite:' + (process.env.SQLITE || './db.sqlite3'))
+// const sequelize = new Sequelize('sqlite:' + (process.env.SQLITE || './db.sqlite3'))
 
+//* Postgresql
+// npm i pg pg-hstore
+// Local IP: 127.0.0.1 - Local Host: localhost
+const sequelize = new Sequelize('postgres://user-ch17:user-ch17@127.0.0.1:5432/test-ch17')
 
 //* Model:
 // her model veritabanında bir tabloya karşılık gelir.
@@ -47,7 +51,8 @@ const Todo = sequelize.define('todos', {
     // tek bir tane tanımlıyorsak obje açmaya gerek yok
 
     priority: {    // -1: Low , 0: normal , 1: Yüksek
-        type: DataTypes.TINYINT,
+        // type: DataTypes.TINYINT, // postgresql desteklemedi.
+        type: DataTypes.INTEGER,
         allowNull: false,
         defaultValue: 0,
     },

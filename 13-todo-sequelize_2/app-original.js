@@ -115,7 +115,7 @@ const Todo = sequelize.define('todos', {
 
     //^ https://sequelize.org/docs/v6/core-concepts/model-querying-basics/
 
-    // LIST TODOS:
+    //^ LIST TODOS:
 
     router.get('/', async (req, res) => {
 
