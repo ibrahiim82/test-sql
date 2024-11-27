@@ -120,7 +120,7 @@ const Todo = sequelize.define('todos', {
     router.get('/', async (req, res) => {
 
         // const data = await Todo.findAll()
-        const data = await Todo.findAndCountAll()   // count(obje miktarı) ekler
+        const data = await Todo.findAndCountAll()   // count(adet) ekler
         // const data = await Todo.findAll({
         //     attributes: ['title', 'description', 'priority'], // Select Filelds. Sadece title,description ve priority döndürür.
         //     where: { priority: -1 } // Filters   Priority: -1 olan objeleri döndürür.
