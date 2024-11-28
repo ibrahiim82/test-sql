@@ -6,7 +6,7 @@
 // $ npm init -y
 // $ npm i express dotenv express-async-errors
 // $ echo PORT=8000 > .env
-// $ npm i sequelize sqlite3
+// $ npm i sequelize sqlite
 
 
 const express = require("express");
