@@ -29,9 +29,13 @@
 
 //// Callback nedir,ne işe yarar?
 
-//* CRUD == POST , Put , Read , Delete
-// CREATE = POST , READ = PUT , UPDATE = READ , DELETE = DELETE
+//* CRUD == POST , Get , Put , Delete
+// CREATE = POST , READ = GET , UPDATE = PUT , DELETE = DELETE
 
+// Get(200)
+// post(200),(201)
+// put(200),(204)
+// delete(200),(204)
 
 //* Javascriptte join, split, reverse kullanırken split kullanmak gerekir!! yani join veya reverse kullanmamız gerekse bile split ile kullanmamız gerekir çünkü stringlerde split kullanılır. reverse ve join array metodudur string metodu için split kullanılır. ÖRNEĞİN 'ibrahim' ismini ters çevirmemiz gerekirse reverse array metodu olduğu için sadece reverse kullanılmaz string metodu gerekir yani split ve reverse kullanılır.
 
