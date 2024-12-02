@@ -31,7 +31,8 @@
 
 /* ------------------------------------------------------- *
 
-// INSTANCE = Bir class'tan üretilen objedir
+^ INSTANCE = Bir class'tan üretilen objedir
+
 //* constructor functionun class hali
 
 class Car {

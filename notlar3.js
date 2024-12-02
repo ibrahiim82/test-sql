@@ -1,7 +1,5 @@
 
-//* JS'de false değerler nelerdir?
 
-//* Callback nedir,ne işe yarar?
 
 //? MULAKAT SORUSU
 //* (MVC) model view controller nedir,ne işe yarar,model ne işe yarar,view ne işe yarar,controller ne işe yarar?
@@ -27,6 +25,9 @@
 // model: aşçı
 // controller: garson
 
+//// JS'de false değerler nelerdir?
+
+//// Callback nedir,ne işe yarar?
 
 //* CRUD == POST , Put , Read , Delete
 // CREATE = POST , READ = PUT , UPDATE = READ , DELETE = DELETE
@@ -34,6 +35,19 @@
 
 //* Javascriptte join, split, reverse kullanırken split kullanmak gerekir!! yani join veya reverse kullanmamız gerekse bile split ile kullanmamız gerekir çünkü stringlerde split kullanılır. reverse ve join array metodudur string metodu için split kullanılır. ÖRNEĞİN 'ibrahim' ismini ters çevirmemiz gerekirse reverse array metodu olduğu için sadece reverse kullanılmaz string metodu gerekir yani split ve reverse kullanılır.
 
+
+//? MULAKAT SORUSU
+//* (MVC) model view controller nedir,ne işe yarar,model ne işe yarar,view ne işe yarar,controller ne işe yarar?
+// Model:
+// Front-end'de forum doldururken girdiğimiz verileri depolayan kısım.
+// view: müşteri
+// model: aşçı
+// controller: garson
+
+//* reactta performansı optimize etme yöntemi: Debounce
+
+//* error boundary: 
+// Bir hatanız var ve render probleminiz yok. Kullanıcı hataya rağmen Reactın varsayılan davranışı BEMBEYEAZ EKRAN (js hataları, sonsuz döngüler,render hataları, yüklenemeyen kaynak dosyalar, router sorunları vsvs ) ile karşı karşıya kalmıyor, ve uygulama daha fazla bozulmuyor. Kullanıcıya tabiki daha iyi bir deneyim sağlanıyor.
 
 /*
 isim();
