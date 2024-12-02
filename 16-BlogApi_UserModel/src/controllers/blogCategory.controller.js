@@ -66,7 +66,18 @@ module.exports.blogCategory = {
       req.body
     );
 
-    //matchedCount:0,1,2   modifiedCount=0,1  durumu
+    
+    //^ matchedCount:0,1,2   modifiedCount=0,1  durumu
+    // matchedCount, güncelleme işleminin hangi sayıda belgenin eşleştiğini gösterir.
+    // Eğer bir belge belirli bir filtreye uyarak güncellenmeye çalışılıyorsa, matchedCount o filtreyle eşleşen belge sayısını belirtir.
+    // modifiedCount, gerçekten güncellenen belge sayısını gösterir.
+    // Yani, eşleşen belgeler üzerinde bir değişiklik yapılıp yapılmadığını belirler. Eğer eşleşen belgenin mevcut durumu zaten güncellenmeye gerek olmayacaksa, modifiedCount sıfır olur.
+
+    // matchedCount: 0, modifiedCount: 0: Hiçbir belge eşleşmedi veya eşleşen belgeler güncellenmeye gerek duymadı.
+    // matchedCount: 1, modifiedCount: 1: Bir belge eşleşti ve gerçekten bir değişiklik yapıldı.
+    // matchedCount: 2, modifiedCount: 1: İki belge eşleşti, ancak sadece birinin verisi güncellendi.
+
+
     //!güncellenmek istenen veri yoksa
     if (result.matchedCount === 0) {
       throw new NotFoundError("No matching documents found");

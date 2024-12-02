@@ -4,8 +4,9 @@
 ------------------------------------------------------- */
 
 const router = require("express").Router();
-const { blogCategory } = require("..controllers/blogCategory.controller");
+
 // Call Controllers:
+const { blogCategory } = require("../controllers/blogCategory.controller");
 
 // blog/Category
 // blog/Category/id
@@ -14,15 +15,15 @@ const { blogCategory } = require("..controllers/blogCategory.controller");
 
 // URL: /blog ->
 // BlogCategory
-router.route("/category").get(blogCategory.list).post(blogCategory.create);
+router.route("/").get(blogCategory.list).post(blogCategory.create);
 
-// router.get("/category",blogCategory.list)
-// router.post("/category",blogCategory.create)
+// router.get("/",blogCategory.list)
+// router.post("/",blogCategory.create)
 router
-  .route("/category/:categoryId")
+  .route("/:categoryId")
   .get(blogCategory.read)
   .put(blogCategory.update)
   .patch(blogCategory.update)
   .delete(blogCategory.delete);
 
-  module.exports=router
+  module.exports = router;

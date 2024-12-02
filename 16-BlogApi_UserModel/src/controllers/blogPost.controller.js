@@ -1,19 +1,17 @@
-
 "use strict";
 
 /* -------------------------------------------------------
     EXPRESSJS - BLOG Project with Mongoose
 ------------------------------------------------------- */
-// Call Models:
-const { BlogPost } = require("../models/BlogPost.model");
-const { NotFoundError } = require("../errors/customError");
 
+// Call Models:
+const { BlogPost } = require("../models/blogPost.model");
+const { NotFoundError } = require("../errors/customError");
 /* ------------------------------------------------------- */
 
-module.exports.BlogPost = {
+module.exports.blogPost = {
   list: async (req, res) => {
-    
-    const data = await BlogPost.find();
+    const data = await BlogPost.find().populate("categoryId");
 
     res.send({
       result: data,
@@ -31,10 +29,7 @@ module.exports.BlogPost = {
   },
 
   read: async (req, res) => {
-    
-    const result = await BlogPost.findOne(
-      { _id: req.params.postId },
-    );
+    const result = await BlogPost.findOne({ _id: req.params.postId });
     if (!result) {
       throw new NotFoundError("No matching documents found");
     }
@@ -45,25 +40,28 @@ module.exports.BlogPost = {
   },
 
   update: async (req, res) => {
-    const result = BlogPost.updateOne(
-      { _id: req.params.postIdd },
+    const result = await BlogPost.updateOne(
+      { _id: req.params.postId },
       req.body
     );
 
     //matchedCount:0,1,2   modifiedCount=0,1  durumu
+    // matchedCount: Eşleşen belge sayısını belirtir.
+    // modifiedCount: Gerçekten değiştirilen belge sayısını belirtir.
+    
     //!güncellenmek istenen veri yoksa
-    if (result.matchedCount === 0) {
-      throw new NotFoundError("No matching documents found");
-      // return res.status(404).send("No matching documents found");
-    }
-    //! güncellenmek istenen veri ama ama güncelleme yapılmadı
-    if (result.matchedCount > 0 && result.modifiedCount === 0) {
-      return res.status(200).send({ message: "Document already up-to-date." });
-    }
+    // if (result.matchedCount === 0) {
+    //   throw new NotFoundError("No matching documents found");
+    //   / return res.status(404).send("No matching documents found");
+    // }
+    // //! güncellenmek istenen veri ama ama güncelleme yapılmadı
+    // if (result.matchedCount > 0 && result.modifiedCount === 0) {
+    //   return res.status(200).send({ message: "Document already up-to-date." });
+    // }
     res.status(202).send({
       isError: false,
       result,
-      updated: await BlogPost.findOne({ _id: req.params.postId }),
+      new: await BlogPost.findOne({ _id: req.params.postId }),
     });
   },
 
@@ -75,7 +73,7 @@ module.exports.BlogPost = {
       throw new NotFoundError("No matching documents found");
       // return res.status(404).send("No matching documents found");
     }
-    //! 204 ile veri gönderilmez
+    //! 204 ile veri gönderilmez No_Content
     res.status(204).send({
       result,
     });

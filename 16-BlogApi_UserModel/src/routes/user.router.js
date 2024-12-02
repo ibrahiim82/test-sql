@@ -4,8 +4,8 @@
 ------------------------------------------------------- */
 
 const router = require("express").Router();
-const { user } = require("..controllers/user.controller");
 // Call Controllers:
+const { user } = require("../controllers/user.controller");
 
 /* ------------------------------------------------------- */
 
@@ -24,6 +24,6 @@ router
   .patch(user.update)
   .delete(user.delete);
 
-  module.exports=router
+  module.exports = router;
 
 /* ------------------------------------------------------- */

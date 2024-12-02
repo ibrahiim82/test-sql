@@ -35,4 +35,5 @@ const verifyPassword = (password, hash) => {
 
   return newHash === hash;
 };
+
 module.exports = paswordEncypt;

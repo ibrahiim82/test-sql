@@ -23,6 +23,9 @@ module.exports.user = {
   // CRUD ->
 
   create: async (req, res) => {
+    if (!req.body.password || req.body.password.length < 8)
+      throw new BadRequestError("password must be 8 characters long");
+    //req.body.password= paswordEncypt(req.body.password)
     const result = await User.create(req.body);
 
     res.send({
@@ -31,10 +34,7 @@ module.exports.user = {
   },
 
   read: async (req, res) => {
-    
-    const result = await User.findOne(
-      { _id: req.params.userId },
-    );
+    const result = await User.findOne({ _id: req.params.userId });
     if (!result) {
       throw new NotFoundError("No matching documents found");
     }
@@ -45,21 +45,26 @@ module.exports.user = {
   },
 
   update: async (req, res) => {
-    const result = User.updateOne(
-      { _id: req.params.userIdd },
-      req.body
-    );
+    if (req.body?.email) {
+      const email = await User.findOne({ email: req.body.email });
+      if (email) {
+        throw new BadRequestError("This email is already in use");
+      }
+    }
+    const result = await User.updateOne({ _id: req.params.userId }, req.body, {
+      // runValidators: true,
+    });
 
     //matchedCount:0,1,2   modifiedCount=0,1  durumu
     //!güncellenmek istenen veri yoksa
-    if (result.matchedCount === 0) {
-      throw new NotFoundError("No matching documents found");
-      // return res.status(404).send("No matching documents found");
-    }
+    // if (result.matchedCount === 0) {
+    //   throw new NotFoundError("No matching documents found");
+    //   / return res.status(404).send("No matching documents found");
+    // }
     //! güncellenmek istenen veri ama ama güncelleme yapılmadı
-    if (result.matchedCount > 0 && result.modifiedCount === 0) {
-      return res.status(200).send({ message: "Document already up-to-date." });
-    }
+    // if (result.matchedCount > 0 && result.modifiedCount === 0) {
+    //   return res.status(200).send({ message: "Document already up-to-date." });
+    // }
     res.status(202).send({
       isError: false,
       result,
@@ -75,7 +80,7 @@ module.exports.user = {
       throw new NotFoundError("No matching documents found");
       // return res.status(404).send("No matching documents found");
     }
-    //! 204 ile veri gönderilmez
+    //! 204 ile veri gönderilmez No_Content
     res.status(204).send({
       result,
     });

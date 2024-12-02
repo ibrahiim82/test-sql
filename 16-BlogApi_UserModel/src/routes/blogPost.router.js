@@ -4,8 +4,9 @@
 ------------------------------------------------------- */
 
 const router = require("express").Router();
-const { blogPost } = require("..controllers/blogPost.controller");
+
 // Call Controllers:
+const { blogPost } = require("../controllers/blogPost.controller");
 
 /* ------------------------------------------------------- */
 
@@ -13,17 +14,17 @@ const { blogPost } = require("..controllers/blogPost.controller");
 // /blog/post
 // BlogPost
 
-router.route("/post").get(blogCategory.list).post(blogCategory.create);
+router.route("/").get(blogPost.list).post(blogPost.create);
 
-// router.get("/post",blogCategory.list)
-// router.post("/post",blogCategory.create)
+// router.get("/",blogPost.list)
+// router.post("/",blogPost.create)
 router
-  .route("/post/:postId")
+  .route("/:postId")
   .get(blogPost.read)
   .put(blogPost.update)
   .patch(blogPost.update)
   .delete(blogPost.delete);
 
-  module.exports=router
+  module.exports = router;
 
 /* ------------------------------------------------------- */
