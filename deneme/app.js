@@ -5,6 +5,8 @@ npm init -y
 
 npm install express
 
+npm install dotenv
+
 / Express'i dahil et
 const express = require('express');
 
