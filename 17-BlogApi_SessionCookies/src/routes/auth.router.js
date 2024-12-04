@@ -10,7 +10,6 @@ const { login, logout } = require("../controllers/auth.contoller");
 /* ------------------------------------------------------- */
 
 // URL: /auth/login
-
 router.route("/login").post(login)
 
 // URL: /auth/logout

@@ -5,6 +5,7 @@
 ------------------------------------------------------- */
 
 const { User } = require("../models/user.model");
+
 const passwordEncrypt = require("../helpers/passwordEncrypt")
 
 module.exports = {
@@ -42,6 +43,6 @@ module.exports = {
     },
 
     logout: async (req,res) => {
-
+        res.send('logout')
     }
 }
