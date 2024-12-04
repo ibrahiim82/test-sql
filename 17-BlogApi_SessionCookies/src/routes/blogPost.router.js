@@ -13,7 +13,6 @@ const { blogPost } = require("../controllers/blogPost.controller");
 // URL: /blog ->
 // /blog/post
 // BlogPost
-
 router.route("/").get(blogPost.list).post(blogPost.create);
 
 // router.get("/",blogPost.list)

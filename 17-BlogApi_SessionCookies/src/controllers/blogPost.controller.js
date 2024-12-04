@@ -21,6 +21,10 @@ module.exports.blogPost = {
   // CRUD ->
 
   create: async (req, res) => {
+
+    // eğer login olmuşsa, userId'yi req.user'dan alalım. (session)
+    if (req.user) req.body.userId = req.user._id
+
     const result = await BlogPost.create(req.body);
 
     res.send({

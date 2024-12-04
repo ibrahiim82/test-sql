@@ -61,7 +61,7 @@ module.exports.blogCategory = {
 
     //options
     //upsert: Belge bulunamazsa yeni bir belge oluşturur. (true veya false, varsayılan: false)
-    const result = BlogCategory.updateOne(
+    const result = await BlogCategory.updateOne(
       { _id: req.params.categoryId },
       req.body
     );
@@ -90,7 +90,7 @@ module.exports.blogCategory = {
     res.status(202).send({
       isError: false,
       result,
-      updated: await BlogCategory.findOne({ _id: req.params.categoryId }),
+      new: await BlogCategory.findOne({ _id: req.params.categoryId }),
     });
   },
 

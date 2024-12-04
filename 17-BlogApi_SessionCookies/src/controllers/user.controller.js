@@ -6,7 +6,7 @@
 ------------------------------------------------------- */
 // Call Models:
 const { User } = require("../models/user.model");
-const { NotFoundError } = require("../errors/customError");
+const { NotFoundError, BadRequestError } = require("../errors/customError");
 
 /* ------------------------------------------------------- */
 
@@ -68,7 +68,7 @@ module.exports.user = {
     res.status(202).send({
       isError: false,
       result,
-      updated: await User.findOne({ _id: req.params.userId }),
+      new: await User.findOne({ _id: req.params.userId }),
     });
   },
 

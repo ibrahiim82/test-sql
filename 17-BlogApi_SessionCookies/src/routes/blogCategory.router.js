@@ -16,9 +16,9 @@ const { blogCategory } = require("../controllers/blogCategory.controller");
 // URL: /blog ->
 // BlogCategory
 router.route("/").get(blogCategory.list).post(blogCategory.create);
-
 // router.get("/",blogCategory.list)
 // router.post("/",blogCategory.create)
+
 router
   .route("/:categoryId")
   .get(blogCategory.read)

@@ -14,9 +14,9 @@ const { user } = require("../controllers/user.controller");
 // /user
 
 router.route("/").get(user.list).post(user.create);
-
 // router.get("/",user.list)
 // router.post("/",user.create)
+
 router
   .route("/:userId")
   .get(user.read)

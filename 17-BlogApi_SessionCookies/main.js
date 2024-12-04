@@ -21,28 +21,35 @@ require("./src/config/dbConnection")();
 /* ------------------------------------------------------- */
 //* SESSIONS & COOKIES
 // npm i cookie-session
+// https://expressjs.com/en/resources/middleware/cookie-session.html
 
-const session = require("cookie-session")
+const session = require("cookie-session");
 
 // Run with general settings:
 app.use(session({
-  secret: process.env.SECRET_KEY, // Cookie datasını şifreleme anahtarı
-  // maxAge: 1000 * 60 * 60 * 24 * 3  //3 gün  // birimi milisaniyedir
-}))
+    secret: process.env.SECRET_KEY, // Cookie datasını şifreleme anahtarı
+    // maxAge: 1000 * 60 * 60 * 24 * 3  //3 gün  // birimi milisaniyedir
+}));
 
 /* ------------------------------------------------------- */
-app.use("/blog/category", require("./src/routes/blogCategory.router"))
-app.use("/blog/post", require("./src/routes/blogPost.router"))
-app.use("/user", require("./src/routes/user.router"))
-app.use("/auth", require("./src/routes/auth.router")) //authontication işlemleri: login,logout
+//^ Check user-data from session:
+
+// Moved to userControl.js file:
+app.use(require("./src/middlewares/userControl"))
+
+/* ------------------------------------------------------- */
+app.use("/blog/category", require("./src/routes/blogCategory.router"));
+app.use("/blog/post", require("./src/routes/blogPost.router"));
+app.use("/user", require("./src/routes/user.router"));
+app.use("/auth", require("./src/routes/auth.router")); //authontication işlemleri: login,logout
 app.all("/", (req, res) => {
   // res.send("WELCOME TO BLOG API");
   // console.log("session:", req.session);
-    res.send({
-      message: "WELCOME TO BLOG API",
-      session: req.session
-    })
-
+  res.send({
+    message: "WELCOME TO BLOG API",
+    user: req.user,  // Logined user data
+    session: req.session,
+  });
 });
 
 /* ------------------------------------------------------- */

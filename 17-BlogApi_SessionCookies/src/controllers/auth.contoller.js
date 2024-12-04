@@ -14,6 +14,8 @@ module.exports = {
         const { email, password } = req.body
 
         if (email && pasword) {
+            // Email ve Password gönderildi
+
             const user = await User.findOneAndDelete({ email })
 
             if (user) {
@@ -48,11 +50,11 @@ module.exports = {
 
                 } else {
                     res.errorStatusCode = 401
-            throw new Error('Login parameters are not true.')
+                    throw new Error('Login parameters are not true.')
                 }
             } else {
                 res.errorStatusCode = 401
-            throw new Error('This user not found.')
+                throw new Error('This user not found.')
             }
         } else {
             res.errorStatusCode = 401
@@ -61,7 +63,14 @@ module.exports = {
         }
     },
 
+    // session'a data ekleme login ile data silme logout ile yapılır
     logout: async (req,res) => {
-        res.send('logout')
+        // Session/Cookie verilerini silmek için null yapmak yeterli
+        req.session = null   // session'daki dataları silme
+
+        res.status(200).send({
+            error: false,
+            message: "Logout OK"
+        })
     }
 }

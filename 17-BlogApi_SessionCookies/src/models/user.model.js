@@ -8,8 +8,6 @@ const paswordEncypt = require("../helpers/passwordEncrypt");
 
 /* ------------------------------------------------------- */
 
-/* ------------------------------------------------------- */
-
 // User Schema:
 const UserSchema = new mongoose.Schema(
   {
@@ -84,3 +82,5 @@ const UserSchema = new mongoose.Schema(
 module.exports = {
   User: mongoose.model("User", UserSchema),
 };
+
+/* ------------------------------------------------------- */
