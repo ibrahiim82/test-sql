@@ -1,8 +1,8 @@
 
 
 
-//? MULAKAT SORUSU
-//* (MVC) model view controller nedir,ne işe yarar,model ne işe yarar,view ne işe yarar,controller ne işe yarar?
+//// MULAKAT SORUSU
+//// (MVC) model view controller nedir,ne işe yarar,model ne işe yarar,view ne işe yarar,controller ne işe yarar?
 
 
 //* require
@@ -64,4 +64,9 @@ function isim(){
 */
 // hoisting: sadece function declarationda (yani hem yukarıda hem de aşağıda) çalışır
 
-
+//* Front-endde data saklama:
+//^ LocalStorage: kalıcı datadır, biz silmediğimiz sürece silinmez.
+//^ SessionStorage: geçici datadır, tarayıcıyı kapattığımız an silinir.
+//session data nerede saklanır?
+//^ Cookies: süreli data saklama (3gün,1hafta,1ay...)
+//session demek sessionStorage demek değildir, sessionlar cookies'dir.
