@@ -21,6 +21,25 @@ module.exports = {
                 if (user.password == passwordEncrypt(password)) {
                     // Password Ok.
 
+                    /* SESSION */
+                    // req.session = {
+                    //     email: user.email,
+                    //     password: user.password,
+                    // }
+                    // req.session.email = user.email
+                    req.session._id = user._id
+                    req.session.password = user.password
+                    /* SESSION */
+
+                    /* COOKIES */
+                    // Beni Hatırla gönderildiyse:
+                    if (req.body?.remindMe) {
+                        req.session.remindMe = true,
+                        // Set maxAge to 3 days:
+                        req.sessionOptions.maxAge = 1000 * 60 * 60 * 24 * 3
+                    }
+                    /* COOKIES */
+
                     res.status(200).send({
                         error: false,
                         message: "Login OK",
