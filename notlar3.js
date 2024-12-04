@@ -70,3 +70,9 @@ function isim(){
 //session data nerede saklanır?
 //^ Cookies: süreli data saklama (3gün,1hafta,1ay...)
 //session demek sessionStorage demek değildir, sessionlar cookies'dir.
+
+
+//~ Kodda _id Kullanımı: Çoğu zaman, bir veritabanı nesnesiyle ilişkili kimlik alanlarını belirtirken id yerine _id kullanılır. Bu, MongoDB'nin veya başka bir veritabanı sisteminin standartlarına uygun olmanın yanı sıra, genellikle veritabanı seviyesinde daha özel bir kimlik alanını belirtir.
+
+//~ _id: Veritabanında veya nesnede otomatik olarak oluşturulan veya benzersiz kimliği tanımlar.
+//~ id: Genellikle geliştiriciler tarafından manuel olarak atanabilir ve başka amaçlarla kullanılabilir.
