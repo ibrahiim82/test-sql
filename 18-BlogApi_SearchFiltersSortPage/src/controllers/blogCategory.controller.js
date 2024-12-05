@@ -13,7 +13,8 @@ const { NotFoundError } = require("../errors/customError");
 module.exports.blogCategory = {
   list: async (req, res) => {
     //  const data = await BlogCategory.find({});
-    const data = await BlogCategory.find();
+    // const data = await BlogCategory.find();
+    const data = await 
 
     res.send({
       result: data,

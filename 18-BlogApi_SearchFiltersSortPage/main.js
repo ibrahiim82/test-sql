@@ -38,6 +38,12 @@ app.use(session({
 app.use(require("./src/middlewares/userControl"))
 
 /* ------------------------------------------------------- */
+
+// Middleware: Filter Search Sort Pagination
+
+app.use(require('./src/middlewares/findSearchSortPage'))
+
+/* ------------------------------------------------------- */
 app.use("/blog/category", require("./src/routes/blogCategory.router"));
 app.use("/blog/post", require("./src/routes/blogPost.router"));
 app.use("/user", require("./src/routes/user.router"));

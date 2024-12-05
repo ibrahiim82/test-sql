@@ -71,8 +71,25 @@ function isim(){
 //^ Cookies: süreli data saklama (3gün,1hafta,1ay...)
 //session demek sessionStorage demek değildir, sessionlar cookies'dir.
 
+//^ matchedCount:0,1,2   modifiedCount=0,1  durumu
+//matchedCount:0,1,2   modifiedCount=0,1  durumu
+// matchedCount: Eşleşen belge sayısını belirtir.
+// modifiedCount: Gerçekten değiştirilen belge sayısını belirtir.
+
+// matchedCount, güncelleme işleminin hangi sayıdbelgenin eşleştiğini gösterir.
+// Eğer bir belge belirli bir filtreye uyaragüncellenmeye çalışılıyorsa, matchedCount filtreyle eşleşen belge sayısını belirtir.
+// modifiedCount, gerçekten güncellenen belge sayısını gösterir.
+// Yani, eşleşen belgeler üzerinde bir değişikliyapılıp yapılmadığını belirler. Eğer eşleşen belgenin mevcut durumu zaten güncellenmeye gerek olmayacaksa, modifiedCount sıfır olur.
+
+// matchedCount: 0, modifiedCount: 0: Hiçbir belge eşleşmedi veya eşleşen belgeler güncellenmeye gerek duymadı.
+// matchedCount: 1, modifiedCount: 1: Bir belge eşleşti ve gerçekten bir değişiklik yapıldı.
+// matchedCount: 2, modifiedCount: 1: İki belge eşleşti, ancak sadece birinin verisi güncellendi.
+
 
 //~ Kodda _id Kullanımı: Çoğu zaman, bir veritabanı nesnesiyle ilişkili kimlik alanlarını belirtirken id yerine _id kullanılır. Bu, MongoDB'nin veya başka bir veritabanı sisteminin standartlarına uygun olmanın yanı sıra, genellikle veritabanı seviyesinde daha özel bir kimlik alanını belirtir.
 
 //~ _id: Veritabanında veya nesnede otomatik olarak oluşturulan veya benzersiz kimliği tanımlar.
 //~ id: Genellikle geliştiriciler tarafından manuel olarak atanabilir ve başka amaçlarla kullanılabilir.
+
+// env dosyasında yazılan tüm değerler stringdir. (abc,10,true,20,false hepsi string ifadedir)
+

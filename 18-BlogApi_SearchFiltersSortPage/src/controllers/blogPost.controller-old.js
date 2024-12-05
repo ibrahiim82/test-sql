@@ -13,14 +13,64 @@ module.exports.blogPost = {
 
   list: async (req, res) => {
 
-    // Moved to middleware:
-    const data = await res.getModelList(BlogPost, ['userId', 'categoryId'])
+    //* FILTERING - SEARCHING - SORTING - PAGINATION
+
+    // console.log(req.query)
+
+    //^FILTERING:
+    // URL?filter(fieldName1)=value1&filter(fieldName2)=value2
+    const filter = req.query?.filter || {};
+    // console.log(filter)
+    // { userId: '6751e0e727ae5347fc01afd7', title: 'test 5 title' }
+
+    //^ SEARCHING:
+    // URL?search[fieldName1]=value1&search[fieldName2]=value2
+    const search = req.query?.search || {};
+    // console.log(search);
+    // https://www.mongodb.com/docs/manual/reference/operator/query/regex/
+    // { title: { $regex: "test 5 title", $options: "i" } } 
+    // 'i' = büyük,küçük harf duyarsız olması için options'a i yazarız.
+    for (let key in search) {
+      // search[key] = { $regex: search[key]}  // case-sensitive (küçük,büyük harf duyarlı)
+      search[key] = { $regex: search[key], $options: "i"} // case-insensitive (küçük,büyük harf duyarsız)
+    } // 22.satırdaki formatı 29. satırdaki formata dönüştürmüş olduk.
+    // console.log(search);
+
+    //^ SORTING:
+    // URL?sort[fieldName1]=asc&sort[fieldName2]=desc (asc:A-Z, desc: Z-A)
+    // Cancelled: URL?sort[fieldName1]=1&sort[fieldName2]=-1 // Mongoose 8.0 > deprecated
+    const sort = req.query.sort || {}
+    // console.log(sort);
+
+    //^ PAGINATION:
+    //URL?page=3&limit=20&skip=10   //URL?page=3&limit=20 -> hersayfada 20 tane dödür 3. sayfayı getir demek
+
+    // LIMIT:
+    let limit = Number(req.query?.limit)
+    limit = limit > 0 ? limit : (process.env.PAGE_SIZE || 20)
+    // env dosyasındaki tüm değerler stringtir
+    // console.log(limit, typeof limit);
+
+    // PAGE
+    let page = Number(req.query?.page)
+    page = page > 0 ? page : 1
+    // console.log(page);
+
+    // SKIP
+    let skip = Number(req.query?.skip)
+    skip = skip > 0 ? skip : ((page - 1) * limit)
+    // console.log(page, skip, limit);
+
+
+    // const data = await BlogPost.find().populate("categoryId");
+    // LIMIT 10, 20 = LIMIT skip() limit()
+    // const data = await BlogPost.find({ ...filter, ...search}).sort(sort).limit(limit).skip(skip)
+    const data = await BlogPost.find({ ...filter, ...search}).sort(sort).limit(limit).skip(skip).populate([ 'userId', 'categoryId' ])
+    // const data = await BlogPost.find({ ...filter, ...search }).sort(sort).limit(limit).skip(skip).populate(['userId']).populate(['categoryId'])
 
     res.send({
-        details: await res.getModelListDetails(BlogPost),
-        result: data,
+      result: data,
     });
-    
   },
 
   // CRUD ->
