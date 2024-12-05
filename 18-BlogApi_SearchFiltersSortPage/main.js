@@ -66,3 +66,10 @@ app.use(require("./src/middlewares/errorHandler"));
 /* ------------------------------------------------------- */
 
 app.listen(PORT, () => console.log("Running: http://127.0.0.1:" + PORT));
+
+/* ------------------------------------------------------- */
+
+// test verisi içindir. Bir kez çalıştır. ( sonra yorum satırına al)
+// require("./sync")()
+
+

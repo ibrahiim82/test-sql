@@ -10,7 +10,24 @@ const { NotFoundError } = require("../errors/customError");
 /* ------------------------------------------------------- */
 
 module.exports.blogPost = {
+
   list: async (req, res) => {
+
+    //* FILTERING - SEARCHING - SORTING - PAGINATION
+
+    //FILTERING:
+    // URL?filter(fieldName1)=value1&filter(fieldName2)=value2
+    const filter = req.query?.filter || {};
+    // console.log(filter)
+    // { userId: '6751e0e727ae5347fc01afd7', title: 'test 5 title' }
+
+    // SEARCHING:
+    // URL?search[fieldName1]=value1&search[fieldName2]=value2
+    const search = req.query?.search || {};
+    console.log(search);
+    // https://www.mongodb.com/docs/manual/reference/operator/query/regex/
+    // { userId: { $regex: "6751e0e727ae5347fc01afd7", $options: "i" } }  // 'i' = büyük,küçük harf duyarsız olması için options'a i yazarız.
+
     const data = await BlogPost.find().populate("categoryId");
 
     res.send({
@@ -21,9 +38,8 @@ module.exports.blogPost = {
   // CRUD ->
 
   create: async (req, res) => {
-
     // eğer login olmuşsa, userId'yi req.user'dan alalım. (session)
-    if (req.user) req.body.userId = req.user._id
+    if (req.user) req.body.userId = req.user._id;
 
     const result = await BlogPost.create(req.body);
 
@@ -52,7 +68,7 @@ module.exports.blogPost = {
     //matchedCount:0,1,2   modifiedCount=0,1  durumu
     // matchedCount: Eşleşen belge sayısını belirtir.
     // modifiedCount: Gerçekten değiştirilen belge sayısını belirtir.
-    
+
     //!güncellenmek istenen veri yoksa
     // if (result.matchedCount === 0) {
     //   throw new NotFoundError("No matching documents found");
