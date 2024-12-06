@@ -19,7 +19,42 @@ module.exports = async (req, res, next) => {
 
     //^ SEARCHING:
     // URL?search[fieldName1]=value1&search[fieldName2]=value2
-    const search = req.query?.search || {};
+    // const search = req.query?.search || "";
+    // let searchQuery = []; 
+    // if (search) {
+    //     searchQuery.$or= [
+    //         {
+    //             title: {
+    //                 $regex: search,
+    //                 $options: "i"
+    //             }
+    //         },
+    //         {
+    //             content: {
+    //                 $regex: search,
+    //                 $options: "i"
+    //             }
+    //         }
+    //     ]
+    // }
+    const search = Array.of(req.query.search) || []
+    const searchQuery = {
+        $or: search.map((item) =>( {
+            
+                            title: {
+                                $regex: item,
+                                $options: "i"
+                            }
+                        
+        })).concat(search.map((item) =>( {
+            
+            content: {
+                $regex: item,
+                $options: "i"
+            }
+        
+})))
+    }
     // console.log(search);
     // https://www.mongodb.com/docs/manual/reference/operator/query/regex/
     // { title: { $regex: "test 5 title", $options: "i" } } 
@@ -64,18 +99,18 @@ module.exports = async (req, res, next) => {
     
     // GetModelList
     res.getModelList = async function (Model, populate = null) {
-        return await Model.find({ ...filter, ...search}).sort(sort).limit(limit).skip(skip).populate(populate)
+        return await Model.find({ ...filter, ...searchQuery}).sort(sort).limit(limit).skip(skip).populate(populate)
 
     }
 
     // GetModelListDetails
     res.getModelListDetails = async function(Model){
 
-        const data = await Model.find({ ...filter, ...search})
+        const data = await Model.find({ ...filter, ...searchQuery})
 
         let details = {
             filter,
-            search,
+            searchQuery,
             sort,
             skip,
             limit,
