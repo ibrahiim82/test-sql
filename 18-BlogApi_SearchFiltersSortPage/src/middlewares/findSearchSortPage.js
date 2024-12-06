@@ -37,7 +37,7 @@ module.exports = async (req, res, next) => {
     //         }
     //     ]
     // }
-    // diğer
+    // diğer yöntem
     const search = Array.of(req.query.search) || []
     const searchQuery = {
         $or: search.map((item) =>( {
