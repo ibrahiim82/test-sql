@@ -27,7 +27,9 @@ module.exports = (req, res, next) => {
   skip = skip > 0 ? skip : page * limit;
 
   // Run SearchingSortingPagination engine for Model:
-  res.getModelList = async function (Model, populate = null) {
+  res.getModelList = async function (Model, filter = {}, populate = null) {
+    //!  filter +search
+    const filterAndSearch = { ...filter, ...search };
     return await Model.find(filtersAndSearch)
       .sort(sort)
       .skip(skip)
@@ -36,8 +38,9 @@ module.exports = (req, res, next) => {
   };
 
   // Details:
-  res.getModelListDetails = async function (Model) {
-    const data = await Model.find(search);
+  res.getModelListDetails = async function (Model, filter = {}) {
+    const filterAndSearch = { ...filter, ...search };
+    const data = await Model.find(filterAndSearch);
     let details = {
       search,
       sort,
