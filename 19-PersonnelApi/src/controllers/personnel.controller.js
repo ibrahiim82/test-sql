@@ -8,19 +8,35 @@ const Personnel = require("../models/personnel.model");
 module.exports = {
   list: async (req, res) => {
     //! data
-    const data = {};
+    const data = await res.getModelList(Personnel,"departmentId");
 
     res.status(200).send({
       error: false,
       //! detail
-      detail: {},
+      detail: await res.getModelListDetails(Personnel),
       data,
     });
   },
 
   create: async (req, res) => {
-    //! isLead Control:
 
+    //! sistemde bir admin olacaksa ve db de admin önceden tanımlanmışsa
+    // const isFirtAccount = (await Personel.countDocuments()) === 0;
+    // req.body.isAdmin = isFirstAccount ? true : false;
+
+    //! ya da direkt admin false
+    req.body.isAdmin = false;
+
+    //! isLead Control:
+    const isLead = req.body.isLead || false;
+
+    if(isLead) {
+      await Personnel.updateMany(
+        { departmendId: req.body.departmendId, isLead: true },
+        { isLead: false },
+        { runValidators: true},
+    )
+    }
     const data = await Personnel.create(req.body);
 
     res.status(201).send({
