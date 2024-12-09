@@ -25,6 +25,7 @@ dbConnection();
 app.use(express.json());
 
 // cookie: httpOnly:true XSS Cross Site Scripting, secure:https
+// const session = require("cookie-session")
 
 // res.getModelList():
 app.use(require("./src/middlewares/findSearchSortPage"));
