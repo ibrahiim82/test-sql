@@ -12,7 +12,7 @@ router.route("/").get(department.list).post(department.create);
 
 router
   .route("/:id")
-  .get(idValidation,department.read)
+  .get(department.read)
   .put(department.update)
   .patch(department.update)
   .delete(department.delete);
