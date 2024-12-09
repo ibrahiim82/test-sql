@@ -1,15 +1,18 @@
 "use strict";
+
 /* -------------------------------------------------------
     EXPRESS - Personnel API
 ------------------------------------------------------- */
 
 const Personnel = require("../models/personnel.model");
+const passwordEncrypt = require("../helpers/passwordEncrypt");
 
 module.exports = {
   list: async (req, res) => {
     //! data
-    const data = await res.getModelList(Personnel,"departmentId");
+    const data = await res.getModelList(Personnel, {},"departmentId");
 
+    console.log("------------", req.session);
     res.status(200).send({
       error: false,
       //! detail
@@ -19,26 +22,26 @@ module.exports = {
   },
 
   create: async (req, res) => {
-
     //! sistemde bir admin olacaksa ve db de admin önceden tanımlanmışsa
-    // const isFirtAccount = (await Personel.countDocuments()) === 0;
+    // const isFirstAccount = (await Personnel.countDocuments()) === 0;
     // req.body.isAdmin = isFirstAccount ? true : false;
 
     //! ya da direkt admin false
     req.body.isAdmin = false;
 
     //! isLead Control:
+
     const isLead = req.body.isLead || false;
 
-    if(isLead) {
+    if (isLead) {
       await Personnel.updateMany(
-        { departmendId: req.body.departmendId, isLead: true },
+        { departmentId: req.body.departmentId, isLead: true },
         { isLead: false },
-        { runValidators: true},
-    )
+        { runValidators: true }
+      );
     }
     const data = await Personnel.create(req.body);
-
+    //! Task: kendisi takım lideriyse ve bunu false'a çekerse
     res.status(201).send({
       error: false,
       data,
@@ -56,9 +59,25 @@ module.exports = {
 
   update: async (req, res) => {
     //! isLead Control:
+    const isLead = req.body.isLead || false;
+
+    if (isLead) {
+      const { departmentId } = await Personnel.findOne(
+        { _id: req.params.id },
+        { departmentId: 1 }
+      );
+
+      await Personnel.updateMany(
+        { departmentId, isLead: true },
+        { isLead: false },
+        { runValidators: true }
+      );
+    }
 
     //! Does it perform update validation by default?
-    const data = await Personnel.updateOne({ _id: req.params.id }, req.body);
+    const data = await Personnel.updateOne({ _id: req.params.id }, req.body, {
+      runValidators: true,
+    });
 
     res.status(202).send({
       error: false,
@@ -110,10 +129,11 @@ module.exports = {
       }
     } else {
       res.errorStatusCode = 401;
-      throw new Error("Please entry username and password.");
+      throw new Error("Please enter a valid username and password.");
     }
   },
-  logout: async () => {
+
+  logout: async (req, res) => {
     req.session = null;
     res.send({
       error: false,
