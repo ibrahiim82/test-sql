@@ -93,3 +93,115 @@ function isim(){
 
 // env dosyasında yazılan tüm değerler stringdir. (abc,10,true,20,false hepsi string ifadedir)
 
+
+//* Mongoose ile temel CRUD işlemlerini gerçekleştirebileceğiniz bazı metotlar:
+// Create: save()
+// Read: find(), findOne(), findById()
+// Update: updateOne(), updateMany(), findOneAndUpdate()
+// Delete: deleteOne(), deleteMany(), findOneAndDelete()
+
+
+//* Promise, Resolve, Rejected
+// Promise, JavaScript'te asenkron (zaman alıcı) işlemleri yönetmek için kullanılan bir yapıdır. Promises, bir işlemin sonucunun (başarılı veya başarısız) bir zaman sonra sağlanacağını garanti eder. Promises, 3 durumda olabilir: pending (beklemede), fulfilled (tamamlanmış) ve rejected (reddedilmiş). Bu, bir işlemin başarısını veya başarısızlığını temsil eder.
+
+//^ Promise'in Temel Durumları:
+// Pending (Beklemede): Promise henüz tamamlanmamıştır ve sonucun ne olacağı belirsizdir.
+// Fulfilled (Tamamlanmış): Promise başarılı bir şekilde tamamlanmıştır ve bir değer döndürür.
+// Rejected (Reddedilmiş): Promise başarısız olmuş ve bir hata veya neden ile reddedilmiştir.
+
+//^ resolve() ve reject() Metodları
+// resolve(): Promise işlemi başarıyla tamamlandığında çağrılır. Bu, Promise'in başarılı olarak tamamlandığını gösterir ve sonuç olarak bir değer döndürebilir.
+// reject(): Promise işlemi başarısız olduğunda çağrılır. Bu, Promise'in başarısız olduğunu ve bir hata mesajı veya neden döndürdüğünü gösterir.
+
+// resolve(value) metodu, Promise'in başarılı bir şekilde tamamlandığını belirtir ve verilen value (değer) parametresi, asenkron işlemin sonucudur.
+
+// reject(error) metodu, Promise'in başarısız olduğunu ve işlem sırasında bir hata meydana geldiğini belirtir. Genellikle bir hata mesajı veya hata nesnesi ile birlikte kullanılır.
+
+// .then(): Promise başarılı olduğunda çalıştırılacak fonksiyonu belirtir (resolve durumunda).
+// .catch(): Promise reddedildiğinde çalıştırılacak fonksiyonu belirtir (reject durumunda).
+// .finally(): Promise durumu ne olursa olsun (hem başarılı hem de başarısız durumda) çalışacak fonksiyonu belirtir.
+
+
+//* Populate = null
+// Mongoose'da, populate() metodu, ilişkili verileri birleştirmek ve ObjectId referanslarını gerçek verilerle değiştirmek için kullanılır. Bu metod, MongoDB'nin "referanslar" (başka bir belgeye işaret eden ID'ler) ile çalışırken çok faydalıdır. Örneğin, bir User modelinin başka bir model olan Post modeline referans verdiği durumlar gibi.
+
+// populate(null) ifadesi, genellikle populate() metodunun nasıl çalıştığıyla ilişkilidir. Bu ifade, populate fonksiyonunun hiçbir ilişkilendirilmiş veri getirmemesini sağlamak için kullanılır.
+
+// populate() metodu, MongoDB'deki referansları gerçek verilere dönüştürmek için kullanılır.
+// populate(null) ifadesi, herhangi bir ilişkilendirilmiş verinin getirilmemesini sağlar ve ilişkili verileri "popüle" etmez. Bu, performans için faydalı olabilir veya ilişkili veriler gereksiz olduğunda tercih edilebilir.
+
+
+//* STATUS KODLARI
+//^ 200 OK
+// Açıklama: Bu, en yaygın kullanılan HTTP başarı kodudur. İstemci tarafından yapılan istek başarıyla işlenmiştir ve sunucu isteğe uygun bir yanıt döndürmüştür.
+// Kullanım Durumu:
+// GET, POST, PUT, DELETE gibi istekler başarıyla işlenmiş ve yanıt verilmiştir.
+// Sunucu, istemcinin istediği veriyi sağlıyorsa (örneğin bir web sayfası, API yanıtı, dosya vb.)
+
+//^  GET = 200 
+//^  POST = 200,201 
+//^  PUT = 200, 201 
+//^  DELETE = 200, 204
+
+// GET isteği genellikle 200 OK veya 304 Not Modified ile yanıtlanır.
+// POST isteği genellikle 200 OK, 201 Created, 202 Accepted gibi yanıtlarla sonuçlanır.
+// PUT isteği genellikle 200 OK, 201 Created veya 400 Bad Request ile yanıtlanır.
+// DELETE isteği genellikle 200 OK, 204 No Content veya 404 Not Found gibi yanıtlarla tamamlanır.
+
+
+//^ 400 Bad Request
+// Açıklama: Sunucu, istemciden gelen isteği anlamıyor veya işleyemiyor. Bu genellikle istemciden gelen istekteki yanlış biçimlendirme veya eksik bilgi nedeniyle olur.
+// Nedenler:
+// Hatalı veya eksik parametreler.
+// Yanlış formatta gönderilen veriler (örneğin, JSON hatası).
+// Gereksiz veya yanlış header bilgileri.
+
+//^ 401 Unauthorized
+// Açıklama: İstemci, istenen kaynağa erişim için geçerli kimlik doğrulama bilgilerini sağlamamıştır veya yanlış kimlik doğrulama bilgileri sağlamıştır.
+// Nedenler:
+// Eksik veya hatalı bir Authorization header.
+// Hatalı kullanıcı adı veya şifre.
+// Erişim token'ı (örneğin, JWT) geçersiz.
+
+//^ 402 Payment Required
+// Açıklama: Bu durum kodu, henüz yaygın olarak kullanılmıyor. Ancak gelecekte ödeme gerektiren hizmetlerde kullanılması planlanmıştır.
+// Nedenler:
+// Kullanıcı bir hizmet için ödeme yapmadığında.
+// Abonelik süresi sona erdiğinde.
+
+//^ 403 Forbidden
+// Açıklama: İstemci, istenen kaynağa erişme yetkisine sahip olsa da, sunucu erişimi reddetmiştir. Bu, kimlik doğrulama bilgisi olsa bile geçerlidir.
+// Nedenler:
+// Kullanıcının gerekli izinlere sahip olmaması.
+// Erişim kısıtlamalarının uygulanması (örneğin, IP engelleme).
+// Kaynağa erişimin sunucu tarafından yasaklanması.
+
+//^ 404 Not Found
+// Açıklama: Sunucu, istemcinin isteği üzerine belirtilen kaynağı bulamıyor. Bu, yanlış bir URL veya geçersiz bir kaynak isteği nedeniyle olabilir.
+// Nedenler:
+// Yanlış URL veya yanlış rota.
+// Kaynak silindi veya taşındı.
+
+//^ 405 Method Not Allowed
+// Açıklama: İstemci, sunucunun desteklemediği bir HTTP metodunu (GET, POST, PUT, DELETE vb.) kullanarak bir istekte bulundu.
+// Nedenler:
+// Bir kaynağa POST yerine GET isteği yapılması.
+// Kaynağa uygun olmayan bir HTTP yöntemi kullanılması.
+
+//^ 406 Not Acceptable
+// Açıklama: Sunucu, istemcinin istediği formatta bir yanıt veremiyor. İstemci, sunucudan belirli bir içerik türü (örneğin, JSON, HTML) talep etmiş olabilir, ancak sunucu bunu sağlayamaz.
+// Nedenler:
+// İstemci, sunucudan almayı beklediği içerik türünü belirtmiş ve sunucu bu türde bir içerik döndüremiyor.
+// Accept header bilgisi ile uyumsuz içerik talep edilmesi.
+
+//^ 407 Proxy Authentication Required
+// Açıklama: Sunucu, istemcinin proxy aracılığıyla doğrulama yapmasını istiyor.
+// Nedenler:
+// Proxy sunucu tarafından kimlik doğrulama istenmesi.
+// Eksik veya hatalı proxy kimlik bilgileri.
+
+//^ 408 Request Timeout
+// Açıklama: İstemci, sunucunun işlemeyi tamamlaması için belirtilen süre içinde yeterli veri göndermezse bu hata meydana gelir.
+// Nedenler:
+// İstemci, istek için yeterli zaman tanımadığı için sunucu yanıt vermez.
+// Ağ gecikmeleri veya zayıf bağlantılar.
