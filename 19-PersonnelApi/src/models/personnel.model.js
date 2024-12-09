@@ -10,7 +10,7 @@ const passwordEncrypt = require("../helpers/passwordEncrypt");
 const PersonnelSchema = new mongoose.Schema(
   {
     departmentId: {
-      type: mongoose.Schema.Types.ObjectId,
+      type: mongoose.Schema.Types.ObjectId.isValid("asdasd"),
       ref: "Department",
       required: true,
     },

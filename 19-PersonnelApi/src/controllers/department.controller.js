@@ -6,14 +6,14 @@ const Department = require("../models/department.model");
 
 module.exports = {
   list: async (req, res) => {
-    //! data
-    const data = {};
+    //! data 
+    const data = await res.getModelList(Department);
 
     res.status(200).send({
       error: false,
       data,
       //! detail
-      detail: {},
+      detail: await res.getModelListDetails(Department),
     });
   },
 
@@ -36,7 +36,7 @@ module.exports = {
 
   update: async (req, res) => {
     //! Does it perform update validation by default?
-    const data = await Department.updateOne({ _id: req.params.id }, req.body);
+    const data = await Department.updateOne({ _id: req.params.id }, req.body,{runValidators:true});
 
     res.status(202).send({
       error: false,
