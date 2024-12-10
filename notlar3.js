@@ -1,8 +1,8 @@
 
 
 
-//// MULAKAT SORUSU
-//// (MVC) model view controller nedir,ne işe yarar,model ne işe yarar,view ne işe yarar,controller ne işe yarar?
+// MULAKAT SORUSU
+// (MVC) model view controller nedir,ne işe yarar,model ne işe yarar,view ne işe yarar,controller ne işe yarar?
 
 
 //* require
@@ -25,9 +25,9 @@
 // model: aşçı
 // controller: garson
 
-//// JS'de false değerler nelerdir?
+//* JS'de false değerler nelerdir?
 
-//// Callback nedir,ne işe yarar?
+//* Callback nedir,ne işe yarar?
 
 //* CRUD == POST , Get , Put , Delete
 // CREATE = POST , READ = GET , UPDATE = PUT , DELETE = DELETE
