@@ -47,10 +47,7 @@ app.all("/", (req, res) => {
   });
 });
 
-//departments
-app.use("/department", require("./src/routes/department"));
-//personnels
-app.use("/personnel", require("./src/routes/personnel"));
+app.use(require("./src/routes/index"))
 
 //not found routes
 app.all("*", async (req, res) => {
