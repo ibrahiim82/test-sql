@@ -57,11 +57,20 @@ const morgan = require("morgan")
 
 /* ------------------------------------------------------- */
 
+//* JSON
+app.use('/document/json', (req,res)=> {
+  res.sendFile('swagger.json', { root: '.'}) //sendFile dosya içeriğini olduğu gibi aktarır. içinde bulunduğun klasörden alacağımız için nokta (.) kullanırız, sendFile'da direkt yazılamadığından root ile root: '.' şeklinde yazılır.
+})
+
 //* SWAGGER
 const swaggerUi = require('swagger-ui-express')
 const swaggerJson = require('./swagger.json')
 
 app.use('/documents/swagger', swaggerUi.serve, swaggerUi.setup(swaggerJson, { swaggerOptions: { persistAuthorization: true } }))
+
+//* REDOC 
+const redoc = require('redoc-express')
+app.use('/documents/redoc', redoc({ specUrl: '/documents/json', title: 'Redoc UI' }))
 
 /* ------------------------------------------------------- */
 //db connection

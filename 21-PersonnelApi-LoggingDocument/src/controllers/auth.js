@@ -7,8 +7,23 @@ module.exports = {
     //! Giriş çıkış işlemleri
 
     login : async(req,res)=>{
+        /*
+            #swagger.tags = ['Authentication']
+            #swagger.summary = 'Login'
+            #swagger.description = `Login with username & password`
+            #swagger.parameters['body'] = {
+                in: 'body',
+                required: true,
+                schema: {
+                    username: '*String',
+                    password: '*String'
+                }
+            },
+            _swagger.ignore = true
+            _swagger.deprecated = true
+        */
 
-        const {username,password}=req.body  //& bir personelin sistem girişi yapmasını sağlayacak parametereler
+        const {username,password} = req.body  //& bir personelin sistem girişi yapmasını sağlayacak parametreler
 
         if(usernam && password){
             const user = await Personel.findOne({username,password})
@@ -39,6 +54,12 @@ module.exports = {
        }
     },
     logout: async(req,res)=>{
+
+        /*
+            #swagger.tags = ['Authentication']
+            #swagger.summary = 'Logout'
+        */
+
         req.session=null //& oturum bilgileri temizlendi
 
         const auth = req.headers?.authorization || null 

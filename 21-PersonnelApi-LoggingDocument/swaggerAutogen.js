@@ -62,7 +62,11 @@ const document = {
             description: 'Simple Token * Example: <b>Token ...tokenKey...</b>' // descriptionda html etiketi kullanabiliriz
         }
     },
-    security: [{ Token: [] }]
+    security: [{ Token: [] }],
+    // Models:
+    definitions: {
+        
+    }
 }
 
 const routes = ['./index.js']
