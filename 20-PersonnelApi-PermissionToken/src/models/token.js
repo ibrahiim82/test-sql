@@ -25,7 +25,7 @@ const TokenSchema = new mongoose.Schema(
     },
     {
         collection: "tokens",
-        timestamps:true
+        timestamps:true   //&  timestamps, her belgeye (document) otomatik olarak createdAt ve updatedAt adında iki tarih alanı eklenmesini sağlar.createdAt: Belge oluşturulduğu anda otomatik olarak set edilir. updatedAt: Belge her güncellendiğinde otomatik olarak güncellenir.
     }
 )
 module.exports = mongoose.model("Token",TokenSchema)

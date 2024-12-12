@@ -202,7 +202,22 @@ Ağ gecikmeleri veya zayıf bağlantılar.
 
 
 
+*{ collection: "departments", timestamps: true }
+Bu yapı, Mongoose modelini oluştururken bir şema (schema) üzerinde options parametrelerini tanımlar. Bu parametrelerin anlamı şu şekildedir:
 
+1. collection: "departments"
+collection, MongoDB veritabanında kullanılacak koleksiyon adını belirtir. MongoDB, her tür veriyi koleksiyonlar içinde depolar.
+Bu parametre ile departments adlı bir koleksiyon kullanılacağı belirtiliyor. Eğer collection parametresi belirtilmezse, Mongoose, model adının çoğul halini kullanarak koleksiyon adını otomatik olarak belirler (örneğin, "Department" model adı için MongoDB koleksiyonu "departments" olarak adlandırılır).
+Yani, bu parametre ile koleksiyon adı kesin bir şekilde "departments" olarak ayarlanmış oluyor.
+
+2. timestamps: true
+timestamps, her belgeye (document) otomatik olarak createdAt ve updatedAt adında iki tarih alanı eklenmesini sağlar.
+
+createdAt: Belge oluşturulduğu anda otomatik olarak set edilir.
+
+updatedAt: Belge her güncellendiğinde otomatik olarak güncellenir.
+
+timestamps: true ayarı, veritabanındaki her belgeye bu tarih alanlarının otomatik olarak eklenmesini sağlar ve güncellenmelerde bu alanlar Mongoose tarafından güncellenir.
 
 
 
