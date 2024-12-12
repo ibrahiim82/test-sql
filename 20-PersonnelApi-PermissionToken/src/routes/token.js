@@ -3,12 +3,12 @@
 const {isAdmin} = require("../middlewares/permissions")
 const router = require("express").Router()
 const token = require("../controllers/token")
-const {list,read,update,delete: deleteToken } = require("../controllers/token")
+const {list,read,update,create,delete: deleteToken } = require("../controllers/token")
 router.use(isAdmin)
 
 router.route("/")
-.get(token.list)
-.post(token.create)
+.get(list)
+.post(create)
 
 router.route("/:id")
 .get(read)

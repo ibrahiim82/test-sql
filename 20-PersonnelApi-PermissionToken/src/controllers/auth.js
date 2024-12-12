@@ -34,8 +34,8 @@ module.exports = {
                 throw new Error("Yanlış kullanıcı adı ve şifre")
                }
        }else{
-        res.errorStatusCode=403;
-        throw new Error("Lütfen kullanıcı adı ve şifre")
+            res.errorStatusCode=403;
+            throw new Error("Lütfen kullanıcı adı ve şifre giriniz")
        }
     },
     logout: async(req,res)=>{
