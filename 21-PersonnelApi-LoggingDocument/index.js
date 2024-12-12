@@ -56,6 +56,14 @@ const morgan = require("morgan")
 // app.use(require('./src/middlewares/logger'))
 
 /* ------------------------------------------------------- */
+
+//* SWAGGER
+const swaggerUi = require('swagger-ui-express')
+const swaggerJson = require('./swagger.json')
+
+app.use('/documents/swagger', swaggerUi.serve, swaggerUi.setup(swaggerJson, { swaggerOptions: { persistAuthorization: true } }))
+
+/* ------------------------------------------------------- */
 //db connection
 dbConnection();
 
