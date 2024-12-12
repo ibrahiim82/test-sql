@@ -53,7 +53,7 @@ const morgan = require("morgan")
 // }))
 
 // Moved to file:
-app.use(require('./src/middlewares/logger'))
+// app.use(require('./src/middlewares/logger'))
 
 /* ------------------------------------------------------- */
 //db connection
