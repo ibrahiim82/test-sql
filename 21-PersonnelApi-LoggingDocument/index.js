@@ -53,9 +53,14 @@ const morgan = require("morgan")
 // }))
 
 // Moved to file:
-// app.use(require('./src/middlewares/logger'))
+app.use(require('./src/middlewares/logger'))
 
 /* ------------------------------------------------------- */
+//* DOCUMENTATION
+// https://swagger-autogen.github.io/docs/
+// $ npm i swagger-autogen # JSON creator
+// $ npm i swagger-ui-express
+// $ npm i redoc-express
 
 //* JSON
 app.use('/document/json', (req,res)=> {
@@ -63,12 +68,14 @@ app.use('/document/json', (req,res)=> {
 })
 
 //* SWAGGER
+// https://www.npmjs.com/package/swagger-ui-express
 const swaggerUi = require('swagger-ui-express')
 const swaggerJson = require('./swagger.json')
 
 app.use('/documents/swagger', swaggerUi.serve, swaggerUi.setup(swaggerJson, { swaggerOptions: { persistAuthorization: true } }))
 
 //* REDOC 
+// https://www.npmjs.com/package/redoc-express
 const redoc = require('redoc-express')
 app.use('/documents/redoc', redoc({ specUrl: '/documents/json', title: 'Redoc UI' }))
 
