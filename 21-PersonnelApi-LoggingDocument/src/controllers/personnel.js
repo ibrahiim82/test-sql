@@ -13,7 +13,7 @@ module.exports = {
             #swagger.tags = ['Personnels']
             #swagger.summary = 'List Personnels'
             #swagger.description = `
-            You can send query with endpoint for search[], sort[], page and limit.
+            You can send query with endpoint for filter[], search[], sort[], page and limit.
             <ul> Examples:
                 <li>URL/?<b>filter[field1]=value1&filter[field2]=value2</b></li>
                 <li>URL/?<b>search[field1]=value1&search[field2]=value2</b></li>
@@ -36,8 +36,15 @@ module.exports = {
 
   create: async (req, res) => {
     /*
-            #swagger.tags = ['Personnels']
-            #swagger.summary = 'Create Personnels'
+        #swagger.tags = ['Personnels']
+        #swagger.summary = 'Create Personnel'
+        #swagger.parameters['body'] = {
+            in: 'body',
+            required: true,
+            schema: {
+                $ref: '#/definitions/Personnel'
+            }
+        }
     */
     //! sistemde bir admin olacaksa ve db de admin önceden tanımlanmışsa
     // const isFirstAccount = (await Personnel.countDocuments()) === 0;
@@ -68,7 +75,7 @@ module.exports = {
   read: async (req, res) => {
     /*
             #swagger.tags = ['Personnels']
-            #swagger.summary = 'Read Personnels'
+            #swagger.summary = 'Read Single Personnels'
     */
     const data = await Personnel.findOne({ _id: req.params.id });
 
@@ -80,8 +87,15 @@ module.exports = {
 
   update: async (req, res) => {
     /*
-            #swagger.tags = ['Personnels']
-            #swagger.summary = 'Update Personnels'
+        #swagger.tags = ['Personnels']
+        #swagger.summary = 'Update Personnel'
+        #swagger.parameters['body'] = {
+            in: 'body',
+            required: true,
+            schema: {
+                $ref: '#/definitions/Personnel'
+            }
+        }
     */
     //! isLead Control:
     const isLead = req.body.isLead || false;

@@ -25,8 +25,8 @@ module.exports = {
 
         const {username,password} = req.body  //& bir personelin sistem girişi yapmasını sağlayacak parametreler
 
-        if(usernam && password){
-            const user = await Personel.findOne({username,password})
+        if(username && password){
+            const user = await Personel.findOne({ username, password })
             if (user && user.isActive){
                 //^Token
                 //& token var mıdır? kullanıcı _id özelliği her kayıt için benzersiz bir tanımlayıcıydı eğer token modelinde userId alanı _id eşit olan bir kaydı bulursa kullanıcının kaydı var demektir.
@@ -60,7 +60,7 @@ module.exports = {
             #swagger.summary = 'Logout'
         */
 
-        req.session=null //& oturum bilgileri temizlendi
+        req.session = null //& oturum bilgileri temizlendi
 
         const auth = req.headers?.authorization || null 
         const tokenKey = auth ? auth.split("") : null
