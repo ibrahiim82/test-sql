@@ -8,7 +8,7 @@ router.use("/auth",require("./auth"))
 
 // token
 
-router.use("/token", require("./token"))
+router.use("/tokens", require("./token"))
 
 // personnel
 

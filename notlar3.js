@@ -221,6 +221,33 @@ timestamps: true ayarı, veritabanındaki her belgeye bu tarih alanlarının oto
 
 
 
+* PUT ve PATCH farkı:
+PUT: 
+  Kaynağın tamamını güncellemek
+  Kaynağın tüm verisi gönderilir
+  Tam güncelleme gerektiğinde kulanılır (örneğin, tüm profil bilgileri)
+  
+PATCH:
+  Kaynağın belirli bir kısmını güncellemek
+  Yalnızca değiştirilmek istenen veriler gönderilir
+  Kısmi güncelleme gerektiğinde kullanılır (örneğin, sadece e-posta adresi)
+
+
+
+* timestamps:true 
+
+timestamps, her belgeye (document) otomatik olarak createdAt ve updatedAt adında iki tarih alanı eklenmesini sağlar.createdAt: Belge oluşturulduğu anda otomatik olarak set edilir. updatedAt: Belge her güncellendiğinde otomatik olarak güncellenir.
+
+
+
+
+
+
+
+
+
+
+
 
 
 

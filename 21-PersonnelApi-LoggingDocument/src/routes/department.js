@@ -7,6 +7,7 @@ const router = require("express").Router();
 
 const department = require("../controllers/department");
 const {isAdminOrLead,isLogin,isAdmin} = require("../middlewares/permissions")
+
 /* ------------------------------------------------------- */
 router.route("/").get(department.list).post(isAdmin,department.create);
 
