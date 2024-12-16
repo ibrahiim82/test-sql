@@ -200,6 +200,7 @@ Nedenler:
 İstemci, istek için yeterli zaman tanımadığı için sunucu yanıt vermez.
 Ağ gecikmeleri veya zayıf bağlantılar.
 
+^ 500 Server Error
 
 
 *{ collection: "departments", timestamps: true }
