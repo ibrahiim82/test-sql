@@ -35,9 +35,22 @@ module.exports = {
       throw new BadRequestError("username/email and password are required")
 
 
-    const user = await User.findOne({$or :[{email},{password}]})
+    const user = await User.findOne({$or :[{username},{email}]})
     if(!user)
       throw new NotFoundError("username/email is not found")
+
+    if(!user.isActive)
+      throw new UnauthorizedError("This user is inactive")
+    
+    if(user.password !== passwordEncrypt(password))
+      throw new UnauthorizedError("incorrect password")
+
+    let tokenData = await Token.findOne({ userId: user._id})
+
+    if(!tokenData) {
+      const tokenKey = passwordEncrypt(user._id + Date.now())
+      tokenData = await Token.create({ userId: user._id, token: tokenKey})
+    }
 
     res.send({
       error: false,
