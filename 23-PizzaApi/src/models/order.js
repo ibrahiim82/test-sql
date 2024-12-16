@@ -1,4 +1,5 @@
 "use strict";
+const { trusted } = require("mongoose");
 /* -------------------------------------------------------
     NODEJS EXPRESS | CLARUSWAY FullStack Team
 ------------------------------------------------------- */
@@ -25,6 +26,18 @@ const OrderSchema = new mongoose.Schema(
       required: true,
       enum: ["Small", "Medium", "Large", "XLarge"] //& enum ile sadece bu dizideki değerlerden birisi olmak zorunda olduğunu belirttik
     },
+    quantity: {
+      type: Number,
+      default: 1  //required yazmasak bile false değerdeyken default:1 yazıp en az 1 sipariş olduğunu belirtiyoruz
+    },
+    price: {
+      type: Number,
+      required: true
+    },
+    amount: {
+      type: Number,
+      
+    }
   },
   {
     collection: "orders",

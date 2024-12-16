@@ -28,6 +28,17 @@ module.exports = {
                 }
             }
         */
+
+    const{username,password,email}=req.body
+
+    if( !((username || email) && password))
+      throw new BadRequestError("username/email and password are required")
+
+
+    const user = await User.findOne({$or :[{email},{password}]})
+    if(!user)
+      throw new NotFoundError("username/email is not found")
+
     res.send({
       error: false,
     });
