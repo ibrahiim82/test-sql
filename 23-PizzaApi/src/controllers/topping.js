@@ -21,6 +21,13 @@ module.exports = {
                 </ul>
             `
         */
+    const data = await res.getModelList(Topping);
+
+    res.status(200).send({
+      error: false,
+      details: await res.getModelListDetails(Topping),
+      data,
+    });
   },
 
   // CRUD:
@@ -30,6 +37,12 @@ module.exports = {
             #swagger.tags = ["Toppings"]
             #swagger.summary = "Create Topping"
         */
+    const data = await Topping.create(req.body);
+
+    res.status(201).send({
+      error: false,
+      data,
+    });
   },
 
   read: async (req, res) => {
@@ -37,6 +50,12 @@ module.exports = {
             #swagger.tags = ["Toppings"]
             #swagger.summary = "Get Single Topping"
         */
+    const data = await Topping.findOne({ _id: req.params.id });
+
+    res.status(200).send({
+      error: false,
+      data,
+    });
   },
 
   update: async (req, res) => {
@@ -44,6 +63,15 @@ module.exports = {
             #swagger.tags = ["Toppings"]
             #swagger.summary = "Update Topping"
         */
+    const data = await Topping.updateOne({ _id: req.params.id }, req.body, {
+      runValidators: true,
+    });
+
+    res.status(202).send({
+      error: false,
+      data,
+      new: await Topping.findOne({ _id: req.params.id }),
+    });
   },
 
   delete: async (req, res) => {
@@ -51,5 +79,11 @@ module.exports = {
             #swagger.tags = ["Toppings"]
             #swagger.summary = "Delete Topping"
         */
+    const data = await Topping.deleteOne({ _id: req.params.id });
+
+    res.status(data.deletedCount ? 204 : 404).send({
+      error: !data.deletedCount,
+      data,
+    });
   },
 };
