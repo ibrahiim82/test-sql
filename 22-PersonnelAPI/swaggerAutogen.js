@@ -36,7 +36,7 @@ const document = {
     //     title: "Personnel API",
     //     description: "Personnel Management System v1.0",
     //     termOfService: "http://127.0.0.1/#",
-    //     contact: { name: "Clarusway", email: "ibrahim@clarusway.com"},
+    //     contact: { name: "Clarusway", email: "qadir@clarusway.com"},
     //     license: { name: "Apache License"}
     // }
     info: {
@@ -44,7 +44,7 @@ const document = {
         title: packageJson.name,
         description: packageJson.description,
         // termOfService: "http://127.0.0.1/#",
-        contact: { name: packageJson.author, email: "ibrahim@clarusway.com"},
+        contact: { name: packageJson.author, email: "qadir@clarusway.com"},
         license: { name: PackageJson.License}
     },
     host: HOST + ':' + PORT,
