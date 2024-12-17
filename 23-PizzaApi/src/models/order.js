@@ -36,8 +36,15 @@ const OrderSchema = new mongoose.Schema(
     },
     amount: {
       type: Number,
-      
-    }
+      //create
+      default: function () {
+        return this.quantity * this.price;
+      },
+      //update
+      transform: function () {
+        return this.quantity * this.price;
+      },
+    },
   },
   {
     collection: "orders",

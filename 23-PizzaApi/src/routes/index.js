@@ -12,19 +12,19 @@ const router = require('express').Router()
 // auth:
 router.use('/auth', require('./auth'))
 // user:
-router.use('/users', require('./user'))
+router.use('/user', require('./user'))
 // token:
-router.use('/tokens', require('./token'))
+router.use('/token', require('./token'))
 
 // order:
-router.use('/orders', require('./order'))
+router.use('/order', require('./order'))
 // pizza:
-router.use('/pizzas', require('./pizza'))
+router.use('/pizza', require('./pizza'))
 // topping:
-router.use('/toppings', require('./topping'))
+router.use('/topping', require('./topping'))
 
 // document:
-router.use('/documents', require('./document'))
+router.use('/document', require('./document'))
 
 /* ------------------------------------------------------- */
 module.exports = router
