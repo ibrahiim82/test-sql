@@ -31,7 +31,7 @@ module.exports = {
             }
         */
 
-    const{ username, password, email } = req.body
+    const{ username, password, email } = req.body;
 
     if( !((username || email) && password))
       throw new BadRequestError("username/email and password are required")
@@ -47,12 +47,12 @@ module.exports = {
       throw new UnauthorizedError("incorrect password")
 
     //! SIMPLE TOKEN
-    // let tokenData = await Token.findOne({ userId: user._id})
+    let tokenData = await Token.findOne({ userId: user._id})
 
-    // if(!tokenData) {
-    //   const tokenKey = passwordEncrypt(user._id + Date.now())
-    //   tokenData = await Token.create({ userId: user._id, token: tokenKey})
-    // }
+    if(!tokenData) {
+      const tokenKey = passwordEncrypt(user._id + Date.now())
+      tokenData = await Token.create({ userId: user._id, token: tokenKey})
+    }
     //! /SIMPLE TOKEN
 
     //! JWT
@@ -67,10 +67,12 @@ module.exports = {
     }
     // Convert to JWT:
     // jwt.sign(payload, key, { expiresIn: '30m'})  // 30 minute
-    const accessToken = jwt.sign(accessData, process.env.ACCESS_KEY, { expiresIn: process.env.ACCESS_EXP })
+    // const accessToken = jwt.sign(accessData, process.env.ACCESS_KEY, { expiresIn: '30m' })
+    // console.log(user)
+    const accessToken = jwt.sign(user.toJSON(), process.env.ACCESS_KEY, { expiresIn: process.env.ACCESS_EXP })
+
 
     //^ REFRESH TOKEN:
-
     const refreshData = {
       _id: user._id,
       password: user.password
@@ -91,6 +93,63 @@ module.exports = {
     });
   },
 
+  refresh: async (req, res) => {
+    /*
+        #swagger.tags = ["Authentication"]
+        #swagger.summary = "Refresh"
+        #swagger.description = 'Refresh with refreshToken for get accessToken'
+        #swagger.parameters["body"] = {
+            in: "body",
+            required: true,
+            schema: {
+                "bearer": {
+                    refresh: '...refresh_token...'
+                }
+            }
+        }
+    */
+
+    const refreshToken = req.body?.bearer?.refresh
+
+    if (refreshToken) {
+
+      const refreshData = jwt.verify(refreshToken, process.env.REFRESH_KEY)
+      console.log(refreshData)
+
+      if (refreshData) {
+
+        const user = await User.findOne({ _id: refreshData._id })
+
+        if (user && user.password == refreshData.password) {
+
+          if (user.isActive) {
+
+            res.status(200).send({
+              error: false,
+              bearer: {
+                access: jwt.sign(user.toJSON(), process.env.ACCESS_KEY, { expiresIn: process.env.ACCESS_EXP })
+              }
+            })
+
+          } else {
+            res.errorStatusCode = 401
+            throw new Error("This account is not active.")
+          }
+        } else {
+          res.errorStatusCode = 401
+          throw new Error('Wrong id or password.')
+        }
+      } else {
+        res.errorStatusCode = 401
+        throw new Error('JWT refresh data is wrong.')
+      }
+    } else {
+      res.errorStatusCode = 401
+      throw new Error('Please enter bearer.refresh')
+    }
+
+  },
+
   logout: async (req, res) => {
     /*
             #swagger.tags = ["Authentication"]
@@ -102,17 +161,28 @@ module.exports = {
     const auth = req.headers?.authorization || null;
     const tokenKey = auth ? auth.split(" ") : null;
     let deleted = null;
-    // if (tokenKey && tokenKey[0] == "Token") {
-    if (tokenKey?.at(0) == "Token") {
-      deleted = await Token.deleteOne({ token: tokenKey[1] });
+
+    if (tokenKey[0] == "Token") {
+    // if (tokenKey?.at(0) == "Token") {
+
+      const result = await Token.deleteOne({ token: tokenKey[1] });
       // return res.status(200).send({
       //   message: "logout: token deleted",
       //   deleted, //!silinen gösterilsin
       // });
+
+      res.send({
+        error: false,
+        message: "Token deleted. Logout was OK.",
+        result,
+      });
     }
-    res.send({
-      error: false,
-      message: "Token deleted. Logout was OK.",
-    });
+    else if (tokenKey[0] == "Bearer") {
+
+      res.send({
+          error: false,
+          message: 'JWT: No need any process for logout.',
+      })
+  }
   },
 };

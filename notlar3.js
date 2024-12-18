@@ -255,9 +255,18 @@ Varsayılan olarak runValidators değeri FALSE'tur. Bu, bir güncelleme işlemi 
 
 
 * JWT (JSON WEB TOKENS) Nedir?  
+JWT (JSON Web Token), iki taraf arasında güvenli bir şekilde veri iletimi için kullanılan bir açık standarttır (RFC 7519). JWT, genellikle kullanıcı doğrulaması (authentication) ve bilgi paylaşımı (authorization) amacıyla kullanılır ve aşağıdaki bileşenlerden oluşur:
 
+Header (Başlık): JWT'nin hangi algoritma ile imzalandığını belirtir. Örneğin, HMAC SHA256 ya da RSA gibi algoritmalar kullanılabilir.
 
-MicroService'ler arasindaki iletişimi minimuma indirmek. Data gönderme işlevi görür.
+Payload (Yük): Token'ın taşıdığı veriyi içerir. Bu veriler genellikle kullanıcı bilgileri (örneğin, kullanıcı kimliği, oturum süresi) gibi özelleştirilmiş bilgiler olabilir. Payload, base64-url ile kodlanır.
+
+Signature (İmza): Token'ın doğruluğunu ve bütünlüğünü sağlamak için kullanılan bir imzadır. İmza, header ve payload verilerinin birleşimi ile bir anahtar kullanılarak şifrelenir. Bu sayede JWT'nin değiştirilmediği doğrulanabilir.
+
+--kullanıcıya iki jeton verilir (accessToken ve refreshToken) refreshToken accessTokeni yenilemeye yarar.
+--accessToken: kısa ömürlü, veritabanıyla bağlantısı yok.
+--refreshToken: uzun ömürlü, veritabanıyla bağlantısı var.
+--MicroService'ler arasindaki iletişimi minimuma indirmek. Data gönderme işlevi görür.
 
 * MicroService?
 MicroService bir projenin parçalanmış halidir. frontend ayrı bir server'a,backend ayrı bir server'a, database'yi ayı bir server'a, user işlemleri ayrı bir server'a vb. ayırarak projeyi parçalamaktır.
