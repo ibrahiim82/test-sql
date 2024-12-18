@@ -254,6 +254,18 @@ Varsayılan olarak runValidators değeri FALSE'tur. Bu, bir güncelleme işlemi 
 
 
 
+* JWT Nedir?
+
+
+
+
+
+
+
+
+
+
+
 
 
 
