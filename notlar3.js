@@ -254,7 +254,7 @@ Varsayılan olarak runValidators değeri FALSE'tur. Bu, bir güncelleme işlemi 
 
 
 
-* JWT Nedir?
+* JWT (JSON WEB TOKENS) Nedir?  
 
 
 MicroService'ler arasindaki iletişimi minimuma indirmek. Data gönderme işlevi görür.
