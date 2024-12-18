@@ -13,6 +13,8 @@ const {
   NotFoundError,
 } = require("../errors/customError");
 
+const jwt = require('jsonwebtoken')
+
 module.exports = {
   login: async (req, res) => {
     /*
@@ -44,16 +46,47 @@ module.exports = {
     if(user.password !== passwordEncrypt(password))
       throw new UnauthorizedError("incorrect password")
 
-    let tokenData = await Token.findOne({ userId: user._id})
+    //! SIMPLE TOKEN
+    // let tokenData = await Token.findOne({ userId: user._id})
 
-    if(!tokenData) {
-      const tokenKey = passwordEncrypt(user._id + Date.now())
-      tokenData = await Token.create({ userId: user._id, token: tokenKey})
+    // if(!tokenData) {
+    //   const tokenKey = passwordEncrypt(user._id + Date.now())
+    //   tokenData = await Token.create({ userId: user._id, token: tokenKey})
+    // }
+    //! /SIMPLE TOKEN
+
+    //! JWT
+
+    //^ ACCESS TOKEN:
+    const accessData = {
+      _id: user._id,
+      username: user.username,
+      email: user.email,
+      isActive: user.isActive,
+      isAdmin: user.isAdmin,
+    }
+    // Convert to JWT:
+    // jwt.sign(payload, key, { expiresIn: '30m'})  // 30 minute
+    const accessToken = jwt.sign(accessData, process.env.ACCESS_KEY, { expiresIn: process.env.ACCESS_EXP })
+
+    //^ REFRESH TOKEN:
+
+    const refreshData = {
+      _id: user._id,
+      password: user.password
     }
 
+    // Convert to JWT:
+    const refreshToken = jwt.sign(refreshData, process.env.REFRESH_KEY, { expiresIn: process.env.REFRESH_EXP})   // 3 day
+
+    //! /JWT
     res.status(200).send({
       error: false,
       token: tokenData.token,
+      bearer: {
+        access: accessToken,
+        refresh: refreshToken,
+      },
       user,
     });
   },

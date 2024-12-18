@@ -42,5 +42,21 @@ INSTANCE = Bir class'tan üretilen objedir
 
 
 
+*void: return vermeyen fonksiyon
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 */

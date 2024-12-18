@@ -262,7 +262,7 @@ MicroService'ler arasindaki iletişimi minimuma indirmek. Data gönderme işlevi
 * MicroService?
 MicroService bir projenin parçalanmış halidir. frontend ayrı bir server'a,backend ayrı bir server'a, database'yi ayı bir server'a, user işlemleri ayrı bir server'a vb. ayırarak projeyi parçalamaktır.
 
-
+^ Token yazıyorsa SIMPLE TOKEN , Bearer yazıyorsa JWT'dir
 
 
 
