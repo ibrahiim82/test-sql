@@ -50,7 +50,7 @@ app.use(require("./src/middlewares/queryHandler"));
 // nmp i nodemailer
 // https://www.nodemailer.com/
 
-const nodemailer = require('nodemailer')
+// const nodemailer = require('nodemailer')
 
 // Create a new Test Account (fake mail)
 // nodemailer.createTestAccount().then((data => console.log(data)))
@@ -69,7 +69,7 @@ const nodemailer = require('nodemailer')
 }
 */
 
-// Connection to MailServer/SMTP:
+// /  Connection to MailServer/SMTP:
 // const transporter = nodemailer.createTransport({
 //   / SMTP:
 //   host: 'smtp.ethereal.email',
@@ -98,7 +98,7 @@ const nodemailer = require('nodemailer')
 // }) 
 
 //^ GoogleMail (gmail.com)
-//
+//Google -> AccountHome -> Security -> Two-Step-Verify -> App-Passwords
 // const transporter = nodemailer.createTransport({
 //   service: 'gmail',
 //   auth: {
