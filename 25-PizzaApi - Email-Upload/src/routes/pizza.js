@@ -18,8 +18,13 @@ const upload = multer({
     // dest: './upload',
     storage: multer.diskStorage({
         destination: './upload',
-        // filename:
-    })
+        filename: function(req, file, returnCallback) {
+            console.log(file);
+            // returnCallback(error, fileName)
+            // returnCallback(null, 'ornek.jpeg')
+            returnCallback(null, Date.now() + '_' + file.originalname)
+        }
+    })// returnCallback: benden dönmesi beklenen fonksiyon
 })
 //& multer.diskstorage kullanmak sadece multer kullanmaktan daha kullanışlıdır örneğin oluşan dosyanın adı değiştirelebilir
 
@@ -29,9 +34,9 @@ const upload = multer({
 router.route('/')
     .get(pizza.list)
     // .post(pizza.create)
-    .post(upload.single('fieldName'),pizza.create)
-    // .post(upload.array('fieldName'),pizza.create)
-    // .post(upload.any('fieldName'),pizza.create)
+    // .post(upload.single('image'),pizza.create)  // tek dosya izin ver
+    .post(upload.array('image'),pizza.create) // çok dosya izin ver. tavsiye edilen.
+    // .post(upload.any(),pizza.create) // çok dosya izin ver, fieldname önemsiz
 
 router.route('/:id')
     .get(pizza.read)

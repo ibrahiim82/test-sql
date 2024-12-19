@@ -144,6 +144,12 @@ app.use(require("./src/middlewares/queryHandler"));
 // }) 
 
 /* ------------------------------------------------------- */
+
+//! STATIC FILES:
+// pizza jpeg'i tarayıcıda görüntüleyebilmek için statik olarak çekmeliyiz
+// app.use('/url', express.static('./folder'))
+app.use('/upload', express.static('./upload'))
+
 // Routes:
 
 //! routes/index.js:
