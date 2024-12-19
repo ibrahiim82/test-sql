@@ -45,7 +45,7 @@ module.exports = {
     req.body.images = []
     if (req.files) {
       for (let file of req.files) {
-        data.images.push(file.path)
+        req.body.images.push(file.path)
       }
     }
 

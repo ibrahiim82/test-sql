@@ -8,6 +8,7 @@
 //* EMAIL - NODEMAILER
 // nmp i nodemailer
 // https://www.nodemailer.com/
+
 const nodemailer = require("nodemailer");
 
 module.exports = function (to, title, message) {
@@ -81,8 +82,8 @@ module.exports = function (to, title, message) {
       subject: "title", // Mail başlığı
       text: "message", // Mail içeriği (düz metin)
       html: "message", // Mail içeriği (html ile)
-    },
-    function (error, success) {
+      
+    },function (error, success) {
       // mail gönderme işlemi başarısızsa error dolu gelir succes boş gelir,başarılıysa error boş success dolu gelir
 
       success ? console.log("SUCCESS:", success) : console.log("ERROR:", error);

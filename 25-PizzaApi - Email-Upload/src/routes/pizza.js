@@ -11,9 +11,11 @@ const pizza = require('../controllers/pizza')
 /* ------------------------------------------------------- */
 //* UPLOADING - MULTER
 // npm i multer
+// https://expressjs.com/en/resources/middleware/multer.html
 
 const multer = require('multer')
 
+// upload middleware:
 const upload = multer({
     // dest: './upload',
     storage: multer.diskStorage({
