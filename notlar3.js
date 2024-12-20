@@ -231,7 +231,7 @@ PUT:
 PATCH:
   Kaynağın belirli bir kısmını güncellemek
   Yalnızca değiştirilmek istenen veriler gönderilir
-  Kısmi güncelleme gerektiğinde kullanılır (örneğin, sadece e-posta adresi)
+  Kısmi güncelleme gerektiğinde kullanılır (örneğin, sadece e-posta adresi
 
 
 
