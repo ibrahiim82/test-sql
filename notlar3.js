@@ -266,7 +266,7 @@ Signature (İmza): Token'ın doğruluğunu ve bütünlüğünü sağlamak için 
 --kullanıcıya iki jeton verilir (accessToken ve refreshToken) refreshToken accessTokeni yenilemeye yarar.
 --accessToken: kısa ömürlü, veritabanıyla bağlantısı yok.
 --refreshToken: uzun ömürlü, veritabanıyla bağlantısı var.
---MicroService'ler arasindaki iletişimi minimuma indirmek. Data gönderme işlevi görü.
+--MicroService'ler arasindaki iletişimi minimuma indirmek. Data gönderme işlevi görür.
 
 * MicroService?
 MicroService bir projenin parçalanmış halidir. frontend ayrı bir server'a,backend ayrı bir server'a, database'yi ayı bir server'a, user işlemleri ayrı bir server'a vb. ayırarak projeyi parçalamaktır.
