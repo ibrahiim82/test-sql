@@ -13,7 +13,7 @@ const user = require('../controllers/user')
 
 router.route('/')
     .get(permissions.isAdmin, user.list)
-    .post(permissions.isAdmin, user.create)
+    .post(user.create)
 
 router.route('/:id')
     .get(permissions.isLogin, user.read)

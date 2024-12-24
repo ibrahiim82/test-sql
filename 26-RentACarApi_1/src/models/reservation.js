@@ -15,6 +15,47 @@ const { mongoose } = require('../configs/dbConnection')
     "carId": "65352f518a9ea121b1ca5002",
     "startDate": "2023-10-14",
     "endDate": "2023-10-20"
-}
+    "amount": ""
+}   
 /* ------------------------------------------------------- */
 // Reservation Model:
+
+const ReservationSchema = new mongoose.Schema({
+    userId:{
+        type:mongoose.Schema.Types.ObjectId,
+        ref:'User',
+        required:true
+    },
+    carId:{
+        type:mongoose.Schema.Types.ObjectId,
+        ref:'Car',
+        required:true
+    },
+    startDate:{
+        types:Date,
+        required:true
+    },
+    endDate:{
+        types:Date,
+        required:true
+    },
+    amount:{
+        types:Number,
+        required:true
+    },
+    createdId:{
+        type:mongoose.Schema.Types.ObjectId,
+        ref:'User',
+        required:true
+    },
+    updatedId:{
+        type:mongoose.Schema.Types.ObjectId,
+        ref:'User',
+        required:true
+    }
+},{
+    collection:'reservations',
+    timestamps:true
+}
+)
+module.exports = mongoose.model('Reservations',ReservationSchema)

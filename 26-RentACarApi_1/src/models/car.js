@@ -65,7 +65,7 @@ const CarSchema =  new mongoose.Schema({
     // images: [],   alttakiyle aynı anlamı taşıyor
     images: {
         type:Array,
-        default:[]
+        default:[]  //! images required olabilir
     },
     isAvailable:{
         type:Boolean,
