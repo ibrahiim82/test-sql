@@ -31,7 +31,6 @@ module.exports = {
        })
     },
 
-
     create: async (req, res)=>{
         /*
             #swagger.tags = ["Cars"]
@@ -56,7 +55,6 @@ module.exports = {
        })
     },
 
-
     read: async (req, res)=>{
 
         /*
@@ -72,7 +70,6 @@ module.exports = {
         data
        })
     },
-
 
     update: async (req,res)=>{
         /*
@@ -96,7 +93,8 @@ module.exports = {
             // yenileniş veriyi tekrar gitiriyoruz. update return etmez
         })
     },
-    delete: async (req,res)=>{
+
+    deleteCar: async (req,res)=>{
         /*
             #swagger.tags = ["Cars"]
             #swagger.summary = "Delete Car"

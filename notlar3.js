@@ -276,6 +276,7 @@ MicroService bir projenin parçalanmış halidir. frontend ayrı bir server'a,ba
 ^ Token yazıyorsa SIMPLE TOKEN , Bearer yazıyorsa JWT'dir
 
 
+*routes'da delete karışıklığını gidermek için destrucure ederiz fakat swagger kullanamayız çünkü swagger controllers temelinde çalışır routesda çalışmaz
 
 
 
