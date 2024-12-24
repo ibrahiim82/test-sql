@@ -244,6 +244,8 @@ timestamps, her belgeye (document) otomatik olarak createdAt ve updatedAt adınd
 *runValidators: true
 bir doküman (document) güncellenirken veri doğrulama (validation) işleminin yapılmasını sağlar. 
 
+-- verinin modele uygun olup olmadığını kontrol ediyor.
+
 runValidators: true: örneğin Güncelleme işlemi sırasında e-posta gibi alanların doğrulama kurallarına uygun olup olmadığını kontrol eder.
 
 Doğrulama Başarısız Olursa: Eğer email alanı geçerli bir e-posta formatına uymuyorsa, runValidators: true doğrulama sırasında hatanın oluşmasına neden olur. Bu durumda bir hata mesajı döndürülür.
