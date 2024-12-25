@@ -91,7 +91,7 @@ module.exports = {
             error:false,
             data,
             new: await Car.findOne({_id:req.params.id})
-            // yenileniş veriyi tekrar gitiriyoruz. update return etmez
+            // yenilenmiş veriyi tekrar getiriyoruz. updateOne metodu yeni veriyi döndürmez yani return etmez kendimiz getirmek zorundayız
         })
     },
 

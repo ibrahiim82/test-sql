@@ -51,5 +51,46 @@ module.exports={
                 data
             })
         }
+    },
+    read: async (req,res)=>{
+        let customFilter = {}
+
+        if (!req.user.isAdmin && !req.user.isStaff){
+            customFilter = { userId: req.user._id}
+        }
+
+        const data = await Reservation.findOne({_id: req.params.id, ...customFilter}).populate([
+            {path: 'userId', select: 'username firstName lastName'},
+            {path: 'carId'},
+            {path: 'createdId', select: 'username'},
+            {path: 'updatedId', select: 'username'}
+        ])
+
+        res.status(200).send({
+            error:false,
+            data
+        })
+    },
+    update: async (req,res)=>{
+
+        if(!req.user.isAdmin){
+            delete req.body.userId
+        } //& kullanıcı admin değilmiz userId değiştirilemez değiştirilememesi için body'den delete ederiz (sileriz)
+        //& user kendisininkini update edebilecek fakat başkasınınkini update edemeyecek
+        req.body.updatedId = req.user._id
+        const data = await Reservation.updateOne({_id:req.params.id}, req.body, {runValidators:true})
+        res.status(202).send({
+            error:false,
+            data,
+            new: await Reservation.findOne({_id: req.params.id})//& güncellenmiş veriyi tekrar getiriyoruz. updateOne metodu yeni veriyi döndürmez yani return etmez kendimiz getirmek zorundayız
+        })
+    },
+    delete: async (req,res)=>{
+        const data = await Reservation.deleteOne({_id: req.params.id})
+
+        res.status(data.deletedCount ? 204 : 404).send({
+            error: !data.deletedCount,
+            data
+        })
     }
 }
