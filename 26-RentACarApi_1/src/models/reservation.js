@@ -32,15 +32,15 @@ const ReservationSchema = new mongoose.Schema({
         required:true
     },
     startDate:{
-        types:Date,
+        type:Date,
         required:true
     },
     endDate:{
-        types:Date,
+        type:Date,
         required:true
     },
     amount:{
-        types:Number,
+        type:Number,
         required:true
     },
     createdId:{

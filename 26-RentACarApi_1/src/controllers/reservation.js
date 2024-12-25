@@ -28,7 +28,9 @@ module.exports={
     },
 
     create: async (req,res)=>{
-
+        if((!req.user.isAdmin && !req.user.isStaff) || !req.user?.userId){
+            req.body.userId = req.user._id
+        }
         const userReservationDates = await Reservation.findOne({
             userId: req.body.userId,
             $nor: [
@@ -36,6 +38,9 @@ module.exports={
                 {endDate: {$lt : req.body.startDate}} //& Rezervasyonun bitiş tarihi mevcut rezervasyonun başlangıç tarihinden küçükse sorun yok
             ]
         })
+
+        req.body.createdId = req.user._id
+        req.body.updatedId = req.user._id
 
         if(userReservationDates){
             res.errorStatusCode=400
