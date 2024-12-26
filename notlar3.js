@@ -300,6 +300,133 @@ Tüm koşulların tersi alınır (yani her koşulda belirtilen şartlar sağlanm
 MongoDB'deki diğer operatörlerden farklı olarak, "veya" (OR) mantığının tersini uygular (yani koşullardan hiçbirinin doğru olmadığı durumlar).
 
 
+!1. Karşılaştırma Operatörleri
+
+^$eq: Eşittir.
+db.collection.find({ field: { $eq: value } })
+
+^$ne: Eşit değildir.
+db.collection.find({ field: { $ne: value } })
+
+^$gt: Büyük (greater than).
+db.collection.find({ field: { $gt: value } })
+
+^$gte: Büyük veya eşit (greater than or equal to).
+db.collection.find({ field: { $gte: value } })
+
+^$lt: Küçük (less than).
+db.collection.find({ field: { $lt: value } })
+
+^$lte: Küçük veya eşit (less than or equal to).
+db.collection.find({ field: { $lte: value } })
+
+^$in: Belirtilen bir dizi değerden herhangi biriyle eşleşir.
+db.collection.find({ field: { $in: [value1, value2, value3] } })
+
+^$nin: Belirtilen dizi dışında herhangi bir değeri arar.
+db.collection.find({ field: { $nin: [value1, value2] } })
+
+
+!2. Mantıksal Operatörler
+
+^$and: Birden fazla koşulun hepsinin doğru olması gerekir.
+db.collection.find({ $and: [{ field1: value1 }, { field2: value2 }] })
+
+^$or: Birden fazla koşuldan herhangi biri doğruysa.
+db.collection.find({ $or: [{ field1: value1 }, { field2: value2 }] })
+
+^$not: Koşulun tersini seçer.
+db.collection.find({ field: { $not: { $gt: value } } })
+
+^$nor: Hem $or hem de $not operatörlerinin birleşimi. Koşulda yer alan hiçbir şey doğru olmamalıdır.
+db.collection.find({ $nor: [{ field1: value1 }, { field2: value2 }] })
+
+^$nin operatörü, verilen bir dizi içindeki değerler dışındaki değerleri aramak için kullanılır.
+db.collection.find({
+  field: { $nin: [value1, value2, value3] }
+})
+Bu sorgu, field alanında value1, value2 veya value3 değerlerinden hiçbiri bulunmayan belgeleri döndürecektir
+
+
+!3. Dizi Operatörleri
+
+^$all: Bir dizi elemanın hepsi belirtilen değerlere sahip olmalıdır.
+db.collection.find({ field: { $all: [value1, value2] } })
+
+^$elemMatch: Dizi elemanları üzerinde bir koşul uygular.
+db.collection.find({ field: { $elemMatch: { subField: value } } })
+
+^$size: Belirtilen boyutta olan dizileri filtreler.
+db.collection.find({ field: { $size: 3 } })
+
+
+!4. Değiştirme Operatörleri (Update Operators)
+
+^$set: Belirli bir alanın değerini ayarlamak için kullanılır.
+db.collection.update({ _id: id }, { $set: { field: value } })
+
+^$unset: Bir alanı kaldırmak için kullanılır.
+db.collection.update({ _id: id }, { $unset: { field: "" } })
+
+^$inc: Sayısal bir değeri artırmak veya azaltmak için kullanılır.
+db.collection.update({ _id: id }, { $inc: { field: 1 } })
+
+^$push: Bir diziye yeni bir eleman ekler.
+db.collection.update({ _id: id }, { $push: { field: value } })
+
+^$pull: Bir diziden belirli bir elemanı çıkarır.
+db.collection.update({ _id: id }, { $pull: { field: value } })
+
+^$addToSet: Dizide yalnızca benzersiz öğeleri ekler (tekil değerler).
+db.collection.update({ _id: id }, { $addToSet: { field: value } })
+
+
+!5. Dönüşüm Operatörleri
+
+^$type: Belirli bir türdeki veriyi sorgular.
+db.collection.find({ field: { $type: "string" } })
+
+^$exists: Bir alanın var olup olmadığını kontrol eder.
+db.collection.find({ field: { $exists: true } })
+
+^$regex: Düzenli ifadeye göre arama yapar.
+db.collection.find({ field: { $regex: /pattern/ } })
+
+
+!6. Agregatör (Aggregation) Operatörleri
+Agregat işlemlerini yapmak için kullanılır. Bu operatörler aggregate() fonksiyonuyla kullanılır.
+
+^$match: Belirtilen şartlarla eşleşen belgeleri filtreler.
+db.collection.aggregate([{ $match: { field: value } }])
+
+^$group: Belgeleri gruplar ve agregat işlemleri yapar (örneğin, toplama, sayma).
+db.collection.aggregate([{ $group: { _id: "$field", total: { $sum: 1 } } }])
+
+^$sort: Belgeleri sıralar.
+db.collection.aggregate([{ $sort: { field: 1 } }])  // 1 for ascending, -1 for descending
+
+^$limit: Sonuç sayısını sınırlamak için kullanılır.
+db.collection.aggregate([{ $limit: 5 }])
+
+^$project: Sonuçları dönüştürmek, belirli alanları dahil etmek veya hariç tutmak için kullanılır.
+db.collection.aggregate([{ $project: { field: 1 } }])
+
+^$unwind: Bir diziyi açar ve her elemanı bir belge gibi işler.
+db.collection.aggregate([{ $unwind: "$field" }])
+
+
+!7. Özel Operatörler
+MongoDB'nin bazı ileri düzey özellikleri için kullanılan operatörler.
+
+^$text: Tam metin araması için kullanılır.
+db.collection.find({ $text: { $search: "query" } })
+
+^$geoNear: Coğrafi verilerle yakınlık sorgusu yapar.
+db.collection.aggregate([{ $geoNear: { near: { type: "Point", coordinates: [x, y] }, distanceField: "dist.calculated", maxDistance: 1000, spherical: true } }])
+
+
+
+
 
 
 
