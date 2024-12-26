@@ -280,6 +280,26 @@ MicroService bir projenin parçalanmış halidir. frontend ayrı bir server'a,ba
 
 
 
+* MONGODB OPERATÖRLERİ
+
+^$nor operatörü: 
+belirtilen tüm koşulların hiçbirinin doğru olmadığı verileri filtreler. Yani, $nor operatörü, koşulların negatif halini (tersini) sorgular.
+
+örnek:
+db.collection.find({
+  $nor: [
+    { "age": { $lt: 18 } },
+    { "status": "active" }
+  ]
+});
+Bu sorgu, age değeri 18'den küçük olmayan ve status değeri "active" olmayan tüm belgeleri döndürür. Yani, bu iki koşuldan en az birinin sağlandığı belgeleri hariç tutar.
+
+Özellikleri:
+$nor, array (dizi) şeklinde birden fazla koşul kabul eder.
+Tüm koşulların tersi alınır (yani her koşulda belirtilen şartlar sağlanmaz).
+MongoDB'deki diğer operatörlerden farklı olarak, "veya" (OR) mantığının tersini uygular (yani koşullardan hiçbirinin doğru olmadığı durumlar).
+
+
 
 
 
