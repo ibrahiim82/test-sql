@@ -32,7 +32,7 @@ const { mongoose } = require('../configs/dbConnection')
 /* ------------------------------------------------------- */
 // Car Model:
 const CarSchema =  new mongoose.Schema({
-    pateNumber:{
+    plateNumber:{
         type:String,
         trim:true,
         unique:true,

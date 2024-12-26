@@ -19,7 +19,8 @@ module.exports={
             {path: 'createdId', select: 'username'},
             {path: 'updatedId', select: 'username'}
         ])
-        const details = await getModelListDetails(Reservation,customFilter)
+        const details = await res.getModelListDetails(Reservation,customFilter)
+
         res.status(200).send({
             error:false,
             details,
@@ -31,6 +32,10 @@ module.exports={
         if((!req.user.isAdmin && !req.user.isStaff) || !req.user?.userId){
             req.body.userId = req.user._id
         }
+
+        req.body.createdId = req.user._id
+        req.body.updatedId = req.user._id
+
         const userReservationDates = await Reservation.findOne({
             userId: req.body.userId,
             $nor: [
@@ -38,9 +43,6 @@ module.exports={
                 {endDate: {$lt : req.body.startDate}} //& Rezervasyonun bitiş tarihi mevcut rezervasyonun başlangıç tarihinden küçükse sorun yok
             ]
         })
-
-        req.body.createdId = req.user._id
-        req.body.updatedId = req.user._id
 
         if(userReservationDates){
             res.errorStatusCode=400

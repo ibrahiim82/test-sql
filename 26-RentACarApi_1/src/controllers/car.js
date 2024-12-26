@@ -26,22 +26,21 @@ module.exports = {
        if(getStartDate && getEndDate){
         // belirtilen tarihlerde rezerve edilmiş araçları bulmak için rezervasyon modelini sorguluycaz
 
-        const rezervedCars = await reservation.find({
+        const rezervedCars = await Reservation.find({
             $nor: [
                 {startDate: {$gt: getEndDate}},
                 {endDate: {$lt: getStartDate}},
             ]
         },{_id: 0 , carId: 1}).distinct('carId') // {_id: 0 , carId: 1} --> reservationId'leri gösterme carId'leri göster diyoruz
-
         if(rezervedCars.length){ //uzunluğu var ise yani rezerve edilmiş carlar var ise
-         customFilter._id = {$nin: rezervedCars} // yukarıdaki verilerin haricinde olan car verileri getir ve customFilter'a ata (bu sayede veriler 44.satırdaki customFilter'a gelecek)
+         customFilter._id = {$nin: rezervedCars} // yukarıdaki verilerin haricinde olan car verileri getir ve customFilter'a ata (bu sayede veriler 43.satırdaki customFilter'a gelecek)
         }
        }else{
         req.errorStatusCode = 401
         throw new Error('startDate and endDate queries are required')
        }
 
-       const data=await res.getModelList(Car,customFilter, [
+       const data = await res.getModelList(Car,customFilter, [
         {path:'createdId', select: 'username'},
         {path:'updatedId', select: 'username'}
        ])
@@ -55,16 +54,14 @@ module.exports = {
     create: async (req, res)=>{
         /*
             #swagger.tags = ["Cars"]
-            #swagger.summary = "Create Cars"
-            #swagger.description = `
-                You can send query with endpoint for filter[], search[], sort[], page and limit.
-                <ul> Examples:
-                    <li>URL/?<b>filter[field1]=value1&filter[field2]=value2</b></li>
-                    <li>URL/?<b>search[field1]=value1&search[field2]=value2</b></li>
-                    <li>URL/?<b>sort[field1]=1&sort[field2]=-1</b></li>
-                    <li>URL/?<b>page=2&limit=1</b></li>
-                </ul>
-            `
+            #swagger.summary = "Create Car"
+            #swagger.parameters['body'] = {
+                in: 'body',
+                required: true,
+                schema: {
+                    $ref: '#/definitions/Car'
+                }
+            }
         */
        req.body.createdId = req.user._id
        req.body.updatedId = req.user._id
