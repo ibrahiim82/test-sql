@@ -77,7 +77,7 @@ module.exports = function (to, title, message) {
 
   transporter.sendMail(
     {
-      from: "yavuzyolcu@gmail.com", // tavsiye: gönderen mail adresinin from içinde belirtilmesidir.
+      from: "yavuzyolcu@gmail.com", // tavsiye: gönderen mail adresinin from içinde belirtilmesidir. from uyumaşza mail spam kutusuna düşer
       to: "to", // 'abc@xyz.com, def@xyz.com
       subject: "title", // Mail başlığı
       text: "message", // Mail içeriği (düz metin)
