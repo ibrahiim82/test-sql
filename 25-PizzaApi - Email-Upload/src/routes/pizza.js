@@ -36,7 +36,7 @@ const upload = multer({
 router.route('/')
     .get(pizza.list)
     // .post(pizza.create)
-    // .post(upload.single('image'),pizza.create)  // tek dosya izin ver
+    // .post(upload.single('FieldName),pizza.create)  // tek dosya izin ver
     .post(upload.array('image'),pizza.create) // çok dosya izin ver. tavsiye edilen.
     // .post(upload.any(),pizza.create) // çok dosya izin ver, fieldname önemsiz
 
