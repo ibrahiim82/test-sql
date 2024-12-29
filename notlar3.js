@@ -14,7 +14,7 @@ Bu metodu kullanarak gelen HTTP isteklerini dinleyebilecek bir sunucu başlatır
 
 * ORM:
 SQL converter görevi görür. yazdığımız kodu sql koduna döndürür.
-SQL, MySQL, SQLServer, POSTGRESQL gibi farklı markalara ait sql kodlarında az da olsa farklılıklar vardır bu farklılıklarda sorun yaşanmamaması için ORM kullanılır.
+SQL, MySQL, SQLServer, POSTGRESQL gibi farklı markalara ait sql kodlarında az da olsa farklılıklar vardır bu farklılıklarda sorun yaşanmamaması için ORM kullanılır
 
 * Sequelize:
 Nodejs'de kullanılan ORM yapıları. en populeri Squelizedir.
