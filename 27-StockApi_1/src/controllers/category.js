@@ -40,7 +40,7 @@ module.exports = {
                 in:'body',
                 required: true,
                 schema: {
-                    
+                    $ref"#/definitions/Category"
                 }
             }
         */
@@ -79,7 +79,7 @@ module.exports = {
                 in:'body',
                 required: true,
                 schema: {
-                    
+                    $ref"#/definitions/Category"
                 }
             }
         */

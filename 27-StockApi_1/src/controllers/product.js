@@ -39,7 +39,7 @@ module.exports = {
                 in:'body',
                 required:true,
                 schema:{
-                    //
+                    $ref"#/definitions/Product"
                 }
             }
         */
@@ -74,7 +74,7 @@ module.exports = {
                 in:'body',
                 required:true,
                 schema:{
-                    
+                    $ref"#/definitions/Product"
                 }
             }
         */

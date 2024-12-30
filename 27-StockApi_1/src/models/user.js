@@ -3,6 +3,7 @@
     | FULLSTACK TEAM | NODEJS / EXPRESS |
 ------------------------------------------------------- */
 const { mongoose } = require('../configs/dbConnection')
+const passwordEncrypt = require('../helpers/passwordEncrypt')
 /* ------------------------------------------------------- */
 
 const UserSchema = new mongoose.Schema({
@@ -62,13 +63,29 @@ const UserSchema = new mongoose.Schema({
 })
 
 
-UserSchema.pre('save', function (next){
+UserSchema.pre(['save', 'updateOne'], function (next) {
 
     // console.log('this is from pre middleware');
+    // console.log(this);
 
-    console.log(this);
+    // updateOne: _update, save: this  updateOne: _update'de tutulur, save: this'de tutulur.
+    const data = this?._update ?? this
 
-    next()
+    // Email Validation:
+    const isEmailValidated = data.email ? /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(data.email) : true
+
+    if (!isEmailValidated) {
+        // throw new Error('Email is not validated');
+        next(new Error('Email is not validated'));
+    }
+
+    const isPasswordValidated = data.password ? /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&.]).{8,}$/.test(data.password) : true
+
+    if (!isPasswordValidated) next(new Error('Password must be at least 8 characters long and contain at least one special character and  at least one uppercase character.'));
+
+    if (data.password) data.password = passwordEncrypt(data.password)
+
+    next();
 }) 
-
+//& updateOne: _update'de tutulur, save: this'de tutulur.
 module.exports = mongoose.model('User', UserSchema)
