@@ -48,8 +48,9 @@ module.exports = {
                 }
             }
         */
-
+        // console.log('this is from before create');
         const data = await User.create(req.body)
+        // console.log('this is from after create');
 
         res.status(201).send({
             error:false
