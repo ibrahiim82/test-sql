@@ -3,14 +3,14 @@
     | FULLSTACK TEAM | NODEJS / EXPRESS |
 ------------------------------------------------------- */
 
-const Category = require('../models/Category')
+const Category = require('../models/category')
 
 module.exports = {
     list: async (req,res) => {
         
         /* 
-            #swagger.tags = ["Categorys"]
-            #swagger.summary = "List Categorys"
+            #swagger.tags = ["Categories"]
+            #swagger.summary = "List Categories"
             #swagger.description = `
                 You can send query with endpoint for search[], sort[], page and limit.
                 <ul> Examples:
@@ -34,8 +34,8 @@ module.exports = {
     create: async (req,res) => {
 
         /* 
-            #swagger.tags = ["Categorys"]
-            #swagger.summary = "Create Category"
+            #swagger.tags = ["Categories"]
+            #swagger.summary = "Create Categories"
             #swagger.parameters['body'] = {
                 in:'body',
                 required: true,
@@ -73,8 +73,8 @@ module.exports = {
     update: async (req,res) => {
 
         /*
-            #swagger.tags = ["Categorys"]
-            #swagger.summary = "Update Category"
+            #swagger.tags = ["Categories"]
+            #swagger.summary = "Update Categories"
             #swagger.parameters['body'] = {
                 in:'body',
                 required: true,
@@ -95,7 +95,7 @@ module.exports = {
     },
 
 
-    deleteUser: async (req,res) => {
+    deletee: async (req,res) => {
 
         /*
             #swagger.tags = ["Categorys"]

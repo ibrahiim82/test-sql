@@ -103,7 +103,7 @@ module.exports = {
     },
 
 
-    deleteUser: async (req,res) => {
+    deletee: async (req,res) => {
 
         /*
             #swagger.tags = ["Users"]

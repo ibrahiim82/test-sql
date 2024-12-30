@@ -3,14 +3,14 @@
     | FULLSTACK TEAM | NODEJS / EXPRESS |
 ------------------------------------------------------- */
 
-const brand = require('../models/brand')
+const Brand = require('../models/brand');
 
 module.exports = {
-    list: async (req,res) => {
-        
+
+    list: async (req, res) => {
         /* 
-            #swagger.tags = ["brands"]
-            #swagger.summary = "List brands"
+            #swagger.tags = ["Brands"]
+            #swagger.summary = "List Brands"
             #swagger.description = `
                 You can send query with endpoint for search[], sort[], page and limit.
                 <ul> Examples:
@@ -21,94 +21,88 @@ module.exports = {
             `
         */
 
-        const data = await res.getModelList(brand)
-        
+        const data = await res.getModelList(Brand)
+
         res.status(200).send({
-            error:false,
-            details: await res.getModelListDetails(brand),
+            error: false,
+            details: await res.getModelListDetails(Brand),
             data
         })
     },
 
-    //! CRUD
-    create: async (req,res) => {
-
+    // CRUD:
+    create: async (req, res) => {
         /* 
-            #swagger.tags = ["brands"]
-            #swagger.summary = "Create brand"
+            #swagger.tags = ["Brands"]
+            #swagger.summary = "Create Brand"
             #swagger.parameters['body'] = {
                 in:'body',
-                required: true,
-                schema: {
-                    
+                required:true,
+                schema:{
+                    //
                 }
             }
         */
 
-        const data = await brand.create(req.body)
+        const data = await Brand.create(req.body)
 
         res.status(201).send({
-            error:false
-        })
-    },
-
-
-    read: async (req,res) => {
-
-        /* 
-            #swagger.tags = ["brands"]
-            #swagger.summary = "Get Single brand"
-            
-        */
-
-        const data = await brand.findOne({_id: req.params.id})
-
-        res.status(200).send({
-            error:false,
+            error: false,
             data
         })
     },
 
+    read: async (req, res) => {
+        /* 
+           #swagger.tags = ["Brands"]
+           #swagger.summary = "Get Single Brand"
+        */
 
-    update: async (req,res) => {
+        const data = await Brand.findOne({ _id: req.params.id })
 
-        /*
-            #swagger.tags = ["brands"]
-            #swagger.summary = "Update brand"
+        res.status(200).send({
+            error: false,
+            data
+        })
+    },
+
+    update: async (req, res) => {
+        /* 
+            #swagger.tags = ["Brands"]
+            #swagger.summary = "Update Brand"
             #swagger.parameters['body'] = {
                 in:'body',
-                required: true,
-                schema: {
+                required:true,
+                schema:{
                     
                 }
             }
         */
 
-        const data = await brand.updateOne({_id: req.params.id}, req.body, {runValidators:true})
+        const data = await Brand.updateOne({ _id: req.params.id }, req.body, { runValidators: true })
         //& req.body 'den gelen veri zaten obje halinde geldiği için 'req.body' obje içinde yazılmaz.
 
-        res.status(202).send({
-            error:false,
+        res.status().send({
+            error: false,
             data,
-            new: await brand.findOne({_id: req.params.id})
+            new: await Brand.findOne({ _id: req.params.id })
         })
     },
 
-
-    deleteUser: async (req,res) => {
-
-        /*
-            #swagger.tags = ["brands"]
-            #swagger.summary = "Delete Single brand"
+    deletee: async (req, res) => {
+        /* 
+            #swagger.tags = ["Brands"]
+            #swagger.summary = "Delete Single Brand"
         */
 
-        const data = await brand.deleteOne({_id: req.params.id})
-        
-        res.status(data.deletedCount ? 204 : 404).send({
-            error:true,
-            message: 'Something went wrong, data might be deleted already'
-        })
-    }
+        const data = await Brand.deleteOne({ _id: req.params.id })
 
-    //todo multidelete controller
+        res.status(data.deletedCount ? 204 : 404).send({
+            error: true,
+            message: 'Something went wrong, data might be deleted already.'
+        })
+    },
+
+    //todo multiDelete controller
+
 }
