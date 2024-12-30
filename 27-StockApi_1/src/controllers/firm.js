@@ -95,7 +95,7 @@ module.exports = {
     },
 
 
-    deleteFirm: async (req,res) => {
+    deleteUser: async (req,res) => {
 
         /*
             #swagger.tags = ["Firms"]

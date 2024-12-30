@@ -18,10 +18,10 @@ router.use('/tokens', require('./token'))
 
 // firm:
 router.use('/firms', require('./firm'))
-// // brand:
-// router.use('/brands', require('./brand'))
-// // category:
-// router.use('/categories', require('./category'))
+// category:
+router.use('/categories', require('./category'))
+// brand:
+router.use('/brands', require('./brand'))
 // // firm:
 // // product:
 // router.use('/products', require('./product'))
