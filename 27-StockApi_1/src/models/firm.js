@@ -8,33 +8,33 @@ const { mongoose } = require('../configs/dbConnection')
 const FirmSchema = new mongoose.Schema({
 
     name: {
-        type:String,
+        type: String,
         trim: true,
-        required:true,
-        unique:true,
-        index:true
+        required: true,
+        unique: true,
     },
-    
+
     phone: {
-        type:String,
-        trim:true,
-        required:true,
-        unique:true,
+        type: String,
+        trim: true,
+        required: true,
+        unique: true,
     },
 
     address: {
-        type:String,
+        type: String,
         trim: true,
     },
 
     image: {
-        type:String,
+        type: String,
         trim: true,
     },
 
-},{
+}, {
     collection: 'firms',
     timestamps: true
 })
+
 
 module.exports = mongoose.model('Firm', FirmSchema)

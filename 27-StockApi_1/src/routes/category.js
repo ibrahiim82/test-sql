@@ -5,13 +5,13 @@
 const router = require('express').Router()
 /* ------------------------------------------------------- */
 
-const {list, create, read, update, deleteUser} = require("../controllers/category")
+const { list, create, read, update, deletee } = require('../controllers/category');
 
-// URL:  /categories
+// URL: /categories
 
-router.route('/').get(list).post(create)
+router.route('/').get(list).post(create);
 
-router.route('/:id').get(read).post(update).patch(update).delete(deleteUser)
+router.route('/:id').get(read).put(update).patch(update).delete(deletee);
 
 /* ------------------------------------------------------- */
 module.exports = router;

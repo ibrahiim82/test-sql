@@ -3,11 +3,11 @@
     | FULLSTACK TEAM | NODEJS / EXPRESS |
 ------------------------------------------------------- */
 
-const Firm = require('../models/firm')
+const Firm = require('../models/firm');
 
 module.exports = {
-    list: async (req,res) => {
-        
+
+    list: async (req, res) => {
         /* 
             #swagger.tags = ["Firms"]
             #swagger.summary = "List Firms"
@@ -22,25 +22,24 @@ module.exports = {
         */
 
         const data = await res.getModelList(Firm)
-        
+
         res.status(200).send({
-            error:false,
+            error: false,
             details: await res.getModelListDetails(Firm),
             data
         })
     },
 
-    //! CRUD
-    create: async (req,res) => {
-
+    // CRUD:
+    create: async (req, res) => {
         /* 
             #swagger.tags = ["Firms"]
             #swagger.summary = "Create Firm"
             #swagger.parameters['body'] = {
                 in:'body',
-                required: true,
-                schema: {
-                    
+                required:true,
+                schema:{
+                    //
                 }
             }
         */
@@ -48,67 +47,62 @@ module.exports = {
         const data = await Firm.create(req.body)
 
         res.status(201).send({
-            error:false
-        })
-    },
-
-
-    read: async (req,res) => {
-
-        /* 
-            #swagger.tags = ["Firms"]
-            #swagger.summary = "Get Single Firm"
-            
-        */
-
-        const data = await Firm.findOne({_id: req.params.id})
-
-        res.status(200).send({
-            error:false,
+            error: false,
             data
         })
     },
 
+    read: async (req, res) => {
+        /* 
+           #swagger.tags = ["Firms"]
+           #swagger.summary = "Get Single Firm"
+        */
 
-    update: async (req,res) => {
+        const data = await Firm.findOne({ _id: req.params.id })
 
-        /*
+        res.status(200).send({
+            error: false,
+            data
+        })
+    },
+
+    update: async (req, res) => {
+        /* 
             #swagger.tags = ["Firms"]
             #swagger.summary = "Update Firm"
             #swagger.parameters['body'] = {
                 in:'body',
-                required: true,
-                schema: {
+                required:true,
+                schema:{
                     
                 }
             }
         */
 
-        const data = await Firm.updateOne({_id: req.params.id}, req.body, {runValidators:true})
+        const data = await Firm.updateOne({ _id: req.params.id }, req.body, { runValidators: true })
         //& req.body 'den gelen veri zaten obje halinde geldiği için 'req.body' obje içinde yazılmaz.
 
         res.status(202).send({
-            error:false,
+            error: false,
             data,
-            new: await Firm.findOne({_id: req.params.id})
+            new: await Firm.findOne({ _id: req.params.id })
         })
     },
 
-
-    deletee: async (req,res) => {
-
-        /*
+    deletee: async (req, res) => {
+        /* 
             #swagger.tags = ["Firms"]
             #swagger.summary = "Delete Single Firm"
         */
 
-        const data = await Firm.deleteOne({_id: req.params.id})
-        
-        res.status(data.deletedCount ? 204 : 404).send({
-            error:true,
-            message: 'Something went wrong, data might be deleted already'
-        })
-    }
+        const data = await Firm.deleteOne({ _id: req.params.id })
 
-    //todo multidelete controller
+        res.status(data.deletedCount ? 204 : 404).send({
+            error: true,
+            message: 'Something went wrong, data might be deleted already.'
+        })
+    },
+
+    //todo multiDelete controller
+
 }

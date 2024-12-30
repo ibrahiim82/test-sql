@@ -68,7 +68,7 @@ module.exports = {
     },
 
 
-    deleteToken: async (req,res) => {
+    deletee: async (req,res) => {
 
         /* 
             #swagger.ignore = true

@@ -8,15 +8,15 @@ const { mongoose } = require('../configs/dbConnection')
 const CategorySchema = new mongoose.Schema({
 
     name: {
-        type:String,
+        type: String,
         trim: true,
-        required:true,
-        unique:true,
-        index:true
+        required: true,
+        unique: true,
+        index: true
     },
 
 },{
-    collection: 'category',
+    collection: 'categories',
     timestamps: true
 })
 

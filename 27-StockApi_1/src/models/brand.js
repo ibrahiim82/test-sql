@@ -8,15 +8,15 @@ const { mongoose } = require('../configs/dbConnection')
 const BrandSchema = new mongoose.Schema({
 
     name: {
-        type:String,
-        trim: true,
-        required:true,
-        unique:true,
-        index:true
+        type: String,
+        trim:  true,
+        required: true,
+        unique: true,
+        index: true
     },
     image: {
-        type:String,
-        trim:true
+        type: String,
+        trim: true
     }
 },{
     collection: 'brands',
