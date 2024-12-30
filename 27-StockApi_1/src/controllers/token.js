@@ -3,34 +3,84 @@
     | FULLSTACK TEAM | NODEJS / EXPRESS |
 ------------------------------------------------------- */
 
-"use strict"
-/* -------------------------------------------------------
-    | FULLSTACK TEAM | NODEJS / EXPRESS |
-------------------------------------------------------- */
-const { mongoose } = require('../configs/dbConnection')
-/* ------------------------------------------------------- */
+const Token = require('../models/token')
 
-const TokenSchema = new mongoose.Schema({
+module.exports = {
+    list: async (req,res) => {
+        
+        /* 
+            #swagger.ignore = true
+        */
 
-    userId: { // default relation in mongoDB -- many to one
-        type:mongoose.Schema.Types.ObjectId,
-        ref: 'User',
-        required:true,
-        unique:true, // one to one
-        index:true
-    },
-    
-    token: {
-        type:String,
-        trim:true,
-        required:true,
-        index:true,
-        unique: true
+        const data = await res.getModelList(Token)
+        
+        res.status(200).send({
+            error:false,
+            details: await res.getModelListDetails(Token),
+            data
+        })
     },
 
-},{
-    collection: 'tokens',
-    timestamps: true
-})
+    //! CRUD
+    create: async (req,res) => {
 
-module.exports = mongoose.model('Token', UserSchema)
+        /* 
+            #swagger.ignore = true
+        */
+
+        const data = await Token.create(req.body)
+
+        res.status(201).send({
+            error:false
+        })
+    },
+
+
+    read: async (req,res) => {
+
+        /* 
+            #swagger.ignore = true
+        */
+
+        const data = await Token.findOne({_id: req.params.id})
+
+        res.status(200).send({
+            error:false,
+            data
+        })
+    },
+
+
+    update: async (req,res) => {
+
+        /* 
+            #swagger.ignore = true
+        */
+
+        const data = await Token.updateOne({_id: req.params.id}, req.body, {runValidators:true})
+        //& req.body 'den gelen veri zaten obje halinde geldiği için 'req.body' obje içinde yazılmaz.
+
+        res.status(202).send({
+            error:false,
+            data,
+            new: await Token.findOne({_id: req.params.id})
+        })
+    },
+
+
+    deleteToken: async (req,res) => {
+
+        /* 
+            #swagger.ignore = true
+        */
+
+        const data = await Token.deleteOne({_id: req.params.id})
+        
+        res.status(data.deletedCount ? 204 : 404).send({
+            error:true,
+            message: 'Something went wrong, data might be deleted already'
+        })
+    }
+
+    //todo multidelete controller
+}

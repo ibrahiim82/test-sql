@@ -4,3 +4,14 @@
 ------------------------------------------------------- */
 const router = require('express').Router()
 /* ------------------------------------------------------- */
+
+const {list, create, read, update, deleteUser} = require("../controllers/user")
+
+// URL:  /tokens
+
+router.route('/').get(list).post(create)
+
+router.route('/:id').get(read).post(update).patch(update).delete(deleteUser)
+
+/* ------------------------------------------------------- */
+module.exports = router;
