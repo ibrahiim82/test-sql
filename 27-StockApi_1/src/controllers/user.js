@@ -76,6 +76,22 @@ module.exports = {
 
     update: async (req,res) => {
 
+        /*
+            #swagger.tags = ["Users"]
+            #swagger.summary = "Update User"
+            #swagger.parameters['body'] = {
+                in:'body',
+                required: true,
+                schema: {
+                    "username": "test",
+                    "password": "1234",
+                    "email": "test@site.com",
+                    "firstName": "test",
+                    "lastName": "test",
+                }
+            }
+        */
+
         const data = await User.updateOne({_id: req.params.id}, req.body, {runValidators:true})
         //& req.body 'den gelen veri zaten obje halinde geldiği için 'req.body' obje içinde yazılmaz.
 
@@ -87,7 +103,12 @@ module.exports = {
     },
 
 
-    delete: async (req,res) => {
+    deleteUser: async (req,res) => {
+
+        /*
+            #swagger.tags = ["Users"]
+            #swagger.summary = "Delete Single User"
+        */
 
         const data = await User.deleteOne({_id: req.params.id})
         
@@ -96,4 +117,6 @@ module.exports = {
             message: 'Something went wrong, data might be deleted already'
         })
     }
+
+    //todo multidelete controller
 }
