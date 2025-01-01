@@ -122,47 +122,48 @@ module.exports = {
     // Eğer herhangi bir aşama (örneğin, req.body, bearer veya refresh yoksa), Optional Chaining (?.) sayesinde refreshToken değeri undefined olur. Yani, kod hata fırlatmadan güvenli bir şekilde çalışır.
 
 
-    if (refreshToken) {
-      const jwtData = await jwt.verify(refreshToken, process.env.REFRESH_KEY);
+    if (refreshToken) { // Eğer refresh token varsa, işlem devam eder.
 
-      if (jwtData) {
-        const { id, password } = jwtData;
+      const jwtData = await jwt.verify(refreshToken, process.env.REFRESH_KEY);  // jwt.verify() metodu ile refresh token doğrulanır ve içerisinde saklanan kullanıcı bilgileri alınır.
+
+      if (jwtData) {    // Eğer refresh token geçerliyse, kullanıcı ID'si ve şifresi alınır.
+        const { id, password } = jwtData;   // JWT içeriğindeki id ve password alınır.
 
         if (id && password) {
-          const user = await User.findOne({ _id: id });
+          const user = await User.findOne({ _id: id });   // Kullanıcı, id kullanılarak veritabanından sorgulanır.
 
-          if (user && user.password == password) {
+          if (user && user.password == password) {  // Eğer kullanıcı bulunduysa ve şifreler eşleşiyorsa, işlem devam eder.
             if (user.isActive) {
               // JWT AccessToken:
               const accessToken = jwt.sign(
                 user.toJSON(),
                 process.env.ACCESS_KEY,
                 { expiresIn: "30m" }
-              );
+              );    // Eğer kullanıcı aktifse, yeni bir access token oluşturulur.
 
               res.status(200).send({
                 error: false,
                 bearer: {
                   access: accessToken,
                 },
-              });
-            } else {
+              }); // Başarılı bir işlem sonrası yeni access token istemciye gönderilir.
+            } else {    // (136.satır) Eğer kullanıcı aktif değilse, hata döndürülür.
               res.errorStatusCode = 401;
               throw new Error("This account is not active.");
             }
-          } else {
+          } else {      //  (135.satır) Eğer ID veya şifre hatalıysa, hata döndürülür.
             res.errorStatusCode = 401;
             throw new Error("Wrong id or password.");
           }
-        } else {
+        } else {        // (132.satır) Eğer refresh token'dan ID ve şifre bulunamazsa, hata mesajı döndürülür.
           res.errorStatusCode = 401;
           throw new Error("There is not id and password in refreshToken.");
         }
-      } else {
+      } else {          // Eğer refresh token geçersizse, hata mesajı döndürülür.
         res.errorStatusCode = 401;
         throw new Error("sa");
       }
-    } else {
+    } else {            // Eğer refresh token eksikse, kullanıcıya bir hata mesajı gösterilir.
       res.errorStatusCode = 401;
       throw new Error("Please enter token.refresh");
     }
@@ -175,15 +176,73 @@ module.exports = {
             #swagger.description = 'Delete token key.'
         */
 
-    const auth = req.headers?.authorization || null; // Token ...tokenKey...
-    const tokenKey = auth ? auth.split(" ") : null; // ['Token', '...tokenKey...']
+    const auth = req.headers?.authorization || null; // Token ...tokenKey...    // İsteğin başlıklarındaki authorization alanı kontrol edilir. Token burada yer alacaktır. Eğer yoksa, auth değeri null olur.
+    const tokenKey = auth ? auth.split(" ") : null; // ['Token', '...tokenKey...']  // Token, 'Token' ve token anahtarı şeklinde ikiye ayrılır.auth başlığındaki token'ı ayırır ve tokenKey dizisini oluşturur.
 
-    const tokenData = await Token.deleteOne({ token: tokenKey[1] });
+    const tokenData = await Token.deleteOne({ token: tokenKey[1] });    // Token modelinde, token anahtarını veritabanında arar ve siler.tokenKey[1]'deki token'ı kullanarak MongoDB'deki Token koleksiyonunda eşleşen belgeyi siler.
 
     res.send({
       error: false,
       message: "Logout was OK.",
       data: tokenData,
     });
-  },
+  },    // Çıkış işlemi başarılı olduğunda, istemciye başarılı bir yanıt gönderilir.
 };
+
+
+//! not:
+//^ const auth = req.headers?.authorization || null: 
+// req.headers: Bu, Express.js'deki gelen HTTP isteğinden (request) başlıkları (headers) almanızı sağlar. HTTP başlıkları, istekle ilgili ek bilgileri taşır. Başlıklar, örneğin içerik türü (Content-Type), kimlik doğrulama bilgileri (Authorization) gibi verileri içerir.
+// req.headers?.authorization: Burada, başlıklardan authorization alanına erişiyoruz. Bu genellikle kimlik doğrulama bilgilerini taşır. authorization başlığının tipik bir içeriği şu şekilde olabilir:
+// Bearer some.jwt.token.here
+// Burada, Bearer anahtar kelimesi, token türünü belirtir (JWT token'ı gibi). some.jwt.token.here ise aslında token'ın kendisidir.
+    // / ?. (Optional Chaining): Optional Chaining operatörü, güvenli bir şekilde bir özelliğe erişmek için kullanılır. Eğer req.headers veya authorization özelliği null veya undefined ise, herhangi bir hata fırlatmaz, bunun yerine undefined döner.
+    // Örneğin, eğer req.headers veya authorization yoksa, auth değişkenine null atanır.
+// || null: Eğer req.headers?.authorization undefined veya null ise, auth değişkenine null atanır. Bu, header içinde authorization başlığının bulunmaması durumunda bir hata oluşmasını engeller.
+
+// Sonuç: Bu satır, gelen isteğin başlıkları arasında authorization başlığını alır. Eğer başlık yoksa, auth değişkeni null olur.
+
+
+//^ const tokenKey = auth ? auth.split(' ') : null
+// auth ? auth.split(' ') : null: Bu, auth (Authorization başlığı) varsa, onu işler. split(' ') ile authorization başlığını boşluk karakteriyle ayırır.
+
+// Örnek:
+// Eğer auth şu şekildeyse: "Bearer some.jwt.token.here"
+// auth.split(' ') işlemi şu sonucu döndürecektir: ["Bearer", "some.jwt.token.here"]
+// Bu işlem, Bearer anahtar kelimesini ve ardından gelen token'ı ayırarak bir dizi (array) oluşturur. Bu dizi şöyle olur:
+
+// ["Bearer", "some.jwt.token.here"]
+// auth.split(' '):
+
+// Bu işlem, başlıkta Bearer kelimesinin ve token'ın arasındaki boşluğu kullanarak iki kelimeyi (ya da daha fazla kelimeyi) ayırır. Genellikle, Authorization başlığı şu formatta gelir:
+
+// "Bearer <token>"
+// Bu işlem sonucunda, bir diziyi alırız:
+// ["Bearer", "<token>"]
+// null: Eğer auth yoksa (örneğin, auth null ise), o zaman tokenKey değişkeni null olur.
+
+// Sonuç:
+// Bu satırda, auth başlığından, Bearer ve token'ı ayırarak bir dizi oluşturulmaya çalışılır. Eğer auth yoksa, tokenKey değeri null olur.
+
+
+//^ const tokenData = await Token.deleteOne({ token: tokenKey[1] })
+// Açıklama:
+// Token.deleteOne({ token: tokenKey[1] }): Bu, MongoDB veritabanındaki Token koleksiyonunda, token alanı ile eşleşen bir belgeyi (document) silmek için kullanılır.
+
+// tokenKey[1] ifadesi, auth.split(' ') işleminden dönen dizinin ikinci elemanına, yani token'a erişir. Örneğin, auth.split(' ') sonucu ["Bearer", "some.jwt.token.here"] olursa, tokenKey[1] değeri "some.jwt.token.here" olur.
+
+// deleteOne({ token: tokenKey[1] }):
+
+// MongoDB'deki Token koleksiyonunda, token alanı tokenKey[1] ile eşleşen bir belgeyi bulur ve siler.
+// deleteOne() sadece bir belgeyi siler, yani eşleşen ilk belgeyi hedef alır.
+// await: Bu, deleteOne işleminin asenkron olduğunu gösterir. Veritabanı işlemi tamamlanana kadar kodun beklemesini sağlar ve sonucu tokenData değişkenine atar.
+
+// Sonuç:
+// Bu satır, MongoDB'deki Token koleksiyonunda, gelen token'a karşılık gelen belgeyi siler. Eğer silme işlemi başarılıysa, tokenData değişkeni, silinen belge ile ilgili bilgileri içerir.
+
+
+
+
+
+
+
