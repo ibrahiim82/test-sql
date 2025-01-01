@@ -25,6 +25,11 @@ view: müşteri
 model: aşçı
 controller: garson
 
+*req.body kısmındaki body; body isteğin gövde kısmını ifade eder. HTTP istekleri genellikle 3 ana kısımdan oluşur:
+^headers: Başlıklar (örneğin, içeriğin tipi, oturum bilgileri vb.)
+^params: URL parametreleri
+^body: Form verisi veya JSON formatında gönderilen veriler.
+
 * JS'de false değerler nelerdir?
 
 * Callback nedir,ne işe yarar?
@@ -426,9 +431,16 @@ db.collection.aggregate([{ $geoNear: { near: { type: "Point", coordinates: [x, y
 
 
 
+*req.body?.bearer?.refresh
+^req.body kısmındaki body; body isteğin gövde kısmını ifade eder. HTTP istekleri genellikle 3 ana kısımdan oluşur:
+headers: Başlıklar (örneğin, içeriğin tipi, oturum bilgileri vb.)
+params: URL parametreleri
+body: Form verisi veya JSON formatında gönderilen veriler.
 
+^?. (Optional Chaining):
 
-
+/ ?., Optional Chaining (İsteğe Bağlı Zincirleme) operatörüdür. Bu, JavaScript'teki bir özelliktir ve null veya undefined değerlerini kontrol etmek için kullanılır. Bu operatör, bir nesne veya diziyi null ya da undefined olmadan güvenli bir şekilde erişmenizi sağlar.
+Eğer bir nesne veya özellik null ya da undefined ise, Optional Chaining operatörü bir hata fırlatmaz, bunun yerine undefined döner. Bu, özellikle iç içe nesnelerde (deeply nested objects) güvenli erişim sağlar.
 
 
 */
