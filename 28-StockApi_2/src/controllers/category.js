@@ -3,7 +3,7 @@
     | FULLSTACK TEAM | NODEJS / EXPRESS |
 ------------------------------------------------------- */
 
-const Category = require('../models/firm');
+const Category = require('../models/category');
 
 module.exports = {
 

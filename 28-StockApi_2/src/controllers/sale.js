@@ -4,6 +4,7 @@
 ------------------------------------------------------- */
 
 const Sale = require('../models/sale');
+const Product = require('../models/product')
 
 module.exports = {
 
@@ -47,13 +48,30 @@ module.exports = {
                 }
             }
         */
+        
+        req.body.userId = req.user._id
 
-        const data = await Sale.create(req.body)
+        // Güncel olan stok bilgisini alalım
+        const currentProduct = await product.findOne({_id:req.body.productId})
 
-        res.status(201).send({
-            error: false,
-            data
-        })
+        if(currentProduct.quantity >= req.body.quantity){
+
+            const data = await Sale.create(req.body)
+
+            if(data){
+                await Product.updateOne({ _id: data.productId }, {$inc: {quantity: -data.quantity}})
+            }
+
+            res.status(201).send({
+                error: false,
+                data
+            })
+
+        } else {
+            res.errorStatusCode = 422
+            throw new Error("There is no enough product-quantity for this sale:", { cause: { currentProduct } })
+        }
+        
     },
 
     read: async (req, res) => {
@@ -87,6 +105,23 @@ module.exports = {
             }
         */
 
+        if(req.body?.quantity){
+            // mevcut işlemdeki adet bilgisini alalım
+            const currentSale = await Sale.findOne({_id: req.params.id})
+        
+            // farkını hesaplayalım
+            const difference = req.body.quantity - currentSale.quantity
+
+            // farkı product'a yansıtalım
+            await Product.updateOne({ _id: currentSale.productId }, {$inc: {quantity: -difference}})
+        
+            if(updatedProduct.modifiedCount == 0){
+                res.errorStatusCode = 422
+                throw new Error('There is not enough product-quantity for this sale')
+            }
+        
+        }
+
         const data = await Sale.updateOne({ _id: req.params.id }, req.body, { runValidators: true })
 
 
@@ -103,7 +138,13 @@ module.exports = {
             #swagger.summary = "Delete Single Sale"
         */
 
+        const currentSale = await Sale.findOne({ _id: req.params.id})
+
         const data = await Sale.deleteOne({ _id: req.params.id })
+
+        if(data.deletedCount){
+            await Product.updateOne({ _id: currentSale.productId }, {$inc: {quantity: +currentSale.quantity}})
+        }
 
         res.status(data.deletedCount ? 204 : 404).send({
             error: true,

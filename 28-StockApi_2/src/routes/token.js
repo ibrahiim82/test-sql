@@ -6,8 +6,11 @@ const router = require('express').Router()
 /* ------------------------------------------------------- */
 
 const { list, create, read, update, deletee } = require('../controllers/token');
+const { isAdmin } = require('../middlewares/permissions');
 
 // URL: /tokens
+
+router.use(isAdmin)
 
 router.route('/').get(list).post(create);
 

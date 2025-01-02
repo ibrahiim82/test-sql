@@ -6,12 +6,13 @@ const router = require('express').Router()
 /* ------------------------------------------------------- */
 
 const { list, create, read, update, deletee } = require('../controllers/user');
+const {isLogin, isAdmin, isStaff} = require('../middlewares/permissions')
 
 // URL: /users
 
-router.route('/').get(list).post(create);
+router.route('/').get(isAdmin, list).post(create);
 
-router.route('/:id').get(read).put(update).patch(update).delete(deletee);
+router.route('/:id').get(isLogin, read).put(isLogin, update).patch(isLogin,update).delete(isAdmin, deletee);
 
 /* ------------------------------------------------------- */
 module.exports = router;
