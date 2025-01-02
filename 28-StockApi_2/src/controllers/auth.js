@@ -9,7 +9,7 @@ const passwordEncrypt = require('../helpers/passwordEncrypt')
 const jwt = require('jsonwebtoken')
 
 module.exports = {
-    login: async () => {
+    login: async (req,res) => {
         /*
             #swagger.tags = ["Authentication"]
             #swagger.summary = "Login"
@@ -33,10 +33,18 @@ module.exports = {
 
         const user = await User.findOne({ $or: [{email}, {username}] })
 
-        if(!(user && user.password === passwordEncrypt(password))){
+        if((!user && user.password !== passwordEncrypt(password))){
             res.errorStatusCode = 401
             throw new Error('Wrong username/email or password')
         }
+
+        if(!user.isActive) {
+            res.errorStatusCode = 401
+            throw new Error('This account is not active')
+        }
+
+        /* Simple Token */
+        let tokenData = await Token.findOne()
 
         res.status(200).send({
             error:false
