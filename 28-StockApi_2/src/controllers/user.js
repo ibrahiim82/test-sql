@@ -1,9 +1,13 @@
 "use strict"
+
 /* -------------------------------------------------------
     | FULLSTACK TEAM | NODEJS / EXPRESS |
 ------------------------------------------------------- */
 
 const User = require('../models/user');
+const passwordEncrypt = require('../helpers/passwordEncrypt');
+const Token = require('../models/token');
+const jwt = require('jsonwebtoken')
 
 module.exports = {
 
@@ -49,6 +53,23 @@ module.exports = {
         */
 
         const data = await User.create(req.body)
+
+        /* Auth Login */
+        // Simple Token:
+        const tokenData = await Token.create({
+            userId: data._id,
+            token: passwordEncrypt(user._id + Date.now())
+        })
+        // JWT 
+        const accessToken = jwt.sign(user.toJSON(), process.env.ACCESS_KEY, {expiresIn: '30m'})
+        const refreshToken = jwt.sign({_id: user._id, password:user.password}, process.env.REFRESH_KEY, {expiresIn: '1d'})
+        
+        res.status(200).send({
+            error:false,
+            token: tokenData.token,
+            bearer: {accessToken, refreshToken},
+            data
+        })
 
         res.status(201).send({
             error: false,

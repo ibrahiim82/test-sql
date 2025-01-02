@@ -9,7 +9,7 @@ const passwordEncrypt = require('../helpers/passwordEncrypt')
 const jwt = require('jsonwebtoken')
 
 module.exports = {
-    login: async (req,res) => {
+    login: async (req, res) => {
         /*
             #swagger.tags = ["Authentication"]
             #swagger.summary = "Login"
@@ -44,7 +44,84 @@ module.exports = {
         }
 
         /* Simple Token */
-        let tokenData = await Token.findOne()
+        let tokenData = await Token.findOne({userId: user._id})
+        if(!tokenData){
+            tokenData = await Token.create({
+                userId:user._id,
+                token: passwordEncrypt(user._id + Date.now())
+            })
+        }
+
+        /* JWT */
+        const accessToken = jwt.sign(user.toJSON(), process.env.ACCESS_KEY, {expiresIn: '30m'})
+        const refreshToken = jwt.sign({_id: user._id, password:user.password}, process.env.REFRESH_KEY, {expiresIn: '1d'})
+
+        res.status(200).send({
+            error:false,
+            token: tokenData.token,
+            bearer: {accessToken, refreshToken}
+        })
+
+    },
+
+    refresh: async (req, res) => {
+        // refresh metodu, geçerli bir refresh token ile yeni bir access token almak için kullanılan bir asenkron fonksiyondur.
+    /*
+            #swagger.tags = ['Authentication']
+            #swagger.summary = 'JWT: Refresh'
+            #swagger.description = 'Refresh accessToken with refreshToken'
+            #swagger.parameters['body'] = {
+                in: 'body',
+                required: true,
+                schema: {
+                    bearer: {
+                        refresh: '...refreshToken...'
+                    }
+                }
+            }
+        */
+        const {refreshToken} = req.body.bearer
+
+        if(!refreshToken){
+            res.errorStatusCode = 404
+            throw new Error('Please enter your refresh token.')
+        }
+
+        // const refreshTokenData = await jwt.verify(refreshToken, process.env.REFRESH_KEY)
+
+        // if(!refreshTokenData){
+        //     res.errorStatusCode = 404
+        //     throw new Error('Please enter a valid token.')
+        // }
+        // direkt aşağıdaki gibi de yazabliriz aynı souncu veriyor
+        jwt.verify(refreshToken, process.env.REFRESH_KEY, async function (err, userData){
+            if(err){
+                res.errorStatusCode = 401
+                throw err
+            }
+
+            const { _id, password } = userData
+
+            const user = await User.findOne({ _id })
+
+            if(!user && user.password !== password) {
+                res.errorStatusCode = 401
+                throw new Error('Wrong password or id')
+            }
+
+            if(!user.isActive){
+                res.errorStatusCode = 401
+                throw new Error('This account is not active')
+            }
+
+            const accessToken = jwt.sign(user.toJSON(), process.env.ACCESS_KEY, {expiresIn: '30m'})
+
+            res.status(200).send({
+                error:false,
+                bearer: {accessToken}
+            })
+
+        })
 
         res.status(200).send({
             error:false
@@ -52,11 +129,28 @@ module.exports = {
 
     },
 
-    refresh: async () => {
+    logout: async (req,res) => {
+        /*
+            #swagger.tags = ["Authentication"]
+            #swagger.summary = "SimpleToken: Logout"
+            #swagger.description = 'Delete token key.'
+        */
 
-    },
+        const auth = req.headers?.authorization || null // "Token sdasdagfdgsfdSfrsgrf"
+        const tokenKey = auth ? auth.split('-') : null // "Token" , "sdasdagfdgsfdSfrsgrf"
 
-    logout: async () => {
+        let message = "No need any process for logout. You must delete JWT tokens", result;
+
+        if(tokenKey && tokenKey[0] === "Token"){ // simple token
+            result = await Token.deleteOne({ token: tokenKey[1] })
+            message = "Token Deleted. Logout is success"
+        }
+
+        res.send({
+            error:false,
+            message,
+            result
+        })
 
     }
 }

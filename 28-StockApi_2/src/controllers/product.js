@@ -21,7 +21,7 @@ module.exports = {
             `
         */
 
-        const data = await res.getModelList(Product)
+        const data = await res.getModelList(Product, {}, 'categoryId') // 2.parametre customFilter'imiz 3. parametre populate yapacağımız veri
 
         res.status(200).send({
             error: false,
