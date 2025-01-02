@@ -21,7 +21,10 @@ module.exports = {
             `
         */
 
-        const data = await res.getModelList(Product, {}, 'categoryId') // 2.parametre customFilter'imiz 3. parametre populate yapacağımız veri
+        const data = await res.getModelList(Product, {}, [
+            {path: 'categoryId', select: 'name'},
+            {path: 'brandId', select: 'name'}
+        ]) // 2.parametre customFilter'imiz 3. parametre populate yapacağımız veri
 
         res.status(200).send({
             error: false,
@@ -58,7 +61,10 @@ module.exports = {
            #swagger.summary = "Get Single Product"
         */
 
-        const data = await Product.findOne({ _id: req.params.id })
+        const data = await Product.findOne({ _id: req.params.id }).populate([
+            {path: 'categoryId', select: 'name'},
+            {path: 'brandId', select: 'name'}
+        ])
 
         res.status(200).send({
             error: false,
