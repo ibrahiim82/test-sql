@@ -23,6 +23,25 @@ module.exports = {
                 }
             }
         */
+
+        const {username, email, password} = req.body
+
+        if(!((username || email) && password)) {
+            res.errorStatusCode = 401
+            throw new Error('Please enter username/email and password')
+        }
+
+        const user = await User.findOne({ $or: [{email}, {username}] })
+
+        if(!(user && user.password === passwordEncrypt(password))){
+            res.errorStatusCode = 401
+            throw new Error('Wrong username/email or password')
+        }
+
+        res.status(200).send({
+            error:false
+        })
+
     },
 
     refresh: async () => {

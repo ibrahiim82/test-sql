@@ -13,7 +13,7 @@ const ProductSchema = new mongoose.Schema({
         required: true,
     },
 
-    branId: {
+    brandId: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Brand',
         required: true,
