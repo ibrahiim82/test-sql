@@ -435,7 +435,7 @@ db.collection.aggregate([{ $geoNear: { near: { type: "Point", coordinates: [x, y
 ^req.body kısmındaki body; body isteğin gövde kısmını ifade eder. HTTP istekleri genellikle 3 ana kısımdan oluşur:
 headers: Başlıklar (örneğin, içeriğin tipi, oturum bilgileri vb.)
 params: URL parametreleri
-body: Form verisi veya JSON formatında gönderilen veriler
+body: Form verisi veya JSON formatında gönderilen veriler.
 
 ^?. (Optional Chaining):
 
